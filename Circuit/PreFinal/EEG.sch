@@ -1251,7 +1251,7 @@
 <connects>
 <connect gate="G$1" pin="D+" pad="P$10"/>
 <connect gate="G$1" pin="D-" pad="P$13"/>
-<connect gate="G$1" pin="GND" pad="P$12"/>
+<connect gate="G$1" pin="GND" pad="P$1 P$2 P$3 P$4 P$12"/>
 <connect gate="G$1" pin="ID" pad="P$11"/>
 <connect gate="G$1" pin="VBUS" pad="P$14"/>
 </connects>
@@ -3354,11 +3354,13 @@ In this library the device names are the same as the pin names of the symbols, t
 <wire x1="-89.18" y1="-22.2" x2="-89" y2="-27.3" width="0.1524" layer="91"/>
 <wire x1="-89" y1="-27.3" x2="-89.08" y2="-27.3" width="0.1524" layer="91"/>
 <pinref part="B_RES_5" gate="G$1" pin="1"/>
-<wire x1="-89.08" y1="-27.3" x2="-86.32" y2="-27.3" width="0.1524" layer="91"/>
 <junction x="-89.08" y="-27.3"/>
 <pinref part="B_RES_6" gate="G$1" pin="2"/>
 <wire x1="-89.18" y1="-22.2" x2="-89" y2="-16.3" width="0.1524" layer="91"/>
 <wire x1="-89" y1="-16.3" x2="-89.08" y2="-16.3" width="0.1524" layer="91"/>
+<wire x1="-89.08" y1="-16.3" x2="-89.08" y2="-27.3" width="0.1524" layer="91"/>
+<wire x1="-89.08" y1="-27.3" x2="-86.32" y2="-27.3" width="0.1524" layer="91"/>
+<junction x="-89.08" y="-16.3"/>
 </segment>
 </net>
 <net name="N$24" class="0">
