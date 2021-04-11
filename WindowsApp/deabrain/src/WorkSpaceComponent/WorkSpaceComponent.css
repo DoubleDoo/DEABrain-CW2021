@@ -1,0 +1,10 @@
+.WorkSpaceComponent
+{
+    position:absolute;
+    left: 300px;
+    top: 0px;
+    width:calc(100% - 300px);
+    height: auto;
+    overflow: hidden auto;
+    background-color: none;
+}
