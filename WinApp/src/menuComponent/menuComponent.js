@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import './MenuComponent.css';
+import './menuComponent.css';
 import { Menu } from 'antd';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
-import WorkSpaceComponent from "../WorkSpaceComponent/WorkSpaceComponent";
+import WorkSpaceComponent from "../workSpaceComponent/workSpaceComponent";
 
 class MenuComponent extends React.Component {
 
   state={
-    curOption:"Test",
+    curOption:"Devices",
     theme:"light"
   }
 

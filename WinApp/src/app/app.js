@@ -1,5 +1,6 @@
-import './App.css';
-import MenuComponent from "./MenuComponent/MenuComponent";
+import React from "react";
+import './app.css';
+import MenuComponent from "../menuComponent/menuComponent";
 
 function App() {
   return (

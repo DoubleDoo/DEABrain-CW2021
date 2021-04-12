@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcRenderer} = require('electron')
 const path = require('path')
 
 function createWindow () {
@@ -8,16 +8,24 @@ function createWindow () {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false,
+        preload: __dirname + '/preload.js'
+      }
     }
   })
 
   // and load the index.html of the app.
-  mainWindow.loadURL('http://localhost:3000');
+  mainWindow.loadURL('http://localhost:8080');
+
+  
+
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -29,6 +37,11 @@ app.whenReady().then(() => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
+  })
+
+  app.on('select-bluetooth-device', (event, deviceList, callback) => {
+    event.preventDefault();
+    ipcRenderer.send("blelist",{data:{id:1,name:"test"}})
   })
 })
 

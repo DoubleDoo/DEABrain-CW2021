@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import './WorkSpaceComponent.css';
+import './workSpaceComponent.css';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
-import BluetoothComponent from "../BluetoothComponent/BluetoothComponent";
+import BluetoothComponent from "../bluetoothComponent/bluetoothComponent";
 
 
 class WorkSpaceComponent extends React.Component {
