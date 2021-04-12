@@ -1,24 +1,24 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, ipcRenderer} = require('electron')
+const {app, BrowserWindow, ipcRenderer,ipcMain } = require('electron')
 const path = require('path')
 
 function createWindow () {
   // Create the browser window.
+  console.log("Started");
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
-        preload: __dirname + '/preload.js'
-      }
+        enableRemoteModule: true,
+        //preload: __dirname + '/preload.js'
     }
   })
 
   // and load the index.html of the app.
   mainWindow.loadURL('http://localhost:8080');
-
+  console.log("Loaded");
   
 
 
@@ -36,14 +36,26 @@ app.whenReady().then(() => {
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
+
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 
-  app.on('select-bluetooth-device', (event, deviceList, callback) => {
-    event.preventDefault();
-    ipcRenderer.send("blelist",{data:{id:1,name:"test"}})
+  // app.on('select-bluetooth-device', (event, deviceList, callback) => {
+  //   event.preventDefault();
+  //   console.log("Bluetooth");
+  //   ipcRenderer.send("blelist",{data:{id:1,name:"test"}})
+  // })
+  app.on('test',  (event, arg) => {
+    console.log("test");
+    //ipcRenderer.send("blelist",{data:{id:1,name:arg.name+"kk"}})
   })
 })
+
+ipcMain.on('test', (event, value) => {
+  console.log(value);
+  BrowserWindow.getFocusedWindow().webContents.send("blelist",{data:"value.data"})
+  })
+
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
