@@ -22,16 +22,15 @@ class BluetoothComponent extends React.Component {
 
     checkIsEnable() {
         console.log("Send");
-        ipc.send("test",{data:"test1"})
-        //  navigator.bluetooth.requestDevice({
-        //      //acceptAllDevices: true LE-Bose LE-P-Bose QC Earbuds
-        //      filters: [
-        //         {namePrefix: 'LE'},
-        //       ]
-        //  }).then(device => {
-        //      console.log('Got device:', device.name);
-        //      console.log('id:', device.id);
-        //  });
+        //ipc.send("test",{data:"test1"})
+         navigator.bluetooth.requestDevice({
+             acceptAllDevices: true
+            //  filters: [
+            //     {namePrefix: 'LE'},
+            //   ]
+         }).then((data)=>{
+            console.log(data);
+         });
         console.log("Test1");
     }
 

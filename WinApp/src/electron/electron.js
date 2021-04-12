@@ -2,6 +2,15 @@
 const {app, BrowserWindow, ipcRenderer,ipcMain } = require('electron')
 const path = require('path')
 
+
+app
+  .commandLine
+  .appendSwitch('enable-web-bluetooth', true);
+
+app
+  .commandLine
+  .appendSwitch('enable-experimental-web-platform-features', true);
+
 function createWindow () {
   // Create the browser window.
   console.log("Started");
@@ -12,7 +21,6 @@ function createWindow () {
         nodeIntegration: true,
         contextIsolation: false,
         enableRemoteModule: true,
-        //preload: __dirname + '/preload.js'
     }
   })
 
@@ -20,8 +28,14 @@ function createWindow () {
   mainWindow.loadURL('http://localhost:8080');
   console.log("Loaded");
   
+  mainWindow.webContents.openDevTools()
 
-
+  mainWindow.webContents.on('select-bluetooth-device', (event, deviceList,callback) => {
+    event.preventDefault();
+    mainWindow.webContents.send("blelist",{data:deviceList});
+    console.log("found");
+    //callback("");
+  })
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }
@@ -31,7 +45,7 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  createWindow()
+   createWindow()
   
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
@@ -45,17 +59,32 @@ app.whenReady().then(() => {
   //   console.log("Bluetooth");
   //   ipcRenderer.send("blelist",{data:{id:1,name:"test"}})
   // })
-  app.on('test',  (event, arg) => {
-    console.log("test");
-    //ipcRenderer.send("blelist",{data:{id:1,name:arg.name+"kk"}})
-  })
+   
+  
+  
+  ipcMain.on('test', (event, value) => {
+    console.log(value);
+    mainWindow.webContents.send("blelist",{data:"value.data"})
+    
+    })
+
+  //   mainWindow.webContents.on('dom-ready', (event) => {
+  //     //event.preventDefault();
+  //     console.log("value");
+  //   })
+  //   mainWindow.webContents.on('devtools-opened', (event) => {
+  //     //event.preventDefault();
+  //     console.log("op");
+  //   })
+  //   mainWindow.webContents.on('devtools-closed', (event) => {
+  //     //event.preventDefault();
+  //     console.log("cl");
+  //   })
 })
 
-ipcMain.on('test', (event, value) => {
-  console.log(value);
-  BrowserWindow.getFocusedWindow().webContents.send("blelist",{data:"value.data"})
-  })
 
+
+  
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
