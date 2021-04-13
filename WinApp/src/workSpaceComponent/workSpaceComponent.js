@@ -29,7 +29,7 @@ class WorkSpaceComponent extends React.Component {
 
 
     render() {
-      return <div className="WorkSpaceComponent">
+      return <div className="workSpaceComponent">
        {this.renderSwitch(this.props.curOption)} 
       </div>
     

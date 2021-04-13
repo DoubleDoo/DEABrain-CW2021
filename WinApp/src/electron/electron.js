@@ -13,6 +13,8 @@ app
 
 function createWindow () {
   // Create the browser window.
+  let selectCallback=()=>{};
+
   console.log("Started");
   const mainWindow = new BrowserWindow({
     width: 800,
@@ -32,10 +34,19 @@ function createWindow () {
 
   mainWindow.webContents.on('select-bluetooth-device', (event, deviceList,callback) => {
     event.preventDefault();
-    mainWindow.webContents.send("blelist",{data:deviceList});
-    console.log("found");
+    selectCallback=callback;
+    mainWindow.webContents.send("bluetooth-list-update",{data:deviceList});
+    //console.log("found");
     //callback("");
   })
+
+  ipcMain.on('bluetooth-device-select', (event, value) => {
+    console.log(value);
+    mainWindow.webContents.send("bluetooth-list-update-stop",{res:true});
+    selectCallback(value.id);
+    })
+
+  //bluetooth-device-select
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }
@@ -54,32 +65,7 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 
-  // app.on('select-bluetooth-device', (event, deviceList, callback) => {
-  //   event.preventDefault();
-  //   console.log("Bluetooth");
-  //   ipcRenderer.send("blelist",{data:{id:1,name:"test"}})
-  // })
-   
-  
-  
-  ipcMain.on('test', (event, value) => {
-    console.log(value);
-    mainWindow.webContents.send("blelist",{data:"value.data"})
-    
-    })
 
-  //   mainWindow.webContents.on('dom-ready', (event) => {
-  //     //event.preventDefault();
-  //     console.log("value");
-  //   })
-  //   mainWindow.webContents.on('devtools-opened', (event) => {
-  //     //event.preventDefault();
-  //     console.log("op");
-  //   })
-  //   mainWindow.webContents.on('devtools-closed', (event) => {
-  //     //event.preventDefault();
-  //     console.log("cl");
-  //   })
 })
 
 

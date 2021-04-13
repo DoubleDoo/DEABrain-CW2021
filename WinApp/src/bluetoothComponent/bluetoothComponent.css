@@ -1,4 +1,57 @@
 .BluetoothComponent
 {
-
+    height: auto;
+    width: 100%;
+    position: relative;
 }
+
+.DeviceButton
+{
+    width: 100%;
+    height: auto;
+    margin: 10px;
+}
+
+.seacrhIcon{
+    font-size: 30px;
+}
+
+
+.devList{
+    min-width: 400px;
+    height: auto;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 5px;
+} 
+
+.devInfo{
+    min-width: 200px;
+    height: auto;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+.optionData{
+    align-items: left;
+    align-content: left;
+    text-align: left;
+}
+
+.iconStyle
+{
+    font-size: 30px;
+}
+
+.disconectedIcon
+{
+    font-size: 30px;
+}
+
