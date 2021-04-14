@@ -9,7 +9,7 @@ import WorkSpaceComponent from "../workSpaceComponent/workSpaceComponent";
 class MenuComponent extends React.Component {
 
   state={
-    curOption:"Devices",
+    curOption:"EEG_Data",
     theme:"light"
   }
 

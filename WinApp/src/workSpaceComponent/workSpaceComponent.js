@@ -4,14 +4,16 @@ import 'antd/dist/antd.css';
 import './workSpaceComponent.css';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import BluetoothComponent from "../bluetoothComponent/bluetoothComponent";
-
+import EegComponent from "../eegComponent/eegComponent"
 
 class WorkSpaceComponent extends React.Component {
+
+
 
   renderSwitch(param) {
     switch(param) {
       case 'EEG_Data':
-        return <>EEG_Data</>;
+        return  <EegComponent/>;
       case 'Devices':
         return <BluetoothComponent/>;
       case 'P300':
