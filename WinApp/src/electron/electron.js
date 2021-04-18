@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, ipcRenderer,ipcMain } = require('electron')
+const { app, BrowserWindow, ipcRenderer, ipcMain } = require('electron')
 const path = require('path')
 const papa = require('papaparse')
 const fs = require('fs');
@@ -13,327 +13,294 @@ app
   .commandLine
   .appendSwitch('enable-experimental-web-platform-features', true);
 
+//Получение сохраненных данных
+function getSavedData(data) {
+  let defaultPath = 'data_samples/'
+  if (!fs.existsSync(defaultPath + "save.txt")) {
+    console.log("No save file")
+    let mas = {
+      savesPath: "data_samples/appPath",
+      appPath: "data_samples/save.txt",
+      netPath: "data_samples/netPath",
+      theme: "light",
+    }
+    fs.writeFileSync(defaultPath + "save.txt", JSON.stringify(mas), (err) => {
+      if (err) {
+        throw err;
+      }
+    });
+    console.log("Created new one...")
+    console.log(mas);
+    return mas;
+  }
+  else {
+    console.log("Save file found");
+    let mas= fs.readFileSync(defaultPath + "save.txt", 'utf8', function (err, dat) {
+      if (err) {
+        return console.log(err);
+      }
+      return dat;
+    })
+    mas=JSON.parse(mas)
+    console.log("Reading...");
+    console.log(mas);
+    return mas;
+  }
+  
+}
 
-
-function createWindow () {
-  let selectCallback=()=>{};
-  let nextDevice=null;
+//Создние окна
+function createWindow() {
+  let selectCallback = () => { };
+  let nextDevice = null;
+  let savedData = null;
 
   console.log("Started");
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: false,
-        enableRemoteModule: true,
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
     }
 
-    
+
   })
 
-//   const data = {
-//     theme:"light",
-//     netPath:'G:\"GIT\"DEABrain-CW2021\"WinApp\"data_samples\"lastone.jpynb',
-//     dataPath:'G:\""GIT\"DEABrain-CW2021\"WinApp\"data_samples\"',
-//     savesPath:'G:\"GIT\"DEABrain-CW2021\"WinApp\"data_samples\"'
-// }
-  
+  savedData=getSavedData();
 
-//   fs.writeFile('data_samples/save.txt', JSON.stringify(data), (err) => {
-//       if(err) {
-//           throw err;
-//       }
-//       console.log("Data has been written to file successfully.");
-//   });
-
- fs.readFile('data_samples/save.txt', 'utf8', function (err,data) {
-      if (err) {
-        return console.log(err);
-      }
-      let mas=JSON.parse(data)
-      console.log(mas);
-    });
-
-
-  // and load the index.html of the app.
   mainWindow.loadURL('http://localhost:8080');
   console.log("Loaded");
-  
+
   mainWindow.webContents.openDevTools()
 
-  mainWindow.webContents.on('select-bluetooth-device', (event, deviceList,callback) => {
+  //окно выбора девайса
+  mainWindow.webContents.on('select-bluetooth-device', (event, deviceList, callback) => {
     event.preventDefault();
-    selectCallback=callback;
-    if(nextDevice!=null)
-    {
+    selectCallback = callback;
+    if (nextDevice != null) {
       console.log(nextDevice);
       console.log(deviceList);
       callback(nextDevice.deviceId);
     }
     else
-    mainWindow.webContents.send("bluetooth-list-update",{data:deviceList});
+      mainWindow.webContents.send("bluetooth-list-update", { data: deviceList });
     //console.log("found");
     //callback("");
   })
 
+  //Выбор девайса
   ipcMain.on('bluetooth-device-select', (event, value) => {
     console.log(value);
-    mainWindow.webContents.send("bluetooth-list-update-stop",{res:true});
-    console.log(value.id+" selected");
+    mainWindow.webContents.send("bluetooth-list-update-stop", { res: true });
+    console.log(value.id + " selected");
     selectCallback(value.id);
-    })
+  })
 
-    ipcMain.on('next-device-select', (event, value) => {
-      //console.log(value);
-      nextDevice=value.data;
-      })
-
-
-      ipcMain.on('tst', (event, value) => {
-        
-
-        var path = dialog.showOpenDialog({
-            properties: ['openDirectory']
-        }).then(
-          (data)=>{ console.log(data.filePaths);
-            mainWindow.webContents.send("bluetooth-list-update-stop",{data:data.filePaths});
-          }
-        )
-      })
-
-
-      ipcMain.on("net-file-picker",(event, arg) => {
-        var path = dialog.showOpenDialog({
-          properties: ['openFile']
-        }).then(
-        (data)=>{ console.log(data.filePaths[0]);
-        
-
-          fs.readFile('data_samples/save.txt', 'utf8', function (err,dat) {
-            if (err) {
-              return console.log(err);
-            }
-            let mas=JSON.parse(dat)
-            mas.netPath=data.filePaths[0];
-            console.log(mas);
-            fs.writeFile('data_samples/save.txt', JSON.stringify(mas), (err) => {
-               if(err) {
-                   throw err;
-               }
-           });
-          })
-
-          mainWindow.webContents.send("net-file-picker",{data:data.filePaths});
-        }
-      )
-      })
-      ipcMain.on("data-path-picker",(event, arg) => {
-        var path = dialog.showOpenDialog({
-          properties: ['openDirectory']
-        }).then(
-        (data)=>{ console.log(data.filePaths);
-
-          fs.readFile('data_samples/save.txt', 'utf8', function (err,dat) {
-            if (err) {
-              return console.log(err);
-            }
-            let mas=JSON.parse(dat)
-            mas.dataPath=data.filePaths[0];
-            console.log(mas);
-            fs.writeFile('data_samples/save.txt', JSON.stringify(mas), (err) => {
-               if(err) {
-                   throw err;
-               }
-           });
-          })
-
-          mainWindow.webContents.send("data-path-picker",{data:data.filePaths});
-        }
-      )
-      })
-      ipcMain.on("saves-path-picker",(event, arg) => {
-        var path = dialog.showOpenDialog({
-          properties: ['openDirectory']
-        }).then(
-        (data)=>{ console.log(data.filePaths);
-
-          fs.readFile('data_samples/save.txt', 'utf8', function (err,dat) {
-            if (err) {
-              return console.log(err);
-            }
-            let mas=JSON.parse(dat)
-            mas.savesPath=data.filePaths[0];
-            console.log(mas);
-            fs.writeFile('data_samples/save.txt', JSON.stringify(mas), (err) => {
-               if(err) {
-                   throw err;
-               }
-           });
-          })
-
-          mainWindow.webContents.send("saves-path-picker",{data:data.filePaths});
-        }
-      )
-      })
-
-
-      //   // let file = new File(["Data1"], "../../data_samples/Data1.csv", {
-      //   // type: "text/plain",
-      //   // });
-      //   // const fs = require('fs');
-      //   let res=[];
-      //   fs.readFile("data_samples/Data1.csv", 'utf-8', (err, data) => {
-      //       if(err){
-      //         console.log("An error ocurred reading the file :" + err.message);
-      //           return;
-      //       }
-    
-      //       // Change how to handle the file content
-
-      //       papa.parse(data,{
-      //         header:true,
-      //         complete: function(results) {
-      //             //console.log(results.data);
-                  
-
-      //             let dataMas=[];
-      //             let index=0;
-      //             results.data.map(element => {
-      //               let x=0;
-      //               if(element["sample num"]==index&&element["sensor position"]=="FP1")
-      //             dataMas.push(
-      //               {
-      //                 sampleNum:element["sample num"],
-      //                 electrodesPositions:[element["sensor position"]],
-      //                 electrodesValues:[element["sensor value"]],
-      //                 subjectId:"Dubinich",
-      //                 time:"19:00 14.04.2021"
-      //             })
-      //             index=index+1;
-      //             });
-
-      //             index=0;
-      //             results.data.map(element => {
-      //               if(element["sample num"]==index&&element["sensor position"]=="FP2")
-      //               {
-      //                 let buf=dataMas[index];
-      //                 buf.electrodesPositions.push(element["sensor position"]);
-      //                 buf.electrodesValues.push(element["sensor value"]);
-      //                 //console.log(buf);
-      //                 index=index+1;
-      //               }
-      //             });
-
-      //           i=0;  
-      //           let timerId = setInterval(() => {
-      //               //console.log(dataMas[i])
-      //               mainWindow.webContents.send("eeg-new-data",dataMas[i]);
-      //               i++;
-                
-      //           }, 100);
-
-            
-      //             setTimeout(() => { clearInterval(timerId); console.log("stop"); }, 25000);
-      //             }})            
-      //       });  
-      ipcMain.on('get-data', (event, value) => {
-
-
-        // let file = new File(["Data1"], "../../data_samples/Data1.csv", {
-        // type: "text/plain",
-        // });
-        // const fs = require('fs');
-        let res=[];
-        fs.readFile("data_samples/data.csv", 'utf-8', (err, data) => {
-            if(err){
-              console.log("An error ocurred reading the file :" + err.message);
-                return;
-            }
-    
-            // Change how to handle the file content
-
-            papa.parse(data,{
-              header:true,
-              complete: function(results) {
-                  //console.log(results.data);
-                  
-
-                  let dataMas=[];
-                  let index=0;
-                  results.data.map(element => {
-                    let x=0;
-                  dataMas.push(
-                    {
-                      sampleNum:index,
-                      electrodesPositions:["C1"],
-                      electrodesValues:[element["C1"]],
-                      subjectId:"Dubinich",
-                      time:element["Time"]
-                  })
-                  index=index+1;
-                  });
-
-    
-                i=0;  
-                let timerId = setInterval(() => {
-                    //console.log(dataMas[i])
-                    mainWindow.webContents.send("eeg-new-data",dataMas[i]);
-                    i++;
-                
-                }, 5);
-
-            
-                  setTimeout(() => { clearInterval(timerId); console.log("stop"); }, 25000);
-                  }})            
-            });  
-
-      
-      })
-      
-
-  //bluetooth-device-select
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
-}
-
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
-   createWindow()
-  
-  app.on('activate', function () {
-    // On macOS it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
-
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-
-    // fs.readFile('./README.md', 'utf8', function (err,data) {
-    //   if (err) {
-    //     return console.log(err);
-    //   }
-    //   console.log(data);
-    // });
-
-   
-
+  ipcMain.on('next-device-select', (event, value) => {
+    //console.log(value);
+    nextDevice = value.data;
   })
 
 
+
+  //Пикер нейросети
+  ipcMain.on("net-file-picker", (event, arg) => {
+    var path = dialog.showOpenDialog({
+      properties: ['openFile']
+    }).then(
+      (data) => {
+        savedData.netPath =data.filePaths[0];
+          fs.writeFileSync('data_samples/save.txt', JSON.stringify(savedData), (err) => {
+            if (err) {
+              throw err;
+            }
+          });
+        mainWindow.webContents.send("net-file-picker", { data: data.filePaths[0] });
+      }
+    )
+  })
+
+  //Пикер папки данных
+  ipcMain.on("data-path-picker", (event, arg) => {
+    var path = dialog.showOpenDialog({
+      properties: ['openDirectory']
+    }).then(
+      (data) => {
+        savedData.appPath =data.filePaths[0];
+          fs.writeFileSync('data_samples/save.txt', JSON.stringify(savedData), (err) => {
+            if (err) {
+              throw err;
+            }
+          });
+        mainWindow.webContents.send("data-path-picker", { data: data.filePaths[0] });
+      }
+    )
+  })
+
+  //Пикер папки сохранений
+  ipcMain.on("saves-path-picker", (event, arg) => {
+    var path = dialog.showOpenDialog({
+      properties: ['openDirectory']
+    }).then(
+      (data) => {
+        savedData.savesPath =data.filePaths[0];
+          fs.writeFileSync('data_samples/save.txt', JSON.stringify(savedData), (err) => {
+            if (err) {
+              throw err;
+            }
+          });
+        mainWindow.webContents.send("saves-path-picker", { data: data.filePaths[0] });
+      }
+    )
+  })
+
+    //Пикер темы
+    ipcMain.on("theme-picker", (event, arg) => {
+          savedData.theme =arg.theme
+            fs.writeFileSync('data_samples/save.txt', JSON.stringify(savedData), (err) => {
+              if (err) {
+                throw err;
+              }
+            });
+          mainWindow.webContents.send("theme-picker", { data: arg.theme });   
+    })
+    
+
+    //Передача сохраненных параметров
+    ipcMain.on("saved-values", (event, arg) => {
+      mainWindow.webContents.send("saved-values", { data: savedData });   
+})
+
+  //   // let file = new File(["Data1"], "../../data_samples/Data1.csv", {
+  //   // type: "text/plain",
+  //   // });
+  //   // const fs = require('fs');
+  //   let res=[];
+  //   fs.readFile("data_samples/Data1.csv", 'utf-8', (err, data) => {
+  //       if(err){
+  //         console.log("An error ocurred reading the file :" + err.message);
+  //           return;
+  //       }
+
+  //       // Change how to handle the file content
+
+  //       papa.parse(data,{
+  //         header:true,
+  //         complete: function(results) {
+  //             //console.log(results.data);
+
+
+  //             let dataMas=[];
+  //             let index=0;
+  //             results.data.map(element => {
+  //               let x=0;
+  //               if(element["sample num"]==index&&element["sensor position"]=="FP1")
+  //             dataMas.push(
+  //               {
+  //                 sampleNum:element["sample num"],
+  //                 electrodesPositions:[element["sensor position"]],
+  //                 electrodesValues:[element["sensor value"]],
+  //                 subjectId:"Dubinich",
+  //                 time:"19:00 14.04.2021"
+  //             })
+  //             index=index+1;
+  //             });
+
+  //             index=0;
+  //             results.data.map(element => {
+  //               if(element["sample num"]==index&&element["sensor position"]=="FP2")
+  //               {
+  //                 let buf=dataMas[index];
+  //                 buf.electrodesPositions.push(element["sensor position"]);
+  //                 buf.electrodesValues.push(element["sensor value"]);
+  //                 //console.log(buf);
+  //                 index=index+1;
+  //               }
+  //             });
+
+  //           i=0;  
+  //           let timerId = setInterval(() => {
+  //               //console.log(dataMas[i])
+  //               mainWindow.webContents.send("eeg-new-data",dataMas[i]);
+  //               i++;
+
+  //           }, 100);
+
+
+  //             setTimeout(() => { clearInterval(timerId); console.log("stop"); }, 25000);
+  //             }})            
+  //       });  
+  ipcMain.on('get-data', (event, value) => {
+
+
+    // let file = new File(["Data1"], "../../data_samples/Data1.csv", {
+    // type: "text/plain",
+    // });
+    // const fs = require('fs');
+    let res = [];
+    fs.readFile("data_samples/data.csv", 'utf-8', (err, data) => {
+      if (err) {
+        console.log("An error ocurred reading the file :" + err.message);
+        return;
+      }
+
+      // Change how to handle the file content
+
+      papa.parse(data, {
+        header: true,
+        complete: function (results) {
+          //console.log(results.data);
+
+
+          let dataMas = [];
+          let index = 0;
+          results.data.map(element => {
+            let x = 0;
+            dataMas.push(
+              {
+                sampleNum: index,
+                electrodesPositions: ["C1"],
+                electrodesValues: [element["C1"]],
+                subjectId: "Dubinich",
+                time: element["Time"]
+              })
+            index = index + 1;
+          });
+
+
+          i = 0;
+          let timerId = setInterval(() => {
+            //console.log(dataMas[i])
+            mainWindow.webContents.send("eeg-new-data", dataMas[i]);
+            i++;
+
+          }, 5);
+
+
+          setTimeout(() => { clearInterval(timerId); console.log("stop"); }, 25000);
+        }
+      })
+    });
+
+
+  })
+
+}
+
+
+// После инициализации
+app.whenReady().then(() => {
+  createWindow();
+  app.on('activate', function () {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  })
 })
 
 
-
-  
-
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
+// Выход
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.

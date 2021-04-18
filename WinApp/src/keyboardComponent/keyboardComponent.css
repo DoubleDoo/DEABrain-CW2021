@@ -1,0 +1,11 @@
+.P300Grid
+{
+height: 500px;
+width: 500px;
+}
+
+.P300Cell{
+    background-color: blue;
+    color: white;
+    text-align: center;
+}

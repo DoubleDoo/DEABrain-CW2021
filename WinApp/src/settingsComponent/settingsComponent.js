@@ -17,9 +17,10 @@ const { Title } = Typography;
 class SettingsComponent extends React.Component {
 
 state={
-    netPath:"1",
-    dataPath:"2",
-    savesPath:"3"
+    netPath:"",
+    appPath:"",
+    savesPath:"",
+    theme:""
 }
 
     render() {
@@ -65,7 +66,7 @@ state={
               <Col span={22}>
                 <div className="dataBlock">
                   <div className="dataBox">
-                    {this.state.dataPath}
+                    {this.state.appPath}
                   </div>
                   <div className="dataButton" onClick={()=>{ipc.send("data-path-picker",{});}}>
                     <SettingOutlined className="iconSettings"/>
@@ -101,11 +102,11 @@ state={
             
             <Row align="middle">
             <Col span={1}></Col>
-              <Col span={11}>
-              <Title level={3}>Папка сохранений</Title>
+              <Col span={5}>
+              <Title level={3}>Темная тема</Title>
               </Col>
-              <Col span={11}>
-              <Switch defaultChecked onChange={this.onChange} />
+              <Col span={17}>
+              <Switch checked={this.state.theme=="dark"?true:false} onChange={this.onChange} />
               </Col>
               <Col span={1}></Col>
             </Row>
@@ -115,24 +116,41 @@ state={
     }
 
     onChange=(checked)=> {
-      console.log("switched");
+      if (this.state.theme=="light")
+      {
+        ipc.send("theme-picker",{theme:"dark"});
+      }
+      else{
+        ipc.send("theme-picker",{theme:"light"});
+      }
     }
-    // "net-file-picker"
-    // "data-path-picker"
-    // "saves-path-picker"
 
+
+    /*
+     savesPath: "data_samples/appPath",
+      appPath: "data_samples/save.txt",
+      netPath: "data_samples/netPath",
+      theme: "light",
+    */
     componentDidMount(){ 
       //ipc.send("saves-path-picker",{});
+        //Передача сохраненных параметров
+      ipc.send("saved-values",{});
+      ipc.on("saved-values", (event, arg) => {
+        this.setState({netPath:arg.data.netPath,appPath:arg.data.appPath,savesPath:arg.data.savesPath,theme:arg.data.theme})});   
       ipc.on("net-file-picker",(event, arg) => {
           this.setState({netPath:arg.data});
       })
       ipc.on("data-path-picker",(event, arg) => {
-        this.setState({dataPath:arg.data});
+        this.setState({appPath:arg.data});
       })
       ipc.on("saves-path-picker",(event, arg) => {
         this.setState({savesPath:arg.data});
       })
-
+      ipc.on("theme-picker",(event, arg) => {
+        this.setState({theme:arg.data});
+        console.log(this.state.theme)
+      })
   }
     
 }
