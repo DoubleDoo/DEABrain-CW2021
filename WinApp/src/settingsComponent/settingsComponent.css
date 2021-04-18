@@ -1,0 +1,34 @@
+.dataBlock
+{
+ background-color: white;
+ width: 100%;
+ height: 40px;
+ border: 1px solid rgb(214, 214, 214);
+ border-radius: 5px;
+}
+
+.dataButton{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+position:absolute;
+right:0px;
+ width:40px;
+ height: 40px;
+ background-color: rgb(214, 214, 214);
+ text-align: center;
+}
+
+.dataBox{
+  left:10px;
+  top:10px;
+  height: 20px;
+  font-size: 14px;
+  position:absolute;
+  width: calc(100% - 50px);
+  background-color:white;
+ }
+
+ .iconSettings{
+   margin-top: 3px;
+   font-size: 34px;
+ }

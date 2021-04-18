@@ -5,6 +5,8 @@ import './workSpaceComponent.css';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import BluetoothComponent from "../bluetoothComponent/bluetoothComponent";
 import EegComponent from "../eegComponent/eegComponent"
+import KeyboardComponent from "../keyboardComponent/keyboardComponent"
+import SettingsComponent from "../settingsComponent/settingsComponent"
 
 class WorkSpaceComponent extends React.Component {
 
@@ -17,11 +19,9 @@ class WorkSpaceComponent extends React.Component {
       case 'Devices':
         return <BluetoothComponent/>;
       case 'P300':
-        return <>P300</>;
-      case 'APP':
-        return <>APP</>;
+        return <KeyboardComponent/>;
       case 'Options':
-        return <>Options</>;
+        return <SettingsComponent/>;
       case 'Test':
         return <>Test</>;
       default:
