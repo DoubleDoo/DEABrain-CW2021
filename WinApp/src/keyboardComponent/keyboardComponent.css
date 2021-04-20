@@ -6,12 +6,14 @@ text-align: center;
 }
 
 .P300Cell{
-    background-color: blue;
-    color: white;
+    border: 1px solid rgb(214, 214, 214);
+    color: Black;
     text-align: center;
     width: 110px;
     height: 110px;
-    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
     border-radius: 25px;
 }
 
@@ -20,4 +22,24 @@ text-align: center;
     text-align: center;
     align-content: center;
     align-self: center;
+}
+
+.strInput
+{
+    width: 80%;
+    height: 40px;
+    border: 1px solid rgb(214, 214, 214);
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.butInput
+{
+    width: 20%;
+    height: 40px;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
 }

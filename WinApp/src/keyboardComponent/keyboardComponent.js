@@ -10,30 +10,27 @@ import {TabletOutlined,MonitorOutlined,LoadingOutlined,ApiOutlined} from '@ant-d
 class KeyboardComponent extends React.Component {
 
 state={
-    data:[],
-    chartData:[]
+    str:""
 }
 
     render() {
        
         return (
             <> 
-            <Row align="middle">
-            <Col  span={2}></Col>
-            <Col span={4}>
-            <Button onClick={()=>{}}>Start</Button>
-            </Col>
-            <Col span={16}>
-            <div>_________________________</div>
-            </Col>
-            <Col  span={2}></Col>
-            </Row>
+
             <Row align="middle" className="P300Grid">
             <Col  span={2}></Col>
             <Col  span={20}>
             <Row>
-                <Col   span={4}><div className="P300Cell">A</div></Col>
-                <Col  span={4}><div className="P300Cell">B</div></Col>
+
+                <Col span={24}>
+                <div className="strInput">{this.state.str}</div>
+                </Col>
+   
+            </Row>
+            <Row>
+                <Col   span={4}><div className="P300Cell" onClick={()=>this.setState({str:this.state.str+"A"})}>A</div></Col>
+                <Col  span={4}><div className="P300Cell" onClick={()=>this.setState({str:this.state.str+"B"})}>B</div></Col>
                 <Col   span={4}><div className="P300Cell">C</div></Col>
                 <Col   span={4}><div className="P300Cell">D</div></Col>
                 <Col   span={4}><div className="P300Cell">E</div></Col>
@@ -78,6 +75,14 @@ state={
                 <Col   span={4}><div className="P300Cell">7</div></Col>
                 <Col   span={4}><div className="P300Cell">8</div></Col>
                 <Col   span={4}><div className="P300Cell">9</div></Col>
+            </Row>
+            <Row>
+
+                <Col span={24}>
+                <Button className="butInput" onClick={()=>{}}>Start</Button>
+                </Col>
+ 
+               
             </Row>
             </Col>
             <Col  span={2}></Col>

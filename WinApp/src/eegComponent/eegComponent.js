@@ -39,6 +39,8 @@ class EegComponent extends React.Component {
 state={
     data:[],
     chartData:[],
+    start:false,
+    pause:true,
 }
 
 
@@ -49,16 +51,29 @@ state={
             <> 
             <Row align="middle" className="buttonsRow">
                 <Col span={6}>
-                <Button className="buttonsStyle" onClick={()=>{ ipc.send("start-session",{});}}>Start</Button>
+                <Button className="buttonsStyle" onClick={()=>{ 
+                  ipc.send("start-session",{});
+                  this.setState({start:!this.state.start})
+                  this.setState({pause:true})
+                  }}>{this.state.start?<>Stop</>:<>Start</>}</Button>
                 </Col>
                 <Col span={6}>
-                <Button  className="buttonsStyle"  onClick={()=>{ipc.send("stop-session",{});}}>Stop</Button>
+                <Button  className="buttonsStyle" disabled={!this.state.start}  onClick={()=>{
+                  ipc.send("stop-session",{});
+                  this.setState({pause:!this.state.pause})
+                  }}>{this.state.pause?<>Pause</>:<>Continue</>}</Button>
                 </Col>
                 <Col span={6}>
-                <Button  className="buttonsStyle"  onClick={()=>{ipc.send("save-session",{});}}>Save</Button>
+                <Button  className="buttonsStyle" disabled={this.state.pause} onClick={()=>{
+                  ipc.send("save-session",{});
+                  
+                  }}>Save</Button>
                 </Col>
                 <Col span={6}>
-                <Button  className="buttonsStyle"  onClick={()=>{ipc.send("open-session",{});}}>Open</Button>
+                <Button  className="buttonsStyle" disabled={this.state.start} onClick={()=>{
+                  ipc.send("open-session",{});
+                  
+                  }}>Open</Button>
                 </Col>
 
             </Row>
@@ -114,7 +129,13 @@ state={
         //     console.log("beforedatavalidated");
         //   });
         ipc.on("eeg-new-data",(event, arg) => {
-            //console.log(arg);
+          if(arg.time==0)
+          {
+            chart1.data = [];
+            this.setState({chartData:[]})
+            chart1.data = this.state.chartData;
+          }  
+          console.log(arg);
             let d=this.state.data;
             d.push(arg);
             this.setState({data:d})

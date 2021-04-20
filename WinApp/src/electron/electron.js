@@ -268,6 +268,8 @@ ipcMain.on("open-session", (event, arg) => {
        }
        return dat;
      })
+     readedSesionData=[];
+     diviceSimulation=[];
      mas=JSON.parse(mas)
      pausei=0;
      i=mas.length;
@@ -313,8 +315,10 @@ ipcMain.on("start-session", (event, arg) => {
   else{
     dataGetProcess=false; 
   dataGetProcessPause=true;
-  i=0;
-  pausei=0;
+  readedSesionData=[];
+  diviceSimulation=[];
+  i=0
+  pausei=0
   }
   mainWindow.webContents.send("start-session", {});   
 })
