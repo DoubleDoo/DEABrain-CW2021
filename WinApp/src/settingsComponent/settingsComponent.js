@@ -26,7 +26,7 @@ state={
     render() {
        
         return (
-            <>
+            <div className="settForm">
             <Row align="middle">
             <Col span={1}></Col>
               <Col span={22}>
@@ -51,17 +51,17 @@ state={
               <Col span={1}></Col>
             </Row>
 
-
+{/* 
             <Row align="middle">
             <Col span={1}></Col>
               <Col span={22}>
               <Title level={3}>Папка приложения</Title>
               </Col>
               <Col span={1}></Col>
-            </Row>
+            </Row> */}
 
 
-            <Row align="middle">
+            {/* <Row align="middle">
             <Col span={1}></Col>
               <Col span={22}>
                 <div className="dataBlock">
@@ -74,7 +74,7 @@ state={
               </div>
               </Col>
               <Col span={1}></Col>
-            </Row>
+            </Row> */}
 
             
             <Row align="middle">
@@ -110,8 +110,8 @@ state={
               </Col>
               <Col span={1}></Col>
             </Row>
-  
-          </>
+           
+          </div>
         );
     }
 

@@ -5,6 +5,8 @@
  height: 40px;
  border: 1px solid rgb(214, 214, 214);
  border-radius: 5px;
+ margin-top: 15px;
+ margin-bottom: 15px;
 }
 
 .dataButton{
@@ -26,9 +28,19 @@ right:0px;
   position:absolute;
   width: calc(100% - 50px);
   background-color:white;
+  margin-top: 15px;
+  text-decoration: none; 
+   text-overflow: ellipsis; 
+   overflow: hidden; 
+   white-space: nowrap;
  }
 
+ 
  .iconSettings{
    margin-top: 3px;
    font-size: 34px;
+ }
+
+ .settForm{
+   min-width: 400px;
  }

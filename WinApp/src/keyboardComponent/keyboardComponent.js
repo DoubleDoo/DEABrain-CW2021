@@ -18,58 +18,70 @@ state={
        
         return (
             <> 
+            <Row align="middle">
+            <Col  span={2}></Col>
+            <Col span={4}>
             <Button onClick={()=>{}}>Start</Button>
-            <div className={"P300Grid"}>
-            <Row gutter={[24, 24]}>
-                <Col  className={"P300Cell"} span={4}>A</Col>
-                <Col  className={"P300Cell"} span={4}>B</Col>
-                <Col  className={"P300Cell"} span={4}>C</Col>
-                <Col  className={"P300Cell"} span={4}>D</Col>
-                <Col  className={"P300Cell"} span={4}>E</Col>
-                <Col  className={"P300Cell"} span={4}>F</Col>
+            </Col>
+            <Col span={16}>
+            <div>_________________________</div>
+            </Col>
+            <Col  span={2}></Col>
             </Row>
-            <Row gutter={[24, 24]}>
-                <Col  className={"P300Cell"} span={4}>G</Col>
-                <Col  className={"P300Cell"} span={4}>H</Col>
-                <Col  className={"P300Cell"} span={4}>I</Col>
-                <Col  className={"P300Cell"} span={4}>J</Col>
-                <Col className={"P300Cell"} span={4}>K</Col>
-                <Col className={"P300Cell"}  span={4}>L</Col>
+            <Row align="middle" className="P300Grid">
+            <Col  span={2}></Col>
+            <Col  span={20}>
+            <Row>
+                <Col   span={4}><div className="P300Cell">A</div></Col>
+                <Col  span={4}><div className="P300Cell">B</div></Col>
+                <Col   span={4}><div className="P300Cell">C</div></Col>
+                <Col   span={4}><div className="P300Cell">D</div></Col>
+                <Col   span={4}><div className="P300Cell">E</div></Col>
+                <Col   span={4}><div className="P300Cell">F</div></Col>
             </Row>
-            <Row gutter={[24, 24]}>
-                <Col  className={"P300Cell"} span={4}>M</Col>
-                <Col  className={"P300Cell"} span={4}>N</Col>
-                <Col  className={"P300Cell"} span={4}>O</Col>
-                <Col  className={"P300Cell"} span={4}>P</Col>
-                <Col className={"P300Cell"}  span={4}>Q</Col>
-                <Col className={"P300Cell"} span={4}>R</Col>
+            <Row>
+                <Col   span={4}><div className="P300Cell">G</div></Col>
+                <Col   span={4}><div className="P300Cell">H</div></Col>
+                <Col   span={4}><div className="P300Cell">I</div></Col>
+                <Col   span={4}><div className="P300Cell">J</div></Col>
+                <Col  span={4}><div className="P300Cell">K</div></Col>
+                <Col   span={4}><div className="P300Cell">L</div></Col>
             </Row>
-            <Row gutter={[24, 24]}>
-                <Col  className={"P300Cell"} span={4}>S</Col>
-                <Col  className={"P300Cell"} span={4}>T</Col>
-                <Col  className={"P300Cell"} span={4}>U</Col>
-                <Col  className={"P300Cell"} span={4}>V</Col>
-                <Col  className={"P300Cell"} span={4}>W</Col>
-                <Col  className={"P300Cell"} span={4}>X</Col>
+            <Row>
+                <Col   span={4}><div className="P300Cell">M</div></Col>
+                <Col   span={4}><div className="P300Cell">N</div></Col>
+                <Col   span={4}><div className="P300Cell">O</div></Col>
+                <Col   span={4}><div className="P300Cell">P</div></Col>
+                <Col  span={4}><div className="P300Cell">Q</div></Col>
+                <Col  span={4}><div className="P300Cell">R</div></Col>
             </Row>
-            <Row gutter={[24, 24]}>
-                <Col className={"P300Cell"}  span={4}>Y</Col>
-                <Col  className={"P300Cell"} span={4}>Z</Col>
-                <Col  className={"P300Cell"} span={4}>0</Col>
-                <Col  className={"P300Cell"} span={4}>1</Col>
-                <Col  className={"P300Cell"} span={4}>2</Col>
-                <Col  className={"P300Cell"} span={4}>3</Col>
+            <Row>
+                <Col   span={4}><div className="P300Cell">S</div></Col>
+                <Col   span={4}><div className="P300Cell">T</div></Col>
+                <Col   span={4}><div className="P300Cell">U</div></Col>
+                <Col  span={4}><div className="P300Cell">V</div></Col>
+                <Col   span={4}><div className="P300Cell">W</div></Col>
+                <Col   span={4}><div className="P300Cell">X</div></Col>
             </Row>
-            <Row gutter={[24, 24]}>
-                <Col className={"P300Cell"}  span={4}>4</Col>
-                <Col  className={"P300Cell"} span={4}>5</Col>
-                <Col  className={"P300Cell"} span={4}>6</Col>
-                <Col className={"P300Cell"}  span={4}>7</Col>
-                <Col className={"P300Cell"}  span={4}>8</Col>
-                <Col className={"P300Cell"}  span={4}>9</Col>
+            <Row>
+                <Col   span={4}><div className="P300Cell">Y</div></Col>
+                <Col   span={4}><div className="P300Cell">Z</div></Col>
+                <Col   span={4}><div className="P300Cell">0</div></Col>
+                <Col  span={4}><div className="P300Cell">1</div></Col>
+                <Col   span={4}><div className="P300Cell">2</div></Col>
+                <Col   span={4}><div className="P300Cell">3</div></Col>
             </Row>
-            </div>
-
+            <Row>
+                <Col   span={4}><div className="P300Cell">4</div></Col>
+                <Col   span={4}><div className="P300Cell">5</div></Col>
+                <Col  span={4}><div className="P300Cell">6</div></Col>
+                <Col   span={4}><div className="P300Cell">7</div></Col>
+                <Col   span={4}><div className="P300Cell">8</div></Col>
+                <Col   span={4}><div className="P300Cell">9</div></Col>
+            </Row>
+            </Col>
+            <Col  span={2}></Col>
+            </Row>
           </>
         );
     }    
