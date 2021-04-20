@@ -3,7 +3,8 @@ const { app, BrowserWindow, ipcRenderer, ipcMain } = require('electron')
 const path = require('path')
 const papa = require('papaparse')
 const fs = require('fs');
-const { dialog } = require('electron')
+const { dialog } = require('electron');
+const { Console } = require('console');
 
 app
   .commandLine
@@ -12,6 +13,8 @@ app
 app
   .commandLine
   .appendSwitch('enable-experimental-web-platform-features', true);
+
+  
 
 //Получение сохраненных данных
 function getSavedData(data) {
@@ -54,6 +57,71 @@ function createWindow() {
   let selectCallback = () => { };
   let nextDevice = null;
   let savedData = null;
+  let dataGetProcess=false;
+  let dataGetProcessPause=true;
+  let readedSesionData=[];
+  let diviceSimulation=[];
+  let i=0
+  let pausei=0
+
+  function readData(){
+    saveData();
+    return readedSesionData[i-1]
+  }
+
+  function saveData(){
+    readedSesionData.push(
+      diviceSimulation[i]
+    )
+    i+=1;
+  }
+
+  function timerInit(){
+    i=0;
+    let res = [];
+    fs.readFile("data_samples/data.csv", 'utf-8', (err, data) => {
+      if (err) {
+        console.log("An error ocurred reading the file :" + err.message);
+        return;
+      }
+      papa.parse(data, {
+        header: true,
+        complete: function (results) {
+          let dataMas = [];
+          let index = 0;
+          results.data.map(element => {
+            let x = 0;
+            dataMas.push(
+              {
+                sampleNum: index,
+                electrodesPositions: ["Fz"],
+                electrodesValues: [element["Fz"]],
+                subjectId: "Dubinich",
+                time: index*0.005,
+              })
+            index = index + 1;
+          });
+          diviceSimulation=dataMas
+        }
+      })
+      console.log(diviceSimulation);
+    });
+  }
+
+  function sendData(data){
+    if (dataGetProcessPause==false)
+    mainWindow.webContents.send("eeg-new-data", data);
+  }
+
+  function timerSetUp () {
+    timerInit();
+    setTimeout(function run() {
+      sendData(readData())
+      if (dataGetProcess==true)
+      setTimeout(run, 100);
+    }, 100);
+
+  }
 
   console.log("Started");
   const mainWindow = new BrowserWindow({
@@ -173,119 +241,83 @@ function createWindow() {
       mainWindow.webContents.send("saved-values", { data: savedData });   
 })
 
-  //   // let file = new File(["Data1"], "../../data_samples/Data1.csv", {
-  //   // type: "text/plain",
-  //   // });
-  //   // const fs = require('fs');
-  //   let res=[];
-  //   fs.readFile("data_samples/Data1.csv", 'utf-8', (err, data) => {
-  //       if(err){
-  //         console.log("An error ocurred reading the file :" + err.message);
-  //           return;
-  //       }
 
-  //       // Change how to handle the file content
+ //Сохранение сессии
+ ipcMain.on("save-session", (event, arg) => {
+  let date = new Date();
+  console.log(date.toString())
+  fs.writeFileSync(savedData.savesPath +"\\"+ date.getDate().toString()+"-"+date.getTime().toString()+"session.txt", JSON.stringify(readedSesionData), (err) => {
+    if (err) {
+      throw err;
+    }
+  });
+  console.log("Created save")
+  mainWindow.webContents.send("save-session", {});   
+})
 
-  //       papa.parse(data,{
-  //         header:true,
-  //         complete: function(results) {
-  //             //console.log(results.data);
+//Открыть сохранение
+ipcMain.on("open-session", (event, arg) => {
+  var path = dialog.showOpenDialog({
+    properties: ['openFile']
+  }).then(
+    (data) => {
+     console.log("Save file found");
+     let mas= fs.readFileSync(data.filePaths[0], 'utf8', function (err, dat) {
+       if (err) {
+         return console.log(err);
+       }
+       return dat;
+     })
+     mas=JSON.parse(mas)
+     pausei=0;
+     i=mas.length;
+     console.log("Reading...");
+     console.log(mas);
+     readedSesionData=mas;
+     do {
+      mainWindow.webContents.send("eeg-new-data", readedSesionData[pausei]);
+      // console.log(readedSesionData[pausei])
+      pausei++;
+    } while (pausei < i);
+    }
+  )
+  mainWindow.webContents.send("open-session", {});   
+})
 
+//Остановить считывание
+ipcMain.on("stop-session", (event, arg) => {
+  if(dataGetProcessPause){
+    console.log("________________________")
+  do {
+    mainWindow.webContents.send("eeg-new-data", readedSesionData[pausei]);
+    // console.log(readedSesionData[pausei])
+    pausei++;
+  } while (pausei < i);
+  console.log("________________________")
+  dataGetProcessPause=false;
+  }
+  else{
+  dataGetProcessPause=true;
+  pausei=i;
+  }
+  mainWindow.webContents.send("stop-session", {});   
+})
 
-  //             let dataMas=[];
-  //             let index=0;
-  //             results.data.map(element => {
-  //               let x=0;
-  //               if(element["sample num"]==index&&element["sensor position"]=="FP1")
-  //             dataMas.push(
-  //               {
-  //                 sampleNum:element["sample num"],
-  //                 electrodesPositions:[element["sensor position"]],
-  //                 electrodesValues:[element["sensor value"]],
-  //                 subjectId:"Dubinich",
-  //                 time:"19:00 14.04.2021"
-  //             })
-  //             index=index+1;
-  //             });
-
-  //             index=0;
-  //             results.data.map(element => {
-  //               if(element["sample num"]==index&&element["sensor position"]=="FP2")
-  //               {
-  //                 let buf=dataMas[index];
-  //                 buf.electrodesPositions.push(element["sensor position"]);
-  //                 buf.electrodesValues.push(element["sensor value"]);
-  //                 //console.log(buf);
-  //                 index=index+1;
-  //               }
-  //             });
-
-  //           i=0;  
-  //           let timerId = setInterval(() => {
-  //               //console.log(dataMas[i])
-  //               mainWindow.webContents.send("eeg-new-data",dataMas[i]);
-  //               i++;
-
-  //           }, 100);
-
-
-  //             setTimeout(() => { clearInterval(timerId); console.log("stop"); }, 25000);
-  //             }})            
-  //       });  
-  ipcMain.on('get-data', (event, value) => {
-
-
-    // let file = new File(["Data1"], "../../data_samples/Data1.csv", {
-    // type: "text/plain",
-    // });
-    // const fs = require('fs');
-    let res = [];
-    fs.readFile("data_samples/data.csv", 'utf-8', (err, data) => {
-      if (err) {
-        console.log("An error ocurred reading the file :" + err.message);
-        return;
-      }
-
-      // Change how to handle the file content
-
-      papa.parse(data, {
-        header: true,
-        complete: function (results) {
-          //console.log(results.data);
-
-
-          let dataMas = [];
-          let index = 0;
-          results.data.map(element => {
-            let x = 0;
-            dataMas.push(
-              {
-                sampleNum: index,
-                electrodesPositions: ["C1"],
-                electrodesValues: [element["C1"]],
-                subjectId: "Dubinich",
-                time: element["Time"]
-              })
-            index = index + 1;
-          });
-
-
-          i = 0;
-          let timerId = setInterval(() => {
-            //console.log(dataMas[i])
-            mainWindow.webContents.send("eeg-new-data", dataMas[i]);
-            i++;
-
-          }, 5);
-
-
-          setTimeout(() => { clearInterval(timerId); console.log("stop"); }, 25000);
-        }
-      })
-    });
-
-
-  })
+//Начать считывание
+ipcMain.on("start-session", (event, arg) => {
+  if(!dataGetProcess){
+  dataGetProcess=true; 
+  dataGetProcessPause=false;
+  timerSetUp();
+  }
+  else{
+    dataGetProcess=false; 
+  dataGetProcessPause=true;
+  i=0;
+  pausei=0;
+  }
+  mainWindow.webContents.send("start-session", {});   
+})
 
 }
 

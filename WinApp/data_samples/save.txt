@@ -1,1 +1,1 @@
-{"savesPath":"G:\\GIT\\DEABrain-CW2021\\WinApp\\data_samples","appPath":"G:\\GIT\\DEABrain-CW2021\\WinApp\\data_samples\\model\\variables","netPath":"G:\\GIT\\DEABrain-CW2021\\WinApp\\data_samples\\model\\saved_model.pb","theme":"dark"}
+{"savesPath":"C:\\Users\\dima8\\Desktop\\saves","appPath":"G:\\GIT\\DEABrain-CW2021\\WinApp\\data_samples\\model\\variables","netPath":"G:\\GIT\\DEABrain-CW2021\\WinApp\\data_samples\\model\\saved_model.pb","theme":"dark"}

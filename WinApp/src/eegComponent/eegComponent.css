@@ -1,5 +1,23 @@
 #chartdiv {
     width: 100%;
     height: 500px;
-  }
+    min-width: 400px;
+  } 
   
+  .buttonsRow
+  {
+    min-width: 400;
+    text-align: center;
+  }
+
+  .buttonsStyle
+  {
+    width: 80%;
+    margin-top: 20px;
+  }
+
+   /* .chart
+  {
+    width:100%;
+    height:400px;
+  }  */

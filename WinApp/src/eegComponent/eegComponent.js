@@ -38,7 +38,7 @@ class EegComponent extends React.Component {
 
 state={
     data:[],
-    chartData:[]
+    chartData:[],
 }
 
 
@@ -47,8 +47,29 @@ state={
        
         return (
             <> 
-            <Button onClick={()=>{this.addData();}}>EEG</Button>
-            <div id="chartdiv"></div>
+            <Row align="middle" className="buttonsRow">
+                <Col span={6}>
+                <Button className="buttonsStyle" onClick={()=>{ ipc.send("start-session",{});}}>Start</Button>
+                </Col>
+                <Col span={6}>
+                <Button  className="buttonsStyle"  onClick={()=>{ipc.send("stop-session",{});}}>Stop</Button>
+                </Col>
+                <Col span={6}>
+                <Button  className="buttonsStyle"  onClick={()=>{ipc.send("save-session",{});}}>Save</Button>
+                </Col>
+                <Col span={6}>
+                <Button  className="buttonsStyle"  onClick={()=>{ipc.send("open-session",{});}}>Open</Button>
+                </Col>
+
+            </Row>
+            <Row className="buttonsRow">
+                <Col span={1}></Col>
+                <Col span={22}>
+                <div id="chartdiv" classname="chart"></div>
+                </Col>
+                <Col span={1}></Col>
+            </Row>
+
 
           </>
         );
@@ -71,9 +92,9 @@ state={
         // Create axes
         let numAxis =  chart1.xAxes.push(new am4charts.ValueAxis());
         //dateAxis.renderer.minGridDistance = 60;
-        numAxis.title.text = "Num";
+        numAxis.title.text = "Time, sec";
         let valueAxis =  chart1.yAxes.push(new am4charts.ValueAxis());
-        valueAxis.title.text = "Value";
+        valueAxis.title.text = "Value, mlV";
         // Create series
         let series =  chart1.series.push(new am4charts.LineSeries());
         series.dataFields.valueY = "value";
@@ -100,7 +121,7 @@ state={
             ///console.log(this.state.chartData);
             let data = [];
             for(var i = 0; i < this.state.data.length; i++){
-              data.push({num:this.state.data[i].sampleNum, value: this.state.data[i].electrodesValues[0]});
+              data.push({num:this.state.data[i].time, value: this.state.data[i].electrodesValues[0]});
               //console.log(data[i]);
             }
            
@@ -117,20 +138,33 @@ state={
         // eeg
     }
 
-    addData()
-    {
-        // this.setState({data:this.state.data.push({
-        //     name: 'Page Q',
-        //     uv: 3490,
-        //     pv: 4300,
-        //     amt: 2100,
-        //   })})
-        ipc.send("get-data",{});
-    }
+
+
+
 
     componentDidMount(){ // When the document is rendered
         this.createGraph();
         this.EEGData();
+
+         //Сохранение сессии
+         ipc.on("save-session", (event, arg) => {
+            console.log("save")
+  })
+  
+  //Открыть сохранение
+  ipc.on("open-session", (event, arg) => {
+    console.log("open")
+  })
+  
+  //Остановить считывание
+  ipc.on("stop-session", (event, arg) => {
+    console.log("stop")
+  })
+  
+  //Начать считывание
+  ipc.on("start-session", (event, arg) => {
+    console.log("start")
+  })
     }
 
     componentDidUpdate(prevProps) {
