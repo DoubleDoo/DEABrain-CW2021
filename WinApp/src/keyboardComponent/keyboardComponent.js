@@ -5,89 +5,89 @@ import './keyboardComponent.css';
 import { Button,Col,Row,Card,Typography  } from 'antd';
 import {TabletOutlined,MonitorOutlined,LoadingOutlined,ApiOutlined} from '@ant-design/icons';
 
-
+const electron = require('electron')
+const ipc = electron.ipcRenderer
 
 class KeyboardComponent extends React.Component {
 
 state={
-    str:""
+    str:"",
+    letters: [["A","B","C","D","E","F"],
+             ["G","H","I","J","K","L"],
+             ["M","N","O","P","Q","R"],
+             ["S","T","U","V","W","X"],
+             ["Y","Z","1","2","3","4"],
+             ["5","6","7","8","9","0"]]
+    
 }
+
+
+
+componentDidMount(){ // When the document is rendered
+    ipc.on("enter-row",(event, arg) => {
+        this.state.letters[arg.id].map(element => {
+            document.getElementById(element).setAttribute("style", "background-color: black;")
+            setTimeout(()=>{document.getElementById(element).setAttribute("style", "background-color: white;")}, arg.timeout);
+        })
+    })
+    ipc.on("enter-col",(event, arg) => {
+        this.state.letters.map(element => {
+            document.getElementById(element[arg.id]).setAttribute("style", "background-color: black;")
+            setTimeout(()=>{document.getElementById(element[arg.id]).setAttribute("style", "background-color: white;")}, arg.timeout);
+        })
+    })
+    ipc.on("enter-cell",(event, arg) => {
+        this.setState({str:this.state.str+this.state.letters[arg.row][arg.col]})
+    })
+}
+
+
+generateRow(index)
+{ 
+    return <Row>
+    { this.state.letters[index].map(element => {
+        return  <Col  span={4}><div key={element} id={element} className="P300Cell" onClick={()=>{
+            this.setState({str:this.state.str+element})
+        }}>{element}</div></Col>
+    })}
+   </Row>
+}
+
+
+generateMatrix(){ 
+    return <>
+    <Row align="middle" className="P300Grid">
+    <Col  span={2}></Col>
+    <Col  span={20}>
+    <Row>
+
+        <Col span={24}>
+        <div className="strInput">{this.state.str}</div>
+        </Col>
+
+    </Row>
+    { this.state.letters.map((element,i) => {
+        return  this.generateRow(i)
+    })}
+   <Row>
+
+<Col span={24}>
+<Button className="butInput" onClick={()=>{ ipc.send("enter-start",{})}}>Start</Button>
+</Col>
+
+
+</Row>
+</Col>
+<Col  span={2}></Col>
+</Row>
+</>
+}
+
 
     render() {
        
         return (
-            <> 
-
-            <Row align="middle" className="P300Grid">
-            <Col  span={2}></Col>
-            <Col  span={20}>
-            <Row>
-
-                <Col span={24}>
-                <div className="strInput">{this.state.str}</div>
-                </Col>
-   
-            </Row>
-            <Row>
-                <Col   span={4}><div className="P300Cell" onClick={()=>this.setState({str:this.state.str+"A"})}>A</div></Col>
-                <Col  span={4}><div className="P300Cell" onClick={()=>this.setState({str:this.state.str+"B"})}>B</div></Col>
-                <Col   span={4}><div className="P300Cell">C</div></Col>
-                <Col   span={4}><div className="P300Cell">D</div></Col>
-                <Col   span={4}><div className="P300Cell">E</div></Col>
-                <Col   span={4}><div className="P300Cell">F</div></Col>
-            </Row>
-            <Row>
-                <Col   span={4}><div className="P300Cell">G</div></Col>
-                <Col   span={4}><div className="P300Cell">H</div></Col>
-                <Col   span={4}><div className="P300Cell">I</div></Col>
-                <Col   span={4}><div className="P300Cell">J</div></Col>
-                <Col  span={4}><div className="P300Cell">K</div></Col>
-                <Col   span={4}><div className="P300Cell">L</div></Col>
-            </Row>
-            <Row>
-                <Col   span={4}><div className="P300Cell">M</div></Col>
-                <Col   span={4}><div className="P300Cell">N</div></Col>
-                <Col   span={4}><div className="P300Cell">O</div></Col>
-                <Col   span={4}><div className="P300Cell">P</div></Col>
-                <Col  span={4}><div className="P300Cell">Q</div></Col>
-                <Col  span={4}><div className="P300Cell">R</div></Col>
-            </Row>
-            <Row>
-                <Col   span={4}><div className="P300Cell">S</div></Col>
-                <Col   span={4}><div className="P300Cell">T</div></Col>
-                <Col   span={4}><div className="P300Cell">U</div></Col>
-                <Col  span={4}><div className="P300Cell">V</div></Col>
-                <Col   span={4}><div className="P300Cell">W</div></Col>
-                <Col   span={4}><div className="P300Cell">X</div></Col>
-            </Row>
-            <Row>
-                <Col   span={4}><div className="P300Cell">Y</div></Col>
-                <Col   span={4}><div className="P300Cell">Z</div></Col>
-                <Col   span={4}><div className="P300Cell">0</div></Col>
-                <Col  span={4}><div className="P300Cell">1</div></Col>
-                <Col   span={4}><div className="P300Cell">2</div></Col>
-                <Col   span={4}><div className="P300Cell">3</div></Col>
-            </Row>
-            <Row>
-                <Col   span={4}><div className="P300Cell">4</div></Col>
-                <Col   span={4}><div className="P300Cell">5</div></Col>
-                <Col  span={4}><div className="P300Cell">6</div></Col>
-                <Col   span={4}><div className="P300Cell">7</div></Col>
-                <Col   span={4}><div className="P300Cell">8</div></Col>
-                <Col   span={4}><div className="P300Cell">9</div></Col>
-            </Row>
-            <Row>
-
-                <Col span={24}>
-                <Button className="butInput" onClick={()=>{}}>Start</Button>
-                </Col>
- 
-               
-            </Row>
-            </Col>
-            <Col  span={2}></Col>
-            </Row>
-          </>
+            this.generateMatrix()
         );
     }    
 }

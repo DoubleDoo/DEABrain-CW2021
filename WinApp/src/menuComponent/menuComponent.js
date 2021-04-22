@@ -22,15 +22,14 @@ class MenuComponent extends React.Component {
       mode="inline"
       theme={this.state.theme}
       >
-        <Menu.ItemGroup key="EEG" title="EEG">
-          <Menu.Item key="EEG_Data" onClick={()=>this.setState({curOption:"EEG_Data"})}>EEG Data</Menu.Item>
-          <Menu.Item key="Devices" onClick={()=>this.setState({curOption:"Devices"})}>Devices</Menu.Item>
-          <Menu.Item key="P300" onClick={()=>this.setState({curOption:"P300"})}>P300 keyboard demo</Menu.Item>
+        <Menu.ItemGroup key="EEG" title="EEG" className="titlHeaders1">
+          <Menu.Item className="titl" key="EEG_Data" onClick={()=>this.setState({curOption:"EEG_Data"})}>EEG Data</Menu.Item>
+          <Menu.Item className="titl" key="Devices" onClick={()=>this.setState({curOption:"Devices"})}>Devices</Menu.Item>
+          <Menu.Item className="titl" key="P300" onClick={()=>this.setState({curOption:"P300"})}>P300 keyboard demo</Menu.Item>
         </Menu.ItemGroup>
         <Menu.Divider/>
-        <Menu.ItemGroup key="APP" title="APP">
-          <Menu.Item key="Options" onClick={()=>this.setState({curOption:"Options"})}>Options</Menu.Item>
-          <Menu.Item key="Test" onClick={()=>this.setState({curOption:"Test"})}>Test</Menu.Item>
+        <Menu.ItemGroup key="APP" title="APP" className="titlHeaders2">
+          <Menu.Item className="titl"  key="Options" onClick={()=>this.setState({curOption:"Options"})}>Options</Menu.Item>
         </Menu.ItemGroup>
         <Menu.Divider/>
         </Menu>

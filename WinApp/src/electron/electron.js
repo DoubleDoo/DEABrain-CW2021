@@ -133,6 +133,7 @@ function createWindow() {
   let nextDevice = null;
   let savedData = null;
   let dataGetProcess=false;
+  let isBlinking=false;
   let dataGetProcessPause=true;
   let readedSesionData=[];
   let diviceSimulation=[];
@@ -397,6 +398,37 @@ ipcMain.on("start-session", (event, arg) => {
   }
   mainWindow.webContents.send("start-session", {});   
 })
+
+ipcMain.on("enter-row",(event, arg) => {
+  
+})
+
+ipcMain.on("enter-col",(event, arg) => {
+
+})
+
+ipcMain.on("enter-cell",(event, arg) => {
+
+})
+
+ipcMain.on("enter-start",(event, arg) => {
+  if (!isBlinking)
+  {
+    isBlinking=true;
+    // setTimeout(function Blink() {
+    //   sendData(readData())
+    //   if (dataGetProcess==true)
+    //   setTimeout(run, 100);
+    // }, 100);
+  }
+  else{
+    isBlinking=false;
+
+  }
+  // mainWindow.webContents.send("enter-cell", {row:1,col:2});
+  // mainWindow.webContents.send("enter-col", {id:1,timeout:350});
+})
+
 
 }
 

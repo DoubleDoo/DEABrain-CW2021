@@ -5,3 +5,19 @@
     height: 100vh;
     overflow: hidden auto;
 }
+
+.titl
+{
+    position: absolute;
+    top:30px
+}
+
+.titlHeaders1
+{
+    height: 200px;
+}
+
+.titlHeaders2
+{
+    height: 100px;
+}
