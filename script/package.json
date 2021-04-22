@@ -1,0 +1,17 @@
+{
+    "name": "script",
+    "lockfileVersion": 2,
+    "requires": true,
+    "packages": {},
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "@neurosity/pipes": "^4.3.0",
+        "bcijs": "^1.8.0",
+        "brain.js": "*",
+        "eeg-pipes": "^2.0.3",
+        "fili": "^2.0.3",
+        "papaparse": "^5.3.0"
+    }
+}

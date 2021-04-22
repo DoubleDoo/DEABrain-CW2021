@@ -5,6 +5,81 @@ const papa = require('papaparse')
 const fs = require('fs');
 const { dialog } = require('electron');
 const { Console } = require('console');
+const bci = require('bcijs');
+var Fili = require('fili');
+// i=0;
+// let res = [];
+// fs.readFile("data_samples/data.csv", 'utf-8', (err, data) => {
+//   if (err) {
+//     console.log("An error ocurred reading the file :" + err.message);
+//     return;
+//   }
+//   papa.parse(data, {
+//     header: true,
+//     complete: function (results) {
+//       let dataMas = [];
+//       let index = 0;
+//       results.data.map(element => {
+//         let x = 0;
+//         dataMas.push(
+//           {
+//             sampleNum: index,
+//             electrodesPositions: ["Fz"],
+//             electrodesValues: [element["Fz"]],
+//             subjectId: "Dubinich",
+//             time: index*0.005,
+//           })
+//         index = index + 1;
+//       });
+//       diviceSimulation=dataMas
+//     }
+//   })
+//   console.log(diviceSimulation);
+// });
+
+// let samplerate = 512;
+// let signal = bci.generateSignal([8, 4], [8, 17], samplerate, 1);
+
+// // Compute relative power in each frequency band
+// let bandpowers = bci.bandpower(signal, samplerate, ['alpha', 'beta'], {relative: true});
+
+// console.log(bandpowers); // [ 0.6661457715567836, 0.199999684787573 ]
+
+(async () => {
+  // Load training data
+  let data = await bci.loadCSV('data_samples/data.csv');
+  let res = await bci.loadCSV('data_samples/TrainLabels.csv');
+  // print(data);
+   // Project it with CSP
+   let cspParams = bci.cspLearn(data);
+
+   // Compute training data features
+   let featuresFeetTraining = computeFeatures(cspParams, data);
+
+
+   // Learn an LDA classifier
+   let ldaParams = bci.ldaLearn(featuresFeetTraining);
+  
+})();
+
+function computeFeatures(cspParams, eeg){
+  let epochSize = 64; // About a fourth of a second per feature
+  let trialLength = 750; // Each set of 750 samples is from a different trial
+
+
+  let features = bci.windowApply(eeg, trial => {  
+    // Apply CSP over each 64 sample window with a 50% overlap between windows
+    return bci.windowApply(trial, epoch => {
+        // Project the data with CSP and select the 16 most relevant signals
+        let cspSignals = bci.cspProject(cspParams, epoch, 16);
+        // Use the log of the variance of each signal as a feature vector
+        return bci.features.logvar(cspSignals, 'columns');
+    }, epochSize, epochSize / 2);
+  }, trialLength, trialLength);
+
+  // Concat the features from each trial
+  return [].concat(...features);
+}
 
 app
   .commandLine
@@ -101,7 +176,7 @@ function createWindow() {
               })
             index = index + 1;
           });
-          diviceSimulation=dataMas
+              diviceSimulation=dataMas
         }
       })
       console.log(diviceSimulation);

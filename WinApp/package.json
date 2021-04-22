@@ -29,6 +29,7 @@
   "dependencies": {
     "@amcharts/amcharts4": "^4.10.17",
     "antd": "^4.15.1",
+    "bcijs": "^1.8.0",
     "concurrently": "^6.0.1",
     "eeg-pipes": "^2.0.3",
     "electron": "^10.4.2",
