@@ -80,7 +80,7 @@ state={
             <Row className="buttonsRow">
                 <Col span={1}></Col>
                 <Col span={22}>
-                <div id="chartdiv" classname="chart"></div>
+                <div id="chartdiv" className="chart"></div>
                 </Col>
                 <Col span={1}></Col>
             </Row>

@@ -1,7 +1,7 @@
 .P300Grid
 {
-min-height: 900px;
-min-width: 1000px;
+min-height: 750px;
+min-width: 750px;
 text-align: center;
 }
 
@@ -9,12 +9,14 @@ text-align: center;
     border: 1px solid rgb(214, 214, 214);
     color: Black;
     text-align: center;
-    width: 110px;
-    height: 110px;
+    width: 90px;
+    height: 90px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 15px;
     border-radius: 25px;
+    font-size: 30px;
+    line-height: 90px;
 }
 
 .bigCol

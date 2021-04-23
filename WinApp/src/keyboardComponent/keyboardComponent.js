@@ -26,14 +26,14 @@ state={
 componentDidMount(){ // When the document is rendered
     ipc.on("enter-row",(event, arg) => {
         this.state.letters[arg.id].map(element => {
-            document.getElementById(element).setAttribute("style", "background-color: black;")
-            setTimeout(()=>{document.getElementById(element).setAttribute("style", "background-color: white;")}, arg.timeout);
+            document.getElementById(element).setAttribute("style", "background-color: black; color: white;")
+            setTimeout(()=>{document.getElementById(element).setAttribute("style", "background-color: white; color: black;")}, arg.timeout);
         })
     })
     ipc.on("enter-col",(event, arg) => {
         this.state.letters.map(element => {
-            document.getElementById(element[arg.id]).setAttribute("style", "background-color: black;")
-            setTimeout(()=>{document.getElementById(element[arg.id]).setAttribute("style", "background-color: white;")}, arg.timeout);
+            document.getElementById(element[arg.id]).setAttribute("style", "background-color: black; color: white;")
+            setTimeout(()=>{document.getElementById(element[arg.id]).setAttribute("style", "background-color: white; color: black;")}, arg.timeout);
         })
     })
     ipc.on("enter-cell",(event, arg) => {
@@ -44,9 +44,9 @@ componentDidMount(){ // When the document is rendered
 
 generateRow(index)
 { 
-    return <Row>
+    return <Row key={index+"r"}>
     { this.state.letters[index].map(element => {
-        return  <Col  span={4}><div key={element} id={element} className="P300Cell" onClick={()=>{
+        return  <Col key={element+"col"} span={4}><div key={element} id={element} className="P300Cell" onClick={()=>{
             this.setState({str:this.state.str+element})
         }}>{element}</div></Col>
     })}

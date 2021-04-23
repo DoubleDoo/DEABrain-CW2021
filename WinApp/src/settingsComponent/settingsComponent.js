@@ -30,7 +30,7 @@ state={
             <Row align="middle">
             <Col span={1}></Col>
               <Col span={22}>
-              <Title level={3}>Нейросеть</Title>
+              <Title level={3} className={"firstTitle"}>Нейросеть</Title>
               </Col>
               <Col span={1}></Col>
             </Row>

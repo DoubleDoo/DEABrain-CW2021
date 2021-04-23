@@ -415,6 +415,9 @@ ipcMain.on("enter-start",(event, arg) => {
   if (!isBlinking)
   {
     isBlinking=true;
+    oneCycle(0);
+    // setTimeout(()=>mainWindow.webContents.send("enter-col", {id:1,timeout:500}),500)
+    // setTimeout(()=>mainWindow.webContents.send("enter-col", {id:2,timeout:500}),500)
     // setTimeout(function Blink() {
     //   sendData(readData())
     //   if (dataGetProcess==true)
@@ -429,6 +432,46 @@ ipcMain.on("enter-start",(event, arg) => {
   // mainWindow.webContents.send("enter-col", {id:1,timeout:350});
 })
 
+
+function setTimeoutKeyboard()
+{
+
+    oneCycle();
+    secondCycle();
+
+}
+
+function oneCycle(i)
+{
+  if(isBlinking){
+  if(i<6){
+  setTimeout(()=>{
+    mainWindow.webContents.send("enter-col", {id:i,timeout:1000})
+    oneCycle(++i);
+  },1000)
+  }
+  else
+  {
+    secondCycle(0)
+  }
+}
+}
+
+function secondCycle(i)
+{
+  if(isBlinking){
+  if(i<6){
+    setTimeout(()=>{
+      mainWindow.webContents.send("enter-row", {id:i,timeout:1000})
+      secondCycle(++i);
+    },1000)
+    }
+    else
+    {
+      oneCycle(0)
+    }
+  }
+}
 
 }
 
