@@ -45,41 +45,41 @@ var Fili = require('fili');
 
 // console.log(bandpowers); // [ 0.6661457715567836, 0.199999684787573 ]
 
-(async () => {
-  // Load training data
-  let data = await bci.loadCSV('../neuroNet/data_samples/data.csv');
-  let res = await bci.loadCSV('../neuroNet/data_samples/TrainLabels.csv');
-  // print(data);
-  // Project it with CSP
-  let cspParams = bci.cspLearn(data);
+// (async () => {
+//   // Load training data
+//   let data = await bci.loadCSV('../neuroNet/data_samples/data.csv');
+//   let res = await bci.loadCSV('../neuroNet/data_samples/TrainLabels.csv');
+//   // print(data);
+//   // Project it with CSP
+//   let cspParams = bci.cspLearn(data);
 
-  // Compute training data features
-  let featuresFeetTraining = computeFeatures(cspParams, data);
-
-
-  // Learn an LDA classifier
-  let ldaParams = bci.ldaLearn(featuresFeetTraining);
-
-})();
-
-function computeFeatures(cspParams, eeg) {
-  let epochSize = 64; // About a fourth of a second per feature
-  let trialLength = 750; // Each set of 750 samples is from a different trial
+//   // Compute training data features
+//   let featuresFeetTraining = computeFeatures(cspParams, data);
 
 
-  let features = bci.windowApply(eeg, trial => {
-    // Apply CSP over each 64 sample window with a 50% overlap between windows
-    return bci.windowApply(trial, epoch => {
-      // Project the data with CSP and select the 16 most relevant signals
-      let cspSignals = bci.cspProject(cspParams, epoch, 16);
-      // Use the log of the variance of each signal as a feature vector
-      return bci.features.logvar(cspSignals, 'columns');
-    }, epochSize, epochSize / 2);
-  }, trialLength, trialLength);
+//   // Learn an LDA classifier
+//   let ldaParams = bci.ldaLearn(featuresFeetTraining);
 
-  // Concat the features from each trial
-  return [].concat(...features);
-}
+// })();
+
+// function computeFeatures(cspParams, eeg) {
+//   let epochSize = 64; // About a fourth of a second per feature
+//   let trialLength = 750; // Each set of 750 samples is from a different trial
+
+
+//   let features = bci.windowApply(eeg, trial => {
+//     // Apply CSP over each 64 sample window with a 50% overlap between windows
+//     return bci.windowApply(trial, epoch => {
+//       // Project the data with CSP and select the 16 most relevant signals
+//       let cspSignals = bci.cspProject(cspParams, epoch, 16);
+//       // Use the log of the variance of each signal as a feature vector
+//       return bci.features.logvar(cspSignals, 'columns');
+//     }, epochSize, epochSize / 2);
+//   }, trialLength, trialLength);
+
+//   // Concat the features from each trial
+//   return [].concat(...features);
+// }
 
 app
   .commandLine
@@ -203,7 +203,7 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    //fullscreen :true,
+    fullscreen :true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -216,9 +216,9 @@ function createWindow() {
   savedData = getSavedData();
 
   mainWindow.loadURL('http://localhost:8080');
-  console.log("Loaded");
+  //mainWindow.loadFile('build/index.html')
 
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 
   //окно выбора девайса
   mainWindow.webContents.on('select-bluetooth-device', (event, deviceList, callback) => {

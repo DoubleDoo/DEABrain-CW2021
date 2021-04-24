@@ -54,17 +54,7 @@ class BluetoothComponent extends React.Component {
     }
 
 
-    openNotification = () => {
-        notification.open({
-            message: 'Notification Title',
-            description:
-                'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-            placement: "bottomLeft",
-            onClick: () => {
-                console.log('Notification Clicked!');
-            },
-        });
-    };
+    
 
     updateDeviceList = () => {
         if (this.state.deviceSelected == null) {
@@ -84,6 +74,17 @@ class BluetoothComponent extends React.Component {
             }).then(server => {
                 this.setState({ server: server });
                 // Getting Battery Service…
+               
+                    notification.open({
+                        message: 'Device conected',
+                        description:
+                            "Device "+this.state.deviceSelected.name+" is conected",
+                        placement: "bottomLeft",
+                        onClick: () => {
+                            console.log('Notification Clicked!');
+                        },
+                    });
+                
                 return server.getPrimaryService('battery_service');
             })
                 .then(service => {
@@ -117,6 +118,16 @@ class BluetoothComponent extends React.Component {
     onDisconnected(event) {
         const device = event.target;
         console.log(`Device ${device.name} is disconnected.`);
+        notification.open({
+            message: 'Device disconected',
+            description:
+                "Device "+this.state.deviceSelected.name+" is disconected",
+            placement: "bottomLeft",
+            onClick: () => {
+                console.log('Notification Clicked!');
+            },
+        });
+
         this.setState({ deviceSelected: null });
         this.setState({ deviceList: [] })
         this.setState({ curentBataryLevel: 0 })

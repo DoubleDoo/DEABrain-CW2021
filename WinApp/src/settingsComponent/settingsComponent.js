@@ -30,7 +30,7 @@ class SettingsComponent extends React.Component {
         <Row align="middle">
           <Col span={1}></Col>
           <Col span={22}>
-            <Title level={3} className={"firstTitle"}>Нейросеть</Title>
+            <Title level={3} className={"firstTitle"}>Net</Title>
           </Col>
           <Col span={1}></Col>
         </Row>
@@ -80,7 +80,7 @@ class SettingsComponent extends React.Component {
         <Row align="middle">
           <Col span={1}></Col>
           <Col span={22}>
-            <Title level={3}>Папка сохранений</Title>
+            <Title level={3}>Saves folder</Title>
           </Col>
           <Col span={1}></Col>
         </Row>
@@ -103,7 +103,7 @@ class SettingsComponent extends React.Component {
         <Row align="middle">
           <Col span={1}></Col>
           <Col span={5}>
-            <Title level={3}>Темная тема</Title>
+            <Title level={3}>Dark mode</Title>
           </Col>
           <Col span={17}>
             <Switch checked={this.state.theme == "dark" ? true : false} onChange={this.onChange} />

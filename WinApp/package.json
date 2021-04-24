@@ -8,7 +8,8 @@
     "react": "webpack serve --mode=development --hot",
     "electron": "electron .",
     "build:dev": "webpack --mode=development",
-    "build:prod": "webpack --mode=production"
+    "build:prod": "webpack --mode=production",
+    "pack": "electron-builder --dir"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "@babel/preset-react": "^7.13.13",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.2.1",
+    "electron": "^10.4.2",
     "electron-builder": "^22.10.5",
     "html-webpack-plugin": "^5.3.1",
     "style-loader": "^2.0.0",
@@ -32,7 +34,6 @@
     "bcijs": "^1.8.0",
     "concurrently": "^6.0.1",
     "eeg-pipes": "^2.0.3",
-    "electron": "^10.4.2",
     "papaparse": "^5.3.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

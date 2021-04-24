@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import './eegComponent.css';
-import { Button, Col, Row, Card, Typography } from 'antd';
+import { Button, Col, Row, Card, Typography , notification} from 'antd';
 import { TabletOutlined, MonitorOutlined, LoadingOutlined, ApiOutlined } from '@ant-design/icons';
 
 import * as am4core from "@amcharts/amcharts4/core";
@@ -167,6 +167,15 @@ class EegComponent extends React.Component {
     //Сохранение сессии
     ipc.on("save-session", (event, arg) => {
       console.log("save")
+      notification.open({
+        message: 'Session saved',
+        description:
+            "Session saved in saves folder sucsesfully",
+        placement: "bottomLeft",
+        onClick: () => {
+            console.log('Notification Clicked!');
+        },
+    });
     })
 
     //Открыть сохранение
