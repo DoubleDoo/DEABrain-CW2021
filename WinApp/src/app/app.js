@@ -5,10 +5,10 @@ import MenuComponent from "../menuComponent/menuComponent";
 function App() {
   return (
     <div className="App">
-               <MenuComponent/>
-               <div>
-                 
-               </div>
+      <MenuComponent />
+      <div>
+
+      </div>
     </div>
   );
 }

@@ -13,15 +13,15 @@ class WorkSpaceComponent extends React.Component {
 
 
   renderSwitch(param) {
-    switch(param) {
+    switch (param) {
       case 'EEG_Data':
-        return  <EegComponent/>;
+        return <EegComponent />;
       case 'Devices':
-        return <BluetoothComponent/>;
+        return <BluetoothComponent />;
       case 'P300':
-        return <KeyboardComponent/>;
+        return <KeyboardComponent />;
       case 'Options':
-        return <SettingsComponent/>;
+        return <SettingsComponent />;
       case 'Test':
         return <>Test</>;
       default:
@@ -30,12 +30,12 @@ class WorkSpaceComponent extends React.Component {
   }
 
 
-    render() {
-      return <div className="workSpaceComponent">
-       {this.renderSwitch(this.props.curOption)} 
-      </div>
-    
-    }
+  render() {
+    return <div className="workSpaceComponent">
+      {this.renderSwitch(this.props.curOption)}
+    </div>
+
   }
+}
 
 export default WorkSpaceComponent;

@@ -2,122 +2,144 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import './bluetoothComponent.css';
-import { Button,Col,Row,Card,Typography  } from 'antd';
-import {TabletOutlined,MonitorOutlined,LoadingOutlined,ApiOutlined} from '@ant-design/icons';
+import { Button, Col, Row, Card, Typography, notification } from 'antd';
+import { TabletOutlined, MonitorOutlined, LoadingOutlined, ApiOutlined } from '@ant-design/icons';
 
 const electron = require('electron')
 const ipc = electron.ipcRenderer
 
-
-
-
 class BluetoothComponent extends React.Component {
 
-    state={
-        deviceList:[],
-        deviceSelected:null,
-        isSearch:false
+    state = {
+        deviceList: [],
+        deviceSelected: null,
+        isSearch: false,
+        curentBataryLevel: 0,
+
     }
-    
+
+    handleNotifications(event) {
+        let value = event.target.value;
+        let a = [];
+        for (let i = 0; i < value.byteLength; i++) {
+            a.push('0x' + ('00' + value.getUint8(i).toString(16)).slice(-2));
+        }
+        this.setState({ curentBataryLevel: Number.parseInt(a) })
+        console.log('> ' + a.join(' '));
+    }
+
+
     render() {
-        return ( 
-            
+        this.handleNotifications = this.handleNotifications.bind(this)
+        this.onDisconnected = this.onDisconnected.bind(this)
+        return (
+
             <Row className={"BluetoothComponent"} align={"top"}>
                 <Col className={"devInfo"} flex={2} >
-                <SelectedDevice deviceSelected={this.state.deviceSelected}/>
+                    <SelectedDevice disconnect={this.disconnect} curentBataryLevel={this.state.curentBataryLevel} deviceSelected={this.state.deviceSelected} />
                 </Col>
                 <Col className={"devList"} flex={3}>
-                <DeviceList deviceList={this.state.deviceList} isSearch={this.state.isSearch}  setDeviceSelected={this.setDeviceSelected} updateDeviceList={this.updateDeviceList}/>
+                    <DeviceList deviceSelected={this.state.deviceSelected} deviceList={this.state.deviceList} isSearch={this.state.isSearch} setDeviceSelected={this.setDeviceSelected} updateDeviceList={this.updateDeviceList} />
                 </Col>
-            <Button onClick={()=>this.getDeviceByName(this.state.deviceSelected)}>1</Button>
             </Row>
 
         );
     }
 
 
-    setDeviceSelected=(data)=>{
-       this.setState({deviceSelected:data});
-       this.setState({isSearch:false});
-       //console.log("DevSelected")
+    setDeviceSelected = (data) => {
+        this.setState({ deviceSelected: data });
+        this.setState({ isSearch: false });
+        //console.log("DevSelected")
     }
 
-    getDeviceByName=(data)=>{
-        console.log(data.deviceId+"!!!!")
-        console.log(data.deviceName+"!!!!")
-        ipc.send("next-device-select",{data});
-         navigator.bluetooth.requestDevice({
-            filters: [{ name: [data.deviceName],
-                services: ['battery_service']
-            }]
-            
-         }).then((device)=>{
-            console.log(device);
-            device.addEventListener('gattserverdisconnected', this.onDisconnected);
-            return device.gatt.connect();
-         }).then(server => {
-            // Getting Battery Service…
-            return server.getPrimaryService('battery_service');
-          })
-          .then(service => {
-            // Getting Battery Level Characteristic…
-            return service.getCharacteristic('battery_level');
 
-          })
-          .then(characteristic => {
-            // Reading Battery Level…
-            characteristic.addEventListener('characteristicvaluechanged',
-            this.handleCharacteristicValueChanged);
-console.log('Notifications have been started.');
-          })
-          .catch(error => { console.error(error); });
-    }
+    openNotification = () => {
+        notification.open({
+            message: 'Notification Title',
+            description:
+                'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+            placement: "bottomLeft",
+            onClick: () => {
+                console.log('Notification Clicked!');
+            },
+        });
+    };
 
-    updateDeviceList=()=>{
-        this.setState({isSearch:true});
-         navigator.bluetooth.requestDevice({
-            //acceptAllDevices:true
-            filters: [{
-                services: ['battery_service']
+    updateDeviceList = () => {
+        if (this.state.deviceSelected == null) {
+            this.setState({ deviceList: [] })
+            this.setState({ isSearch: true });
+            navigator.bluetooth.requestDevice({
+                //acceptAllDevices:true
+                filters: [{
+                    services: ['battery_service']
                 }]
-         }).then((device)=>{
-            console.log(device);
-            //this.setDeviceSelected(device);
-            this.setState({isSearch:false});
-            device.addEventListener('gattserverdisconnected', this.onDisconnected);
-            return device.gatt.connect();
-         }).then(server => {
-            // Getting Battery Service…
-            return server.getPrimaryService('battery_service');
-          })
-          .then(service => {
-            // Getting Battery Level Characteristic…
-            return service.getCharacteristic('battery_level');
+            }).then((device) => {
+                console.log(device);
+                this.setDeviceSelected(device);
+                this.setState({ isSearch: false });
+                device.addEventListener('gattserverdisconnected', this.onDisconnected);
+                return device.gatt.connect();
+            }).then(server => {
+                this.setState({ server: server });
+                // Getting Battery Service…
+                return server.getPrimaryService('battery_service');
+            })
+                .then(service => {
+                    this.setState({ service: service });
+                    // Getting Battery Level Characteristic…
+                    return service.getCharacteristic('battery_level');
 
-          })
-          .then(characteristic => {
-            // Reading Battery Level…
-            characteristic.addEventListener('characteristicvaluechanged',
-            this.handleCharacteristicValueChanged);
-console.log('Notifications have been started.');
-          })
-          .catch(error => { console.error(error); });
+                })
+                .then(characteristic => {
+                    this.setState({ characteristic: characteristic });
+                    characteristic.startNotifications().then(_ => {
+                        console.log('> Notifications started');
+                        characteristic.addEventListener('characteristicvaluechanged',
+                            this.handleNotifications);
+                    });
+                    return characteristic.readValue();
+                })
+                .then(value => {
+                    let batteryLevel = value;
+                    let a = [];
+                    for (let i = 0; i < batteryLevel.byteLength; i++) {
+                        a.push('0x' + ('00' + batteryLevel.getUint8(i).toString(16)).slice(-2));
+                    }
+                    this.setState({ curentBataryLevel: Number.parseInt(a) })
+                    console.log('> Battery Level is ' + Number.parseInt(a) + '%');
+                })
+                .catch(error => { console.error(error); });
+        }
     }
-    onDisconnected=(event)=> {
+
+    onDisconnected(event) {
         const device = event.target;
         console.log(`Device ${device.name} is disconnected.`);
-      }
+        this.setState({ deviceSelected: null });
+        this.setState({ deviceList: [] })
+        this.setState({ curentBataryLevel: 0 })
+        // this.setState({ isSearch: false });curentBataryLevel
+    }
 
-    handleCharacteristicValueChanged=(event)=> {
-        const value = event.target.value;
-        console.log('Received ' + value);
-        // TODO: Parse Heart Rate Measurement value.
-        // See https://github.com/WebBluetoothCG/demos/blob/gh-pages/heart-rate-sensor/heartRateSensor.js
-      }
 
-    componentDidMount(){ // When the document is rendered
-        ipc.on("bluetooth-list-update",(event, arg) => {
-            this.setState({deviceList:arg.data});
+    disconnect = () => {
+        console.log('Disconnecting from Bluetooth Device...');
+        if (this.state.deviceSelected.gatt.connected) {
+            this.state.deviceSelected.gatt.disconnect();
+        } else {
+            console.log('> Bluetooth Device is already disconnected');
+        }
+    }
+
+
+
+
+
+    componentDidMount() {
+        ipc.on("bluetooth-list-update", (event, arg) => {
+            this.setState({ deviceList: arg.data });
         })
     }
 }
@@ -125,18 +147,18 @@ console.log('Notifications have been started.');
 
 class DeviceList extends React.Component {
     render() {
-        return ( 
+        return (
             <Card>
-                {this.props.deviceList.map((element,i) => {
-                    return <DeviceListOption dev={element}  setDeviceSelected={this.props.setDeviceSelected}  key={i+"BD"}/> 
-                    })}
-                <div onClick={()=>this.props.updateDeviceList()}>
-                 {this.props.isSearch?<LoadingOutlined className={"seacrhIcon"}/>:
-                 <>
-                    <MonitorOutlined  className={"seacrhIcon"}/>
-                    <Typography.Paragraph>Search devices</Typography.Paragraph>
-                 </>}
-                 
+                {this.props.deviceList.map((element, i) => {
+                    return <DeviceListOption dev={element} deviceSelected={this.props.deviceSelected} setDeviceSelected={this.props.setDeviceSelected} key={i + "BD"} />
+                })}
+                <div onClick={() => this.props.updateDeviceList()}>
+                    {this.props.isSearch ? <LoadingOutlined className={"seacrhIcon"} /> :
+                        <>
+                            <MonitorOutlined className={"seacrhIcon"} />
+                            <Typography.Paragraph>Search devices</Typography.Paragraph>
+                        </>}
+
                 </div>
             </Card>
         );
@@ -146,22 +168,24 @@ class DeviceList extends React.Component {
 //Отоборажение инфомации о девайсах
 class DeviceListOption extends React.Component {
 
-    selectdev=()=>{
-        ipc.send("bluetooth-device-select",{id:this.props.dev.deviceId});
-        this.props.setDeviceSelected(this.props.dev)
+    selectdev = () => {
+        if (this.props.deviceSelected == null) {
+            ipc.send("bluetooth-device-select", { id: this.props.dev.deviceId });
+            this.props.setDeviceSelected(this.props.dev)
+        }
     }
 
 
     render() {
-        return ( 
-            <Card  className="DeviceButton" onClick={this.selectdev}>
-                <Row justify="space-around" align="middle"  wrap={false}>
+        return (
+            <Card className="DeviceButton" onClick={this.selectdev} hoverable={this.props.deviceSelected == null}>
+                <Row justify="space-around" align="middle" wrap={false}>
                     <Col span={3}>
-                    <TabletOutlined className={"iconStyle"}/>
+                        <TabletOutlined className={"iconStyle"} />
                     </Col>
                     <Col className="optionData" flex={"auto"}>
-                    DeviceName: {this.props.dev.deviceName}
-                    <br/>
+                        DeviceName: {this.props.dev.deviceName}
+                        <br />
                     DeviceId: {this.props.dev.deviceId}
                     </Col>
                 </Row>
@@ -173,18 +197,22 @@ class DeviceListOption extends React.Component {
 //Отоборажение информации о девайсе
 class SelectedDevice extends React.Component {
     render() {
-        return ( 
+        return (
             <>
-            <Card>
-                {
-                    this.props.deviceSelected==null?
-                    <>
-                    <ApiOutlined className="disconectedIcon"/>
-                    <Typography.Paragraph>No conected device</Typography.Paragraph>
-                    </>:
-                    <>{this.props.deviceSelected.name}</>
-                }
-            </Card >
+                <Card>
+                    {
+                        this.props.deviceSelected == null ?
+                            <>
+                                <ApiOutlined className="disconectedIcon" />
+                                <Typography.Paragraph>No conected device</Typography.Paragraph>
+                            </> :
+                            <>
+                                <div>{this.props.deviceSelected.name}</div>
+                                <div>Curent battary lvl: {this.props.curentBataryLevel} % </div>
+                                <Button onClick={this.props.disconnect}>Disconnect</Button>
+                            </>
+                    }
+                </Card >
             </>
         );
     }
