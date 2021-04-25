@@ -1,1 +1,1 @@
-{"savesPath":"C:\\Users\\dima8\\Desktop\\saves","appPath":"data_samples/save.txt","netPath":"C:\\Users\\dima8\\Desktop\\saves\\23-1619179470347session.txt","theme":"light"}
+{"savesPath":"C:\\Users\\dima8\\Desktop\\saves","appPath":"data_samples/save.txt","netPath":"C:\\Users\\dima8\\Desktop\\data.csv","theme":"light"}
