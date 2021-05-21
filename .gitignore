@@ -3,3 +3,7 @@ neuroNet/node_modules
 neuroNet/data_samples
 neuroNet/trainData.json
 neuroNet/net.json
+deviceApp/temp/Middlewares
+deviceApp/temp/Drivers
+deviceApp/temp/Debug
+deviceApp/temp/Utilities
