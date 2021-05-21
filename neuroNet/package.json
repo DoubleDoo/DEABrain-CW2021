@@ -4,7 +4,9 @@
     "requires": true,
     "packages": {},
     "scripts": {
-        "start": "node index.js"
+        "data": "node getdata.js",
+        "train": "node trainnet.js",
+        "predict": "node index.js"
     },
     "dependencies": {
         "@neurosity/pipes": "^4.3.0",
