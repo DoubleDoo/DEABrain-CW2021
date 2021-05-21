@@ -139,6 +139,7 @@ function createWindow() {
   let diviceSimulation = [];
   let i = 0
   let pausei = 0
+  let indexx=0
 
   function readData() {
     saveData();
@@ -203,7 +204,7 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    fullscreen :true,
+    fullscreen :false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -218,7 +219,7 @@ function createWindow() {
   mainWindow.loadURL('http://localhost:8080');
   //mainWindow.loadFile('build/index.html')
 
-  //mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   //окно выбора девайса
   mainWindow.webContents.on('select-bluetooth-device', (event, deviceList, callback) => {
@@ -387,7 +388,7 @@ function createWindow() {
     if (!dataGetProcess) {
       dataGetProcess = true;
       dataGetProcessPause = false;
-      timerSetUp();
+      // timerSetUp();
     }
     else {
       dataGetProcess = false;
@@ -399,6 +400,29 @@ function createWindow() {
     }
     mainWindow.webContents.send("start-session", {});
   })
+
+  ipcMain.on("read-data", (event, arg) => {
+    if (dataGetProcess) {
+      if (dataGetProcessPause == false)
+      mainWindow.webContents.send("eeg-new-data",  {
+            sampleNum: indexx,
+            electrodesPositions: ["P0"],
+            electrodesValues: [arg],
+            subjectId: "Dubinich",
+            time: indexx * 0.005,
+          });
+    }
+    indexx++;
+  })
+
+  // return dataMas.push(
+  //   {
+  //     sampleNum: index,
+  //     electrodesPositions: ["Fz"],
+  //     electrodesValues: [element["Fz"]],
+  //     subjectId: "Dubinich",
+  //     time: index * 0.005,
+  //   })
 
   ipcMain.on("enter-row", (event, arg) => {
 

@@ -4,42 +4,47 @@ import 'antd/dist/antd.css';
 import './bluetoothComponent.css';
 import { Button, Col, Row, Card, Typography, notification } from 'antd';
 import { TabletOutlined, MonitorOutlined, LoadingOutlined, ApiOutlined } from '@ant-design/icons';
+import {BluetoothDevice } from '../context/context';
 
 const electron = require('electron')
 const ipc = electron.ipcRenderer
 
+// const {Consumer} = React.createContext(BluetoothDevice);
+// const color = React.useContext(BluetoothDevice);
+
 class BluetoothComponent extends React.Component {
+
+    static contextType = BluetoothDevice;
 
     state = {
         deviceList: [],
-        deviceSelected: null,
         isSearch: false,
-        curentBataryLevel: 0,
-
-    }
-
-    handleNotifications(event) {
-        let value = event.target.value;
-        let a = [];
-        for (let i = 0; i < value.byteLength; i++) {
-            a.push('0x' + ('00' + value.getUint8(i).toString(16)).slice(-2));
-        }
-        this.setState({ curentBataryLevel: Number.parseInt(a) })
-        console.log('> ' + a.join(' '));
     }
 
 
+
+    // handleNotifications(event) {
+    //     let value = event.target.value;
+    //     let a = [];
+    //     for (let i = 0; i < value.byteLength; i++) {
+    //         a.push('0x' + ('00' + value.getUint8(i).toString(16)).slice(-2));
+    //     }
+    //     this.props.bleBattUpd(this.props.battStruct.serviceBatt,this.props.battStruct.characteristicBatt,this.props.battStruct.notifBatt,Number.parseInt(a))
+    // }
+
+ 
     render() {
-        this.handleNotifications = this.handleNotifications.bind(this)
+       // console.log(this.props.battStruct)
+       // console.log(this.props.devStruct)
+        // this.handleNotifications = this.handleNotifications.bind(this)
         this.onDisconnected = this.onDisconnected.bind(this)
         return (
-
             <Row className={"BluetoothComponent"} align={"top"}>
                 <Col className={"devInfo"} flex={2} >
-                    <SelectedDevice disconnect={this.disconnect} curentBataryLevel={this.state.curentBataryLevel} deviceSelected={this.state.deviceSelected} />
+                    <SelectedDevice disconnect={this.disconnect} curentBataryLevel={this.props.battStruct.lastBattValue} deviceSelected={this.props.devStruct.deviceSelected} />
                 </Col>
                 <Col className={"devList"} flex={3}>
-                    <DeviceList deviceSelected={this.state.deviceSelected} deviceList={this.state.deviceList} isSearch={this.state.isSearch} setDeviceSelected={this.setDeviceSelected} updateDeviceList={this.updateDeviceList} />
+                    <DeviceList deviceSelected={this.props.devStruct.deviceSelected} deviceList={this.state.deviceList} isSearch={this.state.isSearch} setDeviceSelected={this.setDeviceSelected} updateDeviceList={this.updateDeviceList} />
                 </Col>
             </Row>
 
@@ -48,57 +53,51 @@ class BluetoothComponent extends React.Component {
 
 
     setDeviceSelected = (data) => {
-        this.setState({ deviceSelected: data });
+        this.props.devUpd(data,this.props.devStruct.server)
         this.setState({ isSearch: false });
-        //console.log("DevSelected")
     }
 
 
-    
+   
 
-    updateDeviceList = () => {
-        if (this.state.deviceSelected == null) {
+    updateDeviceList = async () => {
+        if (this.props.devStruct.deviceSelected == null) {
             this.setState({ deviceList: [] })
             this.setState({ isSearch: true });
+
             navigator.bluetooth.requestDevice({
-                //acceptAllDevices:true
                 filters: [{
-                    services: ['battery_service']
+                    services: ['heart_rate'],
+                    // services: ['battery_service']
                 }]
             }).then((device) => {
                 console.log(device);
                 this.setDeviceSelected(device);
-                this.setState({ isSearch: false });
                 device.addEventListener('gattserverdisconnected', this.onDisconnected);
                 return device.gatt.connect();
             }).then(server => {
-                this.setState({ server: server });
-                // Getting Battery Service…
-               
+                this.props.devUpd(this.props.devStruct.deviceSelected,server)
                     notification.open({
                         message: 'Device conected',
                         description:
-                            "Device "+this.state.deviceSelected.name+" is conected",
+                            "Device "+this.props.devStruct.deviceSelected.name+" is conected",
                         placement: "bottomLeft",
                         onClick: () => {
                             console.log('Notification Clicked!');
                         },
                     });
-                
-                return server.getPrimaryService('battery_service');
-            })
+                return server.getPrimaryService('heart_rate');
+                // return server.getPrimaryService('battery_service');
+            }) 
                 .then(service => {
-                    this.setState({ service: service });
-                    // Getting Battery Level Characteristic…
-                    return service.getCharacteristic('battery_level');
-
+                    this.props.bleBattUpd(service,this.props.battStruct.characteristicBatt,this.props.battStruct.notifBatt,this.props.battStruct.lastBattValue)
+                    return service.getCharacteristic('heart_rate_measurement');
+                    // return service.getCharacteristic('battery_level');
                 })
                 .then(characteristic => {
-                    this.setState({ characteristic: characteristic });
+                    this.props.bleBattUpd(this.props.battStruct.serviceBatt,characteristic,this.props.battStruct.notifBatt,this.props.battStruct.lastBattValue)
                     characteristic.startNotifications().then(_ => {
-                        console.log('> Notifications started');
-                        characteristic.addEventListener('characteristicvaluechanged',
-                            this.handleNotifications);
+                        characteristic.addEventListener('characteristicvaluechanged',this.props.handleNotifications);
                     });
                     return characteristic.readValue();
                 })
@@ -108,7 +107,8 @@ class BluetoothComponent extends React.Component {
                     for (let i = 0; i < batteryLevel.byteLength; i++) {
                         a.push('0x' + ('00' + batteryLevel.getUint8(i).toString(16)).slice(-2));
                     }
-                    this.setState({ curentBataryLevel: Number.parseInt(a) })
+                    this.props.bleBattUpd(this.props.battStruct.serviceBatt,this.props.battStruct.characteristicBatt,this.props.battStruct.notifBatt,Number.parseInt(a))
+                    this.setState({ lastBattValue: Number.parseInt(a) })
                     console.log('> Battery Level is ' + Number.parseInt(a) + '%');
                 })
                 .catch(error => { console.error(error); });
@@ -121,33 +121,26 @@ class BluetoothComponent extends React.Component {
         notification.open({
             message: 'Device disconected',
             description:
-                "Device "+this.state.deviceSelected.name+" is disconected",
+                "Device "+device.name+" is disconected",
             placement: "bottomLeft",
             onClick: () => {
                 console.log('Notification Clicked!');
             },
         });
-
-        this.setState({ deviceSelected: null });
+        this.props.reset();
         this.setState({ deviceList: [] })
-        this.setState({ curentBataryLevel: 0 })
-        // this.setState({ isSearch: false });curentBataryLevel
     }
 
 
     disconnect = () => {
         console.log('Disconnecting from Bluetooth Device...');
-        if (this.state.deviceSelected.gatt.connected) {
-            this.state.deviceSelected.gatt.disconnect();
+        if (this.props.devStruct.deviceSelected.gatt.connected) {
+            this.props.devStruct.deviceSelected.gatt.disconnect();
         } else {
             console.log('> Bluetooth Device is already disconnected');
         }
     }
-
-
-
-
-
+ 
     componentDidMount() {
         ipc.on("bluetooth-list-update", (event, arg) => {
             this.setState({ deviceList: arg.data });
@@ -180,6 +173,7 @@ class DeviceList extends React.Component {
 class DeviceListOption extends React.Component {
 
     selectdev = () => {
+
         if (this.props.deviceSelected == null) {
             ipc.send("bluetooth-device-select", { id: this.props.dev.deviceId });
             this.props.setDeviceSelected(this.props.dev)
@@ -189,6 +183,7 @@ class DeviceListOption extends React.Component {
 
     render() {
         return (
+
             <Card className="DeviceButton" onClick={this.selectdev} hoverable={this.props.deviceSelected == null}>
                 <Row justify="space-around" align="middle" wrap={false}>
                     <Col span={3}>
@@ -201,6 +196,7 @@ class DeviceListOption extends React.Component {
                     </Col>
                 </Row>
             </Card >
+
         );
     }
 }
@@ -208,6 +204,7 @@ class DeviceListOption extends React.Component {
 //Отоборажение информации о девайсе
 class SelectedDevice extends React.Component {
     render() {
+       // console.log(this.props.deviceSelected);
         return (
             <>
                 <Card>

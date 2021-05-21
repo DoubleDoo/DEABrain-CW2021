@@ -1,3 +1,5 @@
 ﻿script/node_modules
 neuroNet/node_modules
 neuroNet/data_samples
+neuroNet/trainData.json
+neuroNet/net.json
