@@ -388,6 +388,7 @@ function createWindow() {
     if (!dataGetProcess) {
       dataGetProcess = true;
       dataGetProcessPause = false;
+      indexx=0;
       // timerSetUp();
     }
     else {
@@ -397,6 +398,7 @@ function createWindow() {
       diviceSimulation = [];
       i = 0
       pausei = 0
+      indexx=0
     }
     mainWindow.webContents.send("start-session", {});
   })

@@ -105,7 +105,9 @@ class EegComponent extends React.Component {
     chart1.data = this.state.chartData;
 
     // Create axes
-    let numAxis = chart1.xAxes.push(new am4charts.ValueAxis());
+    let numAxis = chart1.xAxes.push(new am4charts.DurationAxis());
+    // dateAnumAxisxis.renderer.minGridDistance = 30;
+
     //dateAxis.renderer.minGridDistance = 60;
     numAxis.title.text = "Time, sec";
     let valueAxis = chart1.yAxes.push(new am4charts.ValueAxis());
