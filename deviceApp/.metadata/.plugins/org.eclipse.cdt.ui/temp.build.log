@@ -1,10 +1,33 @@
-02:13:51 **** Incremental Build of configuration Debug for project temp ****
+01:36:52 **** Incremental Build of configuration Debug for project temp ****
 make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+In file included from ../Core/Src/main.c:21:
+../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
+   58 | static void restartTimCustom(void);
+      |             ^~~~~~~~~~~~~~~~
+../Core/Src/main.c:90:13: warning: 'stopSleep' defined but not used [-Wunused-function]
+   90 | static void stopSleep(void)
+      |             ^~~~~~~~~
+../Core/Src/main.c:78:13: warning: 'startSleep' defined but not used [-Wunused-function]
+   78 | static void startSleep(void)
+      |             ^~~~~~~~~~
+../Core/Src/main.c:70:13: warning: 'goSleep' defined but not used [-Wunused-function]
+   70 | static void goSleep(void)
+      |             ^~~~~~~
+arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: temp.elf
+ 
+arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
+arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
 arm-none-eabi-size   temp.elf 
    text	   data	    bss	    dec	    hex	filename
-  40176	    420	   5398	  45994	   b3aa	temp.elf
+  39260	    420	   5406	  45086	   b01e	temp.elf
 Finished building: default.size.stdout
  
+Finished building: temp.bin
+ 
+Finished building: temp.list
+ 
 
-02:13:51 Build Finished. 0 errors, 0 warnings. (took 496ms)
+01:36:54 Build Finished. 0 errors, 4 warnings. (took 1s.943ms)
 

@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="respo"/>
+		<item key="selection" value=" HW_TS"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="respo"/>
-			<item value="_allow"/>
-			<item value="allow"/>
-			<item value="30"/>
-			<item value="aci_gatt"/>
-			<item value="CFG_TASK_NOTIFY_BATT"/>
-			<item value="UTIL_SEQ_RFU"/>
-			<item value="Custom_APP_Init"/>
-			<item value="CFG_TASK_NOTIFY_TEMP"/>
-			<item value="GPIO_PIN_0"/>
-			<item value="  /* battery_service */"/>
-			<item value="Custom_STM_App_Update_Char"/>
-			<item value="notif"/>
-			<item value="updat"/>
-			<item value="comp"/>
+			<item value=" HW_TS"/>
+			<item value="APP_BLE_FAST_ADV"/>
+			<item value="CFG_TIM_PROC_ID_ISR"/>
+			<item value="CFG_TIM_SLEEP_ID"/>
+			<item value="CFG_TASK_ADV_CANCEL_ID"/>
+			<item value="HID_LP_ADV"/>
+			<item value="BLE_INIT"/>
+			<item value="init"/>
+			<item value="BleApplicationContext"/>
+			<item value="Adv_r"/>
+			<item value="Adv_c"/>
+			<item value="Adv_"/>
+			<item value="Adv_Request"/>
+			<item value="isadvertise"/>
+			<item value="TIMER"/>
 		</list>
 		<list key="replacehistory">
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="1128"/>
-		<item key="DIALOG_Y_ORIGIN" value="346"/>
+		<item key="DIALOG_X_ORIGIN" value="1472"/>
+		<item key="DIALOG_Y_ORIGIN" value="427"/>
 		<item key="DIALOG_WIDTH" value="251"/>
 		<item key="DIALOG_HEIGHT" value="454"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
