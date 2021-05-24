@@ -56,6 +56,12 @@ class EegComponent extends React.Component {
               ipc.send("start-session", {});
               this.setState({ start: !this.state.start })
               this.setState({ pause: true })
+              if(this.state.start){
+                this.props.switch(!this.props.enableEeg);
+              }
+              else{
+                this.props.switch(!this.props.enableEeg);
+              }
             }}>{this.state.start ? <>Stop</> : <>Start</>}</Button>
           </Col>
           <Col span={6}>
@@ -151,6 +157,83 @@ class EegComponent extends React.Component {
       console.log(data[this.state.data.length - 1]);
       this.setState({ chartData: data })
     })
+
+
+    // ipc.on("eeg-new-data", (event, arg) => {
+    //   if (arg.time == 0) {
+    //     let mas=[]
+    //     for(let h=0;h<200;h++)
+    //     {
+    //       mas.push({ num: 0, value: 0 }) 
+    //     }  
+    //     this.setState({ chartData: mas})
+    //     chart1.data = this.state.chartData;
+    //   }
+    //   // console.log(arg);
+    //   // let d = this.state.data;
+    //   // d.push(arg);
+    //   // this.setState({ data: d })
+    //   // ///console.log(this.state.chartData);
+    //   // let data = [];
+    //   // for (var i = 0; i < this.state.data.length; i++) {
+    //   //   data.push({ num: this.state.data[i].time, value: this.state.data[i].electrodesValues[0] });
+    //   //   //console.log(data[i]);
+    //   // }
+
+    //   chart1.addData({ num: arg.time, value: arg.electrodesValues[0] },1);
+    //   // console.log(data[this.state.data.length - 1]);
+    //   // this.setState({ chartData: data })
+    // })
+
+
+    // // ipc.on("eeg-new-data", (event, arg) => {
+    // //   if (arg.time == 0) {
+    // //     let mas=[]
+    // //     for(let h=0;h<1000;h++)
+    // //     {
+    // //       mas.push({ num: 0, value: 0 }) 
+    // //     }  
+    // //     this.setState({ chartData: mas})
+    // //     chart1.data = this.state.chartData;
+    // //   }
+    // //   // console.log(arg);
+    // //   // let d = this.state.data;
+    // //   // d.push(arg);
+    // //   // this.setState({ data: d })
+    // //   // ///console.log(this.state.chartData);
+    // //   // let data = [];
+    // //   // for (var i = 0; i < this.state.data.length; i++) {
+    // //   //   data.push({ num: this.state.data[i].time, value: this.state.data[i].electrodesValues[0] });
+    // //   //   //console.log(data[i]);
+    // //   // }
+
+    // //   chart1.addData(arg,1);
+    // //   // console.log(data[this.state.data.length - 1]);
+    // //   // this.setState({ chartData: data })
+    // // })
+
+    // // let indx=0;
+    // // let timer=()=>{
+    // //   if(indx<1000){
+    // //   if ( indx== 0) {
+    // //     let mas=[]
+    // //     for(let h=0;h<30;h++)
+    // //     {
+    // //      mas.push({ num: 0, value: 0 }) 
+    // //     }
+    // //     this.setState({ chartData: mas})
+    // //     chart1.data = this.state.chartData;
+    // //   }
+    // //   chart1.addData({ num: indx*0.05, value: indx*Math.random() },1);
+    // //   console.log(chart1.data);
+    // //   this.setState({ chartData: chart1.data })
+    // //   chart1.scrollbarX.toBack();
+    // //   chart1.scrollbarX.thumb.width = 50;
+    // //   indx++
+    // //   setTimeout(timer, 1000);
+    // // }
+    // // }
+    // // setTimeout(timer, 1000);
   }
 
 

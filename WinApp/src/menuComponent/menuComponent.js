@@ -44,6 +44,8 @@ class MenuComponent extends React.Component {
     serviceEeg:null,
     notifEeg:null,
     lastEegValue:0,
+    enablekeyboard: true,
+    enableEeg:true,
   }
   
   devUpd=(dev,serv)=>{
@@ -56,6 +58,15 @@ class MenuComponent extends React.Component {
 
   bleBattUpd=(serv,char,not,val)=>{
     this.setState({serviceBatt:serv, characteristicBatt:char, notifBatt:not, lastBattValue:val})
+  }
+
+  
+  switchEeg=(val)=>{
+    this.setState({enableEeg:val})
+  }
+
+  switchKeyboard=(val)=>{
+    this.setState({enablekeyboard:val})
   }
 
   reset=()=>{
@@ -96,9 +107,9 @@ class MenuComponent extends React.Component {
         theme={this.state.theme}
       >
         <Menu.ItemGroup key="EEG" title="EEG" className="titlHeaders1">
-        <Menu.Item className="titl" key="Devices" onClick={() => this.setState({ curOption: "Devices" })}>Devices</Menu.Item>
-          <Menu.Item className="titl" key="EEG_Data" onClick={() => this.setState({ curOption: "EEG_Data" })}    disabled={this.state.deviceSelected==null}>EEG Data</Menu.Item>
-          <Menu.Item className="titl" key="P300" onClick={() => this.setState({ curOption: "P300" })}disabled={this.state.deviceSelected==null}>P300 keyboard demo</Menu.Item>
+        <Menu.Item className="titl" key="Devices" onClick={() => this.setState({ curOption: "Devices" })}>Devices</Menu.Item>    
+          <Menu.Item className="titl" key="EEG_Data" onClick={() => this.setState({ curOption: "EEG_Data" })}    disabled={this.state.deviceSelected==null && this.state.enableEeg}>EEG Data</Menu.Item>
+          <Menu.Item className="titl" key="P300" onClick={() => this.setState({ curOption: "P300" })}disabled={this.state.deviceSelected==null && this.state.enablekeyboard}>P300 keyboard demo</Menu.Item>
         </Menu.ItemGroup>
         <Menu.Divider />
         <Menu.ItemGroup key="APP" title="APP" className="titlHeaders2">
@@ -133,6 +144,10 @@ class MenuComponent extends React.Component {
         }
       }
       handleNotifications={this.handleNotifications}
+      enablekeyboard={this.state.enablekeyboard}
+      enableEeg={this.state.enableEeg}
+      switchEeg={this.switchEeg}
+      switchKeyboard={this.switchKeyboard}
       />
       </BluetoothDevice.Provider>
     </>

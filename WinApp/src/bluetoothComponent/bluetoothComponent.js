@@ -66,10 +66,10 @@ class BluetoothComponent extends React.Component {
             this.setState({ isSearch: true });
 
             navigator.bluetooth.requestDevice({
-                filters: [{
-                    services: ['heart_rate'],
-                    services: ['battery_service']
-                }]
+                filters: [
+                    {services: ['heart_rate']},
+                    {services: ['battery_service']}
+                ]
             }).then((device) => {
                 console.log(device);
                 this.setDeviceSelected(device);

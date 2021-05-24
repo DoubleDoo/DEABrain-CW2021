@@ -31,9 +31,14 @@ class WorkSpaceComponent extends React.Component {
         battStruct={this.props.battStruct}
         devStruct={this.props.devStruct}
         handleNotifications={this.props.handleNotifications}
+        enable={this.props.enablekeyboard}
+        switch={this.props.switchKeyboard}
         />;
       case 'P300':
-        return <KeyboardComponent />;
+        return <KeyboardComponent 
+        enable={this.props.enableEeg}
+        switch={this.props.switchEeg}
+        />;
       case 'Options':
         return <SettingsComponent />;
       case 'Test':
