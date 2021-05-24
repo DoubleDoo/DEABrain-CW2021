@@ -30,7 +30,7 @@ let updDevice=(value)=>{
 class MenuComponent extends React.Component {
   static contextType = BluetoothDevice;
   state = {
-    curOption: "EEG_Data",
+    curOption: "Devices",
     theme: "light",
     status:false,
 
@@ -96,8 +96,8 @@ class MenuComponent extends React.Component {
         theme={this.state.theme}
       >
         <Menu.ItemGroup key="EEG" title="EEG" className="titlHeaders1">
+        <Menu.Item className="titl" key="Devices" onClick={() => this.setState({ curOption: "Devices" })}>Devices</Menu.Item>
           <Menu.Item className="titl" key="EEG_Data" onClick={() => this.setState({ curOption: "EEG_Data" })}    disabled={this.state.deviceSelected==null}>EEG Data</Menu.Item>
-          <Menu.Item className="titl" key="Devices" onClick={() => this.setState({ curOption: "Devices" })}>Devices</Menu.Item>
           <Menu.Item className="titl" key="P300" onClick={() => this.setState({ curOption: "P300" })}disabled={this.state.deviceSelected==null}>P300 keyboard demo</Menu.Item>
         </Menu.ItemGroup>
         <Menu.Divider />

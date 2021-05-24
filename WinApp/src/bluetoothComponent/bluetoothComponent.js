@@ -41,7 +41,7 @@ class BluetoothComponent extends React.Component {
         return (
             <Row className={"BluetoothComponent"} align={"top"}>
                 <Col className={"devInfo"} flex={2} >
-                    <SelectedDevice disconnect={this.disconnect} curentBataryLevel={this.props.battStruct.lastBattValue} deviceSelected={this.props.devStruct.deviceSelected} />
+                    <SelectedDevice disconnect={this.disconnect} curentBataryLevel={this.props.eegStruct.lastEegValue} deviceSelected={this.props.devStruct.deviceSelected} />
                 </Col>
                 <Col className={"devList"} flex={3}>
                     <DeviceList deviceSelected={this.props.devStruct.deviceSelected} deviceList={this.state.deviceList} isSearch={this.state.isSearch} setDeviceSelected={this.setDeviceSelected} updateDeviceList={this.updateDeviceList} />
@@ -68,7 +68,7 @@ class BluetoothComponent extends React.Component {
             navigator.bluetooth.requestDevice({
                 filters: [{
                     services: ['heart_rate'],
-                    // services: ['battery_service']
+                    services: ['battery_service']
                 }]
             }).then((device) => {
                 console.log(device);
@@ -108,25 +108,77 @@ class BluetoothComponent extends React.Component {
                         a.push('0x' + ('00' + batteryLevel.getUint8(i).toString(16)).slice(-2));
                     }
                     this.props.bleBattUpd(this.props.battStruct.serviceBatt,this.props.battStruct.characteristicBatt,this.props.battStruct.notifBatt,Number.parseInt(a))
-                    this.setState({ lastBattValue: Number.parseInt(a) })
-                    console.log('> Battery Level is ' + Number.parseInt(a) + '%');
+                    // this.setState({ lastBattValue: Number.parseInt(a) })
+                    console.log('> eeg Level is ' + Number.parseInt(a) + '%');
+                    setTimeout(()=> {
+                        this.readBatt();
+                      }, 2000);
                 })
                 .catch(error => { console.error(error); });
+
+                
         }
+    }
+
+    readBatt=async()=>{
+
+        console.log('Connecting to GATT Server...');
+        const server = await  this.props.devStruct.deviceSelected.gatt.connect();
+
+        console.log('Getting Battery Service...');
+        const service = await server.getPrimaryService('battery_service');
+        
+        console.log('Getting Battery Level Characteristic...');
+        const characteristic = await service.getCharacteristic('battery_level');
+
+        console.log('Read value');
+        const value = await characteristic.readValue();
+
+        let batteryLevel = value;
+            let a = [];
+            for (let i = 0; i < batteryLevel.byteLength; i++) {
+                a.push('0x' + ('00' + batteryLevel.getUint8(i).toString(16)).slice(-2));
+            }
+            // this.props.bleEegUpd(this.props.eegStruct.serviceEeg,this.props.eegStruct.characteristicEeg,this.props.eegStruct.notifEeg,Number.parseInt(a))
+            // this.setState({ lastBattValue: Number.parseInt(a) })
+            console.log('> battery Level is ' + Number.parseInt(a) + '%');
+         this.props.bleEegUpd(service,characteristic,this.props.eegStruct.notifEeg,Number.parseInt(a));
+        // // eegStruct={{
+        // //     characteristicEeg:this.state.characteristicEeg,
+        // //     serviceEeg:this.state.serviceEeg,
+        // //     notifEeg:this.state.notifEeg,
+        // //     lastEegValue:this.state.lastEegValue,
+        // //   }}
+        // this.props.devStruct.server.getPrimaryService('battery_service')
+        // .then(service => {
+        //     this.props.bleEegUpd(service,this.props.eegStruct.characteristicEeg,this.props.eegStruct.notifEeg,this.props.eegStruct.lastEegValue)
+        //     return service.getCharacteristic('battery_level');
+        //     // return service.getCharacteristic('battery_level');
+        // })
+        // .then(characteristic => {
+        //     this.props.bleEegUpd(this.props.eegStruct.serviceEeg,characteristic,this.props.eegStruct.notifEeg,this.props.eegStruct.lastEegValue)
+        //     // characteristic.startNotifications().then(_ => {
+        //     //     characteristic.addEventListener('characteristicvaluechanged',this.props.handleNotifications);
+        //     // });
+        //     return characteristic.readValue();
+        // })
+        // .then(value => {
+        //     let batteryLevel = value;
+        //     let a = [];
+        //     for (let i = 0; i < batteryLevel.byteLength; i++) {
+        //         a.push('0x' + ('00' + batteryLevel.getUint8(i).toString(16)).slice(-2));
+        //     }
+        //     this.props.bleEegUpd(this.props.eegStruct.serviceEeg,this.props.eegStruct.characteristicEeg,this.props.eegStruct.notifEeg,Number.parseInt(a))
+        //     // this.setState({ lastBattValue: Number.parseInt(a) })
+        //     console.log('> EEG Level is ' + Number.parseInt(a) + '%');
+        // })
+        // .catch(error => { console.error(error); });
     }
 
     onDisconnected(event) {
         const device = event.target;
         console.log(`Device ${device.name} is disconnected.`);
-        notification.open({
-            message: 'Device disconected',
-            description:
-                "Device "+device.name+" is disconected",
-            placement: "bottomLeft",
-            onClick: () => {
-                console.log('Notification Clicked!');
-            },
-        });
+    
         this.props.reset();
         this.setState({ deviceList: [] })
     }
@@ -135,13 +187,46 @@ class BluetoothComponent extends React.Component {
     disconnect = () => {
         console.log('Disconnecting from Bluetooth Device...');
         if (this.props.devStruct.deviceSelected.gatt.connected) {
-            this.props.devStruct.deviceSelected.gatt.disconnect();
+            console.log('Unsub b');
+            if (this.props.battStruct.characteristicBatt) {
+                this.props.battStruct.characteristicBatt.stopNotifications()
+                .then(_ => {
+                    console.log('> Notifications stopped');
+                  this.props.battStruct.characteristicBatt.removeEventListener('characteristicvaluechanged',
+                  this.props.handleNotifications);
+                })
+                .catch(error => {
+                    console.log('Argh! ' + error);
+                });
+              }
+              
+            console.log('Unsub b');
+            setTimeout(()=> {
+                this.props.devStruct.deviceSelected.gatt.disconnect();
+              }, 100);
+
+              notification.open({
+                message: 'Device disconected',
+                description:
+                    "Device "+this.props.devStruct.deviceSelected.name+" is disconected",
+                placement: "bottomLeft",
+                onClick: () => {
+                    console.log('Notification Clicked!');
+                },
+            });
+            // this.props.devStruct.deviceSelected.gatt.disconnect();
         } else {
             console.log('> Bluetooth Device is already disconnected');
         }
     }
- 
+
+
     componentDidMount() {
+        if(this.props.devStruct.deviceSelected!=null){
+        setTimeout(()=> {
+            this.readBatt();
+          }, 2000);
+        }
         ipc.on("bluetooth-list-update", (event, arg) => {
             this.setState({ deviceList: arg.data });
         })
