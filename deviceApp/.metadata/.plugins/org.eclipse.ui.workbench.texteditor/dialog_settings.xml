@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value=" HW_TS"/>
+		<item key="selection" value="isWorking"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value=" HW_TS"/>
-			<item value="APP_BLE_FAST_ADV"/>
-			<item value="CFG_TIM_PROC_ID_ISR"/>
-			<item value="CFG_TIM_SLEEP_ID"/>
+			<item value="isWorking"/>
+			<item value="GPIO_PIN_0"/>
+			<item value="SVCCTL_App_Notification"/>
+			<item value="TESTING"/>
+			<item value="SLEEP_TIMEOUT"/>
 			<item value="CFG_TASK_ADV_CANCEL_ID"/>
-			<item value="HID_LP_ADV"/>
-			<item value="BLE_INIT"/>
-			<item value="init"/>
-			<item value="BleApplicationContext"/>
-			<item value="Adv_r"/>
-			<item value="Adv_c"/>
-			<item value="Adv_"/>
-			<item value="Adv_Request"/>
-			<item value="isadvertise"/>
-			<item value="TIMER"/>
+			<item value="TEST"/>
+			<item value="GoSleep"/>
+			<item value="Connection_mgr_timer_Id"/>
+			<item value="CFG_TIM_PROC_ID_ISR"/>
+			<item value="CONN_COMPLETE"/>
+			<item value="SER CODE BEGIN EVT_DISCONN_COMPLETE"/>
+			<item value="RADIO_ACTIVITY_EVENT"/>
+			<item value="cfg_max"/>
+			<item value="cfg_max_connection"/>
 		</list>
 		<list key="replacehistory">
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="1472"/>
-		<item key="DIALOG_Y_ORIGIN" value="427"/>
+		<item key="DIALOG_X_ORIGIN" value="1387"/>
+		<item key="DIALOG_Y_ORIGIN" value="113"/>
 		<item key="DIALOG_WIDTH" value="251"/>
 		<item key="DIALOG_HEIGHT" value="454"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
