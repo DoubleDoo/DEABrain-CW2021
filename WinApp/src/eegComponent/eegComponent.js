@@ -57,10 +57,10 @@ class EegComponent extends React.Component {
               this.setState({ start: !this.state.start })
               this.setState({ pause: true })
               if(this.state.start){
-                this.props.switch(!this.props.enableEeg);
+                this.props.switch(true);
               }
               else{
-                this.props.switch(!this.props.enableEeg);
+                this.props.switch(false);
               }
             }}>{this.state.start ? <>Stop</> : <>Start</>}</Button>
           </Col>

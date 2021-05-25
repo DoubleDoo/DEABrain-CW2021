@@ -74,9 +74,13 @@ class KeyboardComponent extends React.Component {
                         <Col span={24}>
                             <Button className="butInput" onClick={() => {
                                 ipc.send("enter-start", {})
-                                if (!this.state.inProcess) { this.setState({ str: "" }); this.setState({ inProcess: true }); }
+                                if (!this.state.inProcess) { this.setState({ str: "" }); this.setState({ inProcess: true });
+
+                                    this.props.switch(false);
+                                }
                                 else {
                                     this.setState({ inProcess: false });
+                                    this.props.switch(true);
                                 }
                             }}>{!this.state.inProcess ? <>Start</> : <>Stop</>}</Button>
                         </Col>

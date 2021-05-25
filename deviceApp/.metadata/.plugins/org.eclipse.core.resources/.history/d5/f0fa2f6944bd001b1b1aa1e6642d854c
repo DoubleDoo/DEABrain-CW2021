@@ -56,7 +56,7 @@ ADC_HandleTypeDef hadc1;
 /* Private defines ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define eeg_chnge_step 10
-#define eeg_chnge_period (2*1000*1000/CFG_TS_TICK_VAL) /*100ms*/
+#define eeg_chnge_period (0.05*1000*1000/CFG_TS_TICK_VAL) /*5ms*/
 #define eeg_val_max 350
 #define eeg_val_min 100
 /* USER CODE END PD */
@@ -112,10 +112,6 @@ void Custom_STM_App_Notification(Custom_STM_App_Notification_evt_t *pNotificatio
   /* battery_service */
     case CUSTOM_STM_BVAL_READ_EVT:
 /* USER CODE BEGIN CUSTOM_STM_BVAL_READ_EVT */
-    	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0,GPIO_PIN_SET);
-		HAL_Delay(500);
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0,GPIO_PIN_RESET);
-		HAL_Delay(500);
     	UTIL_SEQ_SetTask(1<<CFG_TASK_NOTIFY_BATT,CFG_SCH_PRIO_0);
 /* USER CODE END CUSTOM_STM_BVAL_READ_EVT */
       break;
@@ -124,31 +120,21 @@ void Custom_STM_App_Notification(Custom_STM_App_Notification_evt_t *pNotificatio
 /* USER CODE BEGIN CUSTOM_STM_BVAL_NOTIFY_ENABLED_EVT */
     	Custom_App_Context.Bval_Notification_Status=1;
     	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1,GPIO_PIN_SET);
-    	//UTIL_SEQ_SetTask(1<<CFG_TASK_NOTIFY_BATT,CFG_SCH_PRIO_0);
-    	HW_TS_Start(Custom_App_Context.TIMER,eeg_chnge_period);
+//    	HW_TS_Start(Custom_App_Context.TIMER,eeg_chnge_period);
 /* USER CODE END CUSTOM_STM_BVAL_NOTIFY_ENABLED_EVT */
       break;
 
     case CUSTOM_STM_BVAL_NOTIFY_DISABLED_EVT:
 /* USER CODE BEGIN CUSTOM_STM_BVAL_NOTIFY_DISABLED_EVT */
     	Custom_App_Context.Bval_Notification_Status=0;
-    	//HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1,GPIO_PIN_RESET);
-    	HW_TS_Stop(Custom_App_Context.TIMER);
+    	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1,GPIO_PIN_RESET);
+//    	HW_TS_Stop(Custom_App_Context.TIMER);
 /* USER CODE END CUSTOM_STM_BVAL_NOTIFY_DISABLED_EVT */
       break;
 
   /* eeg_service */
     case CUSTOM_STM_VAL_READ_EVT:
 /* USER CODE BEGIN CUSTOM_STM_VAL_READ_EVT */
-//    	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_SET);
-//		HAL_Delay(500);
-//		UTIL_SEQ_SetTask(1<<CFG_TASK_NOTIFY_TEMP,CFG_SCH_PRIO_0);
-//		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_RESET);
-//		HAL_Delay(500);
-//		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_SET);
-//		HAL_Delay(500);
-//		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_RESET);
-//		HAL_Delay(500);
     	UTIL_SEQ_SetTask(1<<CFG_TASK_NOTIFY_TEMP,CFG_SCH_PRIO_0);
 /* USER CODE END CUSTOM_STM_VAL_READ_EVT */
       break;
@@ -158,17 +144,15 @@ void Custom_STM_App_Notification(Custom_STM_App_Notification_evt_t *pNotificatio
 //    	HW_TS_Start(Custom_App_Context.TIMER,eeg_chnge_period);
     	Custom_App_Context.Val_Notification_Status=1;
     	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_SET);
-    	UTIL_SEQ_SetTask(1<<CFG_TASK_NOTIFY_TEMP,CFG_SCH_PRIO_0);
-    	//HW_TS_Start(Custom_App_Context.TIMER,eeg_chnge_period);
+    	HW_TS_Start(Custom_App_Context.TIMER,eeg_chnge_period);
 /* USER CODE END CUSTOM_STM_VAL_NOTIFY_ENABLED_EVT */
       break;
 
     case CUSTOM_STM_VAL_NOTIFY_DISABLED_EVT:
 /* USER CODE BEGIN CUSTOM_STM_VAL_NOTIFY_DISABLED_EVT */
-//    	HW_TS_Stop(Custom_App_Context.TIMER);
     	Custom_App_Context.Val_Notification_Status=0;
     	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_RESET);
-     	//HW_TS_Stop(Custom_App_Context.TIMER);
+     	HW_TS_Stop(Custom_App_Context.TIMER);
 /* USER CODE END CUSTOM_STM_VAL_NOTIFY_DISABLED_EVT */
       break;
 
@@ -204,7 +188,10 @@ void Custom_APP_Notification(Custom_App_ConnHandle_Not_evt_t *pNotification)
 
     case CUSTOM_DISCON_HANDLE_EVT :
 /* USER CODE BEGIN CUSTOM_DISCON_HANDLE_EVT */
-
+    	Custom_App_Context.Val_Notification_Status=0;
+    	Custom_App_Context.Bval_Notification_Status=0;
+    	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_RESET);
+    	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1,GPIO_PIN_RESET);
 /* USER CODE END CUSTOM_DISCON_HANDLE_EVT */
     break;
 
@@ -229,9 +216,11 @@ void Custom_APP_Init(void)
 //		CFG_TASK_NOTIFY_BATT,
 	  /* battery_service */
 	Custom_App_Context.EEG_VAL=0;
-	Custom_App_Context.BAT_VAL=0;
+	Custom_App_Context.BAT_VAL=85;
 	Custom_App_Context.STEP=eeg_chnge_step;
-	UTIL_SEQ_RegTask(1<<CFG_TASK_NOTIFY_TEMP,UTIL_SEQ_RFU,Custom_Val_Update_Char);
+	Custom_App_Context.Val_Notification_Status=0;
+	Custom_App_Context.Bval_Notification_Status=0;
+	UTIL_SEQ_RegTask(1<<CFG_TASK_NOTIFY_TEMP,UTIL_SEQ_RFU,Custom_Val_Send_Notification);
 	UTIL_SEQ_RegTask(1<<CFG_TASK_NOTIFY_BATT,UTIL_SEQ_RFU,Custom_Bval_Update_Char);
 
 	HW_TS_Create(CFG_TIM_PROC_ID_ISR,&(Custom_App_Context.TIMER),hw_ts_Repeated,callback);
@@ -242,9 +231,9 @@ void Custom_APP_Init(void)
 /* USER CODE BEGIN FD */
 static void callback(void)
 {
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_SET);
-	UTIL_SEQ_SetTask(1<<CFG_TASK_NOTIFY_BATT,CFG_SCH_PRIO_0);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_RESET);
+//	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0,GPIO_PIN_SET);
+	UTIL_SEQ_SetTask(1<<CFG_TASK_NOTIFY_TEMP,CFG_SCH_PRIO_0);
+//	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0,GPIO_PIN_RESET);
 }
 /* USER CODE END FD */
 
@@ -261,9 +250,8 @@ void Custom_Bval_Update_Char(void) /* Property Read */
   /* USER CODE BEGIN Bval_UC*/
   UpdateCharData[0]=(uint8_t)(Custom_App_Context.BAT_VAL& 0x00FF);
   UpdateCharData[1]=(uint8_t)(Custom_App_Context.BAT_VAL>>8);
-  Custom_App_Context.BAT_VAL+=1;
+  Custom_App_Context.BAT_VAL-=1;
   Custom_STM_App_Update_Char(CUSTOM_STM_BVAL, (uint8_t *)UpdateCharData);
-  aci_gatt_allow_read(Custom_App_Context.ConnectionHandle );
   /* USER CODE END Bval_UC*/
   return;
 }
@@ -272,13 +260,12 @@ void Custom_Bval_Send_Notification(void) /* Property Notification */
  {
   if(Custom_App_Context.Bval_Notification_Status)
   {
-    Custom_STM_App_Update_Char(CUSTOM_STM_BVAL, (uint8_t *)NotifyCharData);
+//    Custom_STM_App_Update_Char(CUSTOM_STM_BVAL, (uint8_t *)NotifyCharData);
     /* USER CODE BEGIN Bval_NS*/
 	NotifyCharData[0]=(uint8_t)(Custom_App_Context.BAT_VAL& 0x00FF);
 	NotifyCharData[1]=(uint8_t)(Custom_App_Context.BAT_VAL>>8);
 	Custom_App_Context.BAT_VAL+=1;
     Custom_STM_App_Update_Char(CUSTOM_STM_BVAL, (uint8_t *)NotifyCharData);
-    aci_gatt_allow_read(Custom_App_Context.ConnectionHandle );
     /* USER CODE END Bval_NS*/
   }
   else
@@ -291,13 +278,12 @@ void Custom_Bval_Send_Notification(void) /* Property Notification */
   /* eeg_service */
 void Custom_Val_Update_Char(void) /* Property Read */
 {
-  Custom_STM_App_Update_Char(CUSTOM_STM_VAL, (uint8_t *)UpdateCharData);
+//  Custom_STM_App_Update_Char(CUSTOM_STM_VAL, (uint8_t *)UpdateCharData);
   /* USER CODE BEGIN Val_UC*/
 	UpdateCharData[0]=(uint8_t)(Custom_App_Context.EEG_VAL& 0x00FF);
 	UpdateCharData[1]=(uint8_t)(Custom_App_Context.EEG_VAL>>8);
 	Custom_App_Context.EEG_VAL+=1;
 	Custom_STM_App_Update_Char(CUSTOM_STM_VAL, (uint8_t *)UpdateCharData);
-	aci_gatt_allow_read(Custom_App_Context.ConnectionHandle );
   /* USER CODE END Val_UC*/
   return;
 }
@@ -306,20 +292,19 @@ void Custom_Val_Send_Notification(void) /* Property Notification */
  {
   if(Custom_App_Context.Val_Notification_Status)
   {
-    Custom_STM_App_Update_Char(CUSTOM_STM_VAL, (uint8_t *)NotifyCharData);
+//    Custom_STM_App_Update_Char(CUSTOM_STM_VAL, (uint8_t *)NotifyCharData);
     /* USER CODE BEGIN Val_NS*/
-//	  		  uint16_t i;
-//	  		  HAL_ADC_Start(&hadc1);
-//	  		  HAL_ADC_PollForConversion(&hadc1,100);
-//	  		  i = (uint32_t) HAL_ADC_GetValue(&hadc1);
-//	  		  HAL_ADC_Stop(&hadc1);
-//	  		data[0]=(uint8_t)(i& 0x00FF);
-//	  		data[1]=(uint8_t)(i>>8);
-	NotifyCharData[0]=(uint8_t)(Custom_App_Context.EEG_VAL& 0x00FF);
-	NotifyCharData[1]=(uint8_t)(Custom_App_Context.EEG_VAL>>8);
-	Custom_App_Context.EEG_VAL+=1;
+	  		  uint16_t i;
+	  		  HAL_ADC_Start(&hadc1);
+	  		  HAL_ADC_PollForConversion(&hadc1,100);
+	  		  i = (uint32_t) HAL_ADC_GetValue(&hadc1);
+	  		  HAL_ADC_Stop(&hadc1);
+	  		NotifyCharData[0]=(uint8_t)(i& 0x00FF);
+	  		NotifyCharData[1]=(uint8_t)(i>>8);
+//	NotifyCharData[0]=(uint8_t)(Custom_App_Context.EEG_VAL& 0x00FF);
+//	NotifyCharData[1]=(uint8_t)(Custom_App_Context.EEG_VAL>>8);
+//	Custom_App_Context.EEG_VAL+=1;
 	Custom_STM_App_Update_Char(CUSTOM_STM_VAL, (uint8_t *)NotifyCharData);
-	aci_gatt_allow_read(Custom_App_Context.ConnectionHandle );
     /* USER CODE END Val_NS*/
   }
   else

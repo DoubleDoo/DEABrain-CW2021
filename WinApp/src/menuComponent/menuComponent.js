@@ -46,6 +46,8 @@ class MenuComponent extends React.Component {
     lastEegValue:0,
     enablekeyboard: true,
     enableEeg:true,
+    enableDev:true,
+    enableOpt:true,
   }
   
   devUpd=(dev,serv)=>{
@@ -62,11 +64,16 @@ class MenuComponent extends React.Component {
 
   
   switchEeg=(val)=>{
-    this.setState({enableEeg:val})
+    this.setState({enableEeg:val, enableDev:val,enableOpt:val})
   }
 
   switchKeyboard=(val)=>{
-    this.setState({enablekeyboard:val})
+    this.setState({enablekeyboard:val,enableDev:val,enableOpt:val})
+  }
+
+  switchBoth=(val)=>{
+    switchEeg(val);
+    switchKeyboard(val);
   }
 
   reset=()=>{
@@ -94,7 +101,7 @@ class MenuComponent extends React.Component {
     // console.log(Number.parseInt(a));
     ipc.send("read-data", Number.parseInt(a));
 }
-
+//this.state.deviceSelected==null &&
 
   render() {
     this.handleNotifications = this.handleNotifications.bind(this)
@@ -107,13 +114,13 @@ class MenuComponent extends React.Component {
         theme={this.state.theme}
       >
         <Menu.ItemGroup key="EEG" title="EEG" className="titlHeaders1">
-        <Menu.Item className="titl" key="Devices" onClick={() => this.setState({ curOption: "Devices" })}>Devices</Menu.Item>    
-          <Menu.Item className="titl" key="EEG_Data" onClick={() => this.setState({ curOption: "EEG_Data" })}    disabled={this.state.deviceSelected==null && this.state.enableEeg}>EEG Data</Menu.Item>
-          <Menu.Item className="titl" key="P300" onClick={() => this.setState({ curOption: "P300" })}disabled={this.state.deviceSelected==null && this.state.enablekeyboard}>P300 keyboard demo</Menu.Item>
+        <Menu.Item className="titl" key="Devices" onClick={() => this.setState({ curOption: "Devices" })}  disabled={!this.state.enableDev}>Devices</Menu.Item>    
+          <Menu.Item className="titl" key="EEG_Data" onClick={() => this.setState({ curOption: "EEG_Data" })}    disabled={this.state.deviceSelected==null || !this.state.enableEeg}>EEG Data</Menu.Item>
+          <Menu.Item className="titl" key="P300" onClick={() => this.setState({ curOption: "P300" })} disabled={this.state.deviceSelected==null || !this.state.enablekeyboard}>P300 keyboard demo</Menu.Item>
         </Menu.ItemGroup>
         <Menu.Divider />
         <Menu.ItemGroup key="APP" title="APP" className="titlHeaders2">
-          <Menu.Item className="titl" key="Options" onClick={() => this.setState({ curOption: "Options" })}>Options</Menu.Item>
+          <Menu.Item className="titl" key="Options" onClick={() => this.setState({ curOption: "Options" })} disabled={!this.state.enableOpt}>Options</Menu.Item>
         </Menu.ItemGroup>
         <Menu.Divider />
       </Menu>
@@ -148,6 +155,7 @@ class MenuComponent extends React.Component {
       enableEeg={this.state.enableEeg}
       switchEeg={this.switchEeg}
       switchKeyboard={this.switchKeyboard}
+      switchBoth={this.switchBoth}
       />
       </BluetoothDevice.Provider>
     </>
