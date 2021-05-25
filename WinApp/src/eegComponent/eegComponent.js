@@ -58,9 +58,11 @@ class EegComponent extends React.Component {
               this.setState({ pause: true })
               if(this.state.start){
                 this.props.switch(true);
+                this.props.switchTrans(false);
               }
               else{
                 this.props.switch(false);
+                this.props.switchTrans(true);
               }
             }}>{this.state.start ? <>Stop</> : <>Start</>}</Button>
           </Col>
@@ -68,6 +70,14 @@ class EegComponent extends React.Component {
             <Button className="buttonsStyle" disabled={!this.state.start} onClick={() => {
               ipc.send("stop-session", {});
               this.setState({ pause: !this.state.pause })
+              if(this.state.pause){
+                this.props.switchTrans(false);
+              }
+              else{
+                this.props.switchTrans(true);
+              }
+              // {switchTrans={this.switchTrans}}
+              // this.props.switchTrans(true);
             }}>{this.state.pause ? <>Pause</> : <>Continue</>}</Button>
           </Col>
           <Col span={6}>
@@ -163,7 +173,7 @@ class EegComponent extends React.Component {
 
       for (var i = 0; i < arg.length; i++) {
         chart1.addData({ num: arg[i].time, value: arg[i].electrodesValues[0] });
-        console.log({ num: arg[i].time, value: arg[i].electrodesValues[0] });
+        // console.log({ num: arg[i].time, value: arg[i].electrodesValues[0] });
       }
     })
 

@@ -48,6 +48,8 @@ class MenuComponent extends React.Component {
     enableEeg:true,
     enableDev:true,
     enableOpt:true,
+    enableTransmitt:false,
+    bufData:[],
   }
   
   devUpd=(dev,serv)=>{
@@ -76,6 +78,10 @@ class MenuComponent extends React.Component {
     switchKeyboard(val);
   }
 
+  switchTrans=(val)=>{
+    this.setState({enableTransmitt:val})
+  }
+
   reset=()=>{
     this.setState({
       deviceSelected: null,
@@ -92,16 +98,27 @@ class MenuComponent extends React.Component {
 
 
   handleNotifications(event) {
-
+    if(this.state.enableTransmitt){
     let value = event.target.value;
     let a = [];
     for (let i = 0; i < value.byteLength; i++) {
         a.push('0x' + ('00' + value.getUint8(i).toString(16)).slice(-2));
     }
-    this.bleBattUpd(this.state.serviceBatt,this.state.characteristicBatt,this.state.notifBatt,Number.parseInt(a))
-    // console.log(Number.parseInt(a));
     ipc.send("read-data", Number.parseInt(a));
-  
+    // this.bleBattUpd(this.state.serviceBatt,this.state.characteristicBatt,this.state.notifBatt,Number.parseInt(a))
+
+    // let buf=this.state.bufData;
+    // buf.push(Number.parseInt(a))
+    // this.setState({bufData:buf})
+
+    // if(this.state.bufData.length>9){
+    //   ipc.send("read-data", this.state.bufData);
+    //   // console.log(this.state.bufData);
+    //   this.setState({bufData:[]})
+
+    // }
+    
+    }
 }
 //this.state.deviceSelected==null &&
 
@@ -158,6 +175,7 @@ class MenuComponent extends React.Component {
       switchEeg={this.switchEeg}
       switchKeyboard={this.switchKeyboard}
       switchBoth={this.switchBoth}
+      switchTrans={this.switchTrans}
       />
       </BluetoothDevice.Provider>
     </>

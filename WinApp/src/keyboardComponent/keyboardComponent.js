@@ -77,10 +77,12 @@ class KeyboardComponent extends React.Component {
                                 if (!this.state.inProcess) { this.setState({ str: "" }); this.setState({ inProcess: true });
 
                                     this.props.switch(false);
+                                    this.props.switchTrans(true);
                                 }
                                 else {
                                     this.setState({ inProcess: false });
                                     this.props.switch(true);
+                                    this.props.switchTrans(false);
                                 }
                             }}>{!this.state.inProcess ? <>Start</> : <>Stop</>}</Button>
                         </Col>

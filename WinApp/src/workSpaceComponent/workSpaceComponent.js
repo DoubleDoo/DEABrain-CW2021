@@ -22,7 +22,9 @@ class WorkSpaceComponent extends React.Component {
       case 'EEG_Data':
         return <EegComponent  
         enable={this.props.enablekeyboard}
-        switch={this.props.switchKeyboard}/>;
+        switch={this.props.switchKeyboard}
+        switchTrans={this.props.switchTrans}/>;
+        
       case 'Devices':
         return <BluetoothComponent    
         devUpd={this.props.devUpd}
@@ -39,6 +41,7 @@ class WorkSpaceComponent extends React.Component {
         return <KeyboardComponent 
         enable={this.props.enableEeg}
         switch={this.props.switchEeg}
+        switchTrans={this.props.switchTrans}
         />;
       case 'Options':
         return <SettingsComponent />;

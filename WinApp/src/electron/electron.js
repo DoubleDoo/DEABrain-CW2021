@@ -406,13 +406,45 @@ function createWindow() {
   ipcMain.on("read-data", (event, arg) => {
     if (dataGetProcess) {
       if (dataGetProcessPause == false){
-        diviceSimulation.push({
-          sampleNum: indexx,
-          electrodesPositions: ["P0"],
-          electrodesValues: [arg],
-          subjectId: "Dubinich",
-          time: indexx * 0.005,
-        })
+        // console.log("________________");
+        // console.log(arg);
+
+        // console.log({
+        //   sampleNum: indexx,
+        //   electrodesPositions: ["P0"],
+        //   electrodesValues: [arg[0]],
+        //   subjectId: "Dubinich",
+        //   time: indexx * 0.005,
+        // });
+        // indexx++;
+        // console.log({
+        //   sampleNum: indexx,
+        //   electrodesPositions: ["P0"],
+        //   electrodesValues: [arg[1]],
+        //   subjectId: "Dubinich",
+        //   time: indexx * 0.005,
+        // });
+        // indexx++;
+
+        // for(let a=0;a<arg.length;a++)
+        // {
+          diviceSimulation.push({
+            sampleNum: indexx,
+            electrodesPositions: ["P0"],
+            electrodesValues: [arg],
+            subjectId: "Dubinich",
+            time: indexx * 0.005,
+          })
+          // console.log("________________");
+          // console.log({
+          //   sampleNum: indexx,
+          //   electrodesPositions: ["P0"],
+          //   electrodesValues: [arg[a]],
+          //   subjectId: "Dubinich",
+          //   time: indexx * 0.005,
+          // });
+          indexx++;
+        // }
         if(diviceSimulation.length%200==0){
           let bufmas=[]
           for(let gg=diviceSimulation.length-200;gg<diviceSimulation.length;gg++)
@@ -420,11 +452,11 @@ function createWindow() {
             bufmas.push(diviceSimulation[gg]);
           }
           mainWindow.webContents.send("eeg-new-data",  bufmas);
-          // console.log("________________");
-          // console.log(bufmas);
-          // console.log(bufmas.length);
+          console.log("________________");
+          console.log(bufmas);
+          console.log(bufmas.length);
           }
-          indexx++;
+          
       }
     }
   })
