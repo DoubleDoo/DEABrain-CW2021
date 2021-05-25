@@ -142,20 +142,29 @@ class EegComponent extends React.Component {
         this.setState({ chartData: [] })
         chart1.data = this.state.chartData;
       }
-      console.log(arg);
-      let d = this.state.data;
-      d.push(arg);
-      this.setState({ data: d })
-      ///console.log(this.state.chartData);
-      let data = [];
-      for (var i = 0; i < this.state.data.length; i++) {
-        data.push({ num: this.state.data[i].time, value: this.state.data[i].electrodesValues[0] });
-        //console.log(data[i]);
-      }
+      // console.log(arg);
+      // let d = this.state.data;
+      // for (var i = 0; i < arg.length; i++) {
+      //   d.push(arg[i]);
+      //   //console.log(data[i]);
+      // }
+      // // d.push(arg);
+      // this.setState({ data: d })
+      // ///console.log(this.state.chartData);
+      // let data = [];
+      // for (var i = 0; i < this.state.data.length; i++) {
+      //   data.push({ num: this.state.data[i].time, value: this.state.data[i].electrodesValues[0] });
+      //   //console.log(data[i]);
+      // }
 
-      chart1.addData(data[this.state.data.length - 1]);
-      console.log(data[this.state.data.length - 1]);
-      this.setState({ chartData: data })
+      // chart1.addData(data[this.state.data.length - 1]);
+      // console.log(data[this.state.data.length - 1]);
+      // this.setState({ chartData: data })
+
+      for (var i = 0; i < arg.length; i++) {
+        chart1.addData({ num: arg[i].time, value: arg[i].electrodesValues[0] });
+        console.log({ num: arg[i].time, value: arg[i].electrodesValues[0] });
+      }
     })
 
 

@@ -405,16 +405,28 @@ function createWindow() {
 
   ipcMain.on("read-data", (event, arg) => {
     if (dataGetProcess) {
-      if (dataGetProcessPause == false)
-      mainWindow.webContents.send("eeg-new-data",  {
-            sampleNum: indexx,
-            electrodesPositions: ["P0"],
-            electrodesValues: [arg],
-            subjectId: "Dubinich",
-            time: indexx * 0.005,
-          });
+      if (dataGetProcessPause == false){
+        diviceSimulation.push({
+          sampleNum: indexx,
+          electrodesPositions: ["P0"],
+          electrodesValues: [arg],
+          subjectId: "Dubinich",
+          time: indexx * 0.005,
+        })
+        if(diviceSimulation.length%200==0){
+          let bufmas=[]
+          for(let gg=diviceSimulation.length-200;gg<diviceSimulation.length;gg++)
+          {
+            bufmas.push(diviceSimulation[gg]);
+          }
+          mainWindow.webContents.send("eeg-new-data",  bufmas);
+          // console.log("________________");
+          // console.log(bufmas);
+          // console.log(bufmas.length);
+          }
+          indexx++;
+      }
     }
-    indexx++;
   })
 
   // return dataMas.push(

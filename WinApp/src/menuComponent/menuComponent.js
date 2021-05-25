@@ -92,6 +92,7 @@ class MenuComponent extends React.Component {
 
 
   handleNotifications(event) {
+
     let value = event.target.value;
     let a = [];
     for (let i = 0; i < value.byteLength; i++) {
@@ -100,6 +101,7 @@ class MenuComponent extends React.Component {
     this.bleBattUpd(this.state.serviceBatt,this.state.characteristicBatt,this.state.notifBatt,Number.parseInt(a))
     // console.log(Number.parseInt(a));
     ipc.send("read-data", Number.parseInt(a));
+  
 }
 //this.state.deviceSelected==null &&
 
