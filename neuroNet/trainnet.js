@@ -7,12 +7,12 @@ var Fili = require('fili');
 const { Console } = require('console');
 const { DH_CHECK_P_NOT_SAFE_PRIME } = require('constants');
 
-const net = new brain.recurrent.LSTMTimeStep({
-    inputSize: 1,
-    hiddenLayers: [50],
-    outputSize: 1,
-});
-//const net = new brain.NeuralNetworkGPU();
+// const net = new brain.recurrent.LSTMTimeStep({
+//     inputSize: 1,
+//     hiddenLayers: [50],
+//     outputSize: 1,
+// });
+const net = new brain.NeuralNetworkGPU();
 let allEpoches=[]
 let allAnsers=[]
 let counter=0;
@@ -49,27 +49,31 @@ function readDataFromJson() {
     // console.log(Y[0])
     // console.log(Y[70])
 
-    for (let i = 0; i < X.length; i++) { 
-        X[i]=Norm(X[i])
-        //X[i]=LowPass(X[i])
-    }
+    // for (let i = 0; i < X.length; i++) { 
+    //     // X[i]=Norm(X[i])
+    //     //X[i]=LowPass(X[i])
+    // }
 
     //samples=Medium(samples);
 
     // samples=Decimation(samples,4);
 
 
-
     testX = X.splice(0, 200);
     testY = Y.splice(0, 200);
-    trainX = X;
-    trainY = Y;
+    trainX = X.splice(200, 1000);
+    trainY = Y.splice(200, 1000);
+    console.log("_______________");
     console.log(testY.length);
     console.log(testX.length);
-    console.log(trainX[0].length);
-    console.log(testX[0].length);
     console.log(trainX.length);
     console.log(trainY.length);
+    console.log("_______________");
+    console.log(trainX[0].length);
+    console.log(testX[0].length);
+    console.log(trainY[0].length);
+    console.log(testY[0].length);
+    console.log("_______________");
     console.log("Gen Train");
     let trainData = []
     for (let i = 0; i < trainX.length; i++) {
@@ -78,10 +82,10 @@ function readDataFromJson() {
     console.log("Start Train");
     net.train(trainData, {
         log: detail => console.log(detail),
-        errorThresh: 0.005, // порог ошибок, которого нужно достичь
+        // errorThresh: 0.005, // порог ошибок, которого нужно достичь
         iterations: 100, // максимальное число итераций обучения
-        logPeriod: 10, // число итераций между логированиями
-        learningRate: 0.3 // степень обучения
+        // logPeriod: 10, // число итераций между логированиями
+        // learningRate: 0.3 // степень обучения
     });
     fs.writeFileSync("net.json", JSON.stringify(net.toJSON()));
 

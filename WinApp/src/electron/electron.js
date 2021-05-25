@@ -511,3 +511,23 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
+// const bci = require('bcijs');
+// const path = require('path')
+// const papa = require('papaparse')
+// const fs = require('fs');
+// var brain = require("brain.js");
+// var Fili = require('fili');
+// const { Console } = require('console');
+// const { DH_CHECK_P_NOT_SAFE_PRIME } = require('constants');
+
+// const net = new brain.NeuralNetwork({
+//     hiddenLayers: [64,32],
+//     learningRate: 0.6
+// });
+// var obj = JSON.parse(fs.readFileSync('net.json', 'utf8'));
+// net.fromJSON(obj);
+
+// console.log("Check");
+// for (let i = 0; i < testX.length; i++) {
+//     console.log(/*Math.round(*/net.run(testX[i])/*)*/ + ":" + testY[i])
+// }

@@ -29,8 +29,8 @@ function readDataFromJson() {
     console.log(data[1].length)
     X=data[0];
     Y=data[1];
-    testX = X.splice(0, 200);
-    testY = Y.splice(0, 200);
+    testX = X.splice(5000, 5000);
+    testY = Y.splice(5000, 5000);
     trainX = X;
     trainY = Y;
     console.log(testY.length);
@@ -40,20 +40,10 @@ function readDataFromJson() {
     console.log(trainX.length);
     console.log(trainY.length);
     console.log("Gen Train");
-    let trainData = []
-    for (let i = 0; i < trainX.length; i++) {
-        trainData.push({ input: trainX[i], output: [trainY[i]] })
-    }
-    console.log("Start Train");
-    net.train(trainData, {
-        log: detail => console.log(detail),
-        errorThresh: 0.005, // порог ошибок, которого нужно достичь
-        iterations: 100, // максимальное число итераций обучения
-        logPeriod: 10, // число итераций между логированиями
-        learningRate: 0.7 // степень обучения
-    });
-    fs.writeFileSync("net.json", JSON.stringify(net.toJSON()));
 
+
+    var obj = JSON.parse(fs.readFileSync('net.json', 'utf8'));
+    net.fromJSON(obj);
 
     console.log("Check");
     for (let i = 0; i < testX.length; i++) {

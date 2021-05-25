@@ -181,7 +181,7 @@ function process(data, res, index) {
 
     // data=HighPass(data); 
 
-    var values = Epoches(data,index,200,res);
+    var values = Epoches(data,index,100,res);
     var samples = values[0];
     var ansers = values[1];
 
@@ -196,10 +196,10 @@ function process(data, res, index) {
     // console.log("sample--end")
 
 
-    // for (let i = 0; i < samples.length; i++) { 
-    //     samples[i]=Norm(samples[i])
-    //     samples[i]=LowPass(samples[i])
-    // }
+    for (let i = 0; i < samples.length; i++) { 
+        samples[i]=Norm(samples[i])
+        // samples[i]=LowPass(samples[i])
+    }
 
     //samples=Medium(samples);
 
