@@ -105,6 +105,7 @@ class MenuComponent extends React.Component {
         a.push('0x' + ('00' + value.getUint8(i).toString(16)).slice(-2));
     }
     ipc.send("read-data", Number.parseInt(a));
+    console.log( Number.parseInt(a));
     // this.bleBattUpd(this.state.serviceBatt,this.state.characteristicBatt,this.state.notifBatt,Number.parseInt(a))
 
     // let buf=this.state.bufData;

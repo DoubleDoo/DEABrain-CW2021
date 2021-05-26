@@ -12,7 +12,7 @@ const { DH_CHECK_P_NOT_SAFE_PRIME } = require('constants');
 //     hiddenLayers: [50],
 //     outputSize: 1,
 // });
-const net = new brain.NeuralNetworkGPU();
+const net = new brain.NeuralNetwork();
 let allEpoches=[]
 let allAnsers=[]
 let counter=0;

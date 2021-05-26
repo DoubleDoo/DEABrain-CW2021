@@ -143,16 +143,31 @@ class EegComponent extends React.Component {
     //chart.scrollbarY = new am4core.Scrollbar();
     chart1.scrollbarX = new am4core.Scrollbar();
 
+    chart1.data = [];
+    this.setState({ chartData: [] })
+    chart1.data = this.state.chartData;
+
     // chart.events.on("beforedatavalidated", function(ev) {
     //     console.log("beforedatavalidated");
     //   });
+
+    ipc.on("start-session-s", (event, arg) => {
+      console.log("stop full")
+      chart1.data = [];
+      this.setState({ chartData: [] })
+      chart1.data = this.state.chartData;
+    })
+
     ipc.on("eeg-new-data", (event, arg) => {
-      if (arg.time == 0) {
+      if (arg[0].time == 0) {
+        console.log("started zero")
+        // chart1.surface.removeAll();
+        // chart1.redraw(false);
         chart1.data = [];
         this.setState({ chartData: [] })
         chart1.data = this.state.chartData;
       }
-      // console.log(arg);
+      console.log(arg);
       // let d = this.state.data;
       // for (var i = 0; i < arg.length; i++) {
       //   d.push(arg[i]);
@@ -176,6 +191,9 @@ class EegComponent extends React.Component {
         // console.log({ num: arg[i].time, value: arg[i].electrodesValues[0] });
       }
     })
+    // ipc.on("eeg-saved-data", (event, arg) => {
+    //   console.log("saved data open");
+    // })
 
 
     // ipc.on("eeg-new-data", (event, arg) => {

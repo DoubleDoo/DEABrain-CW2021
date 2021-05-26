@@ -40,7 +40,7 @@ function readDataFromJson() {
     console.log(trainX.length);
     console.log(trainY.length);
     console.log("Gen Train");
-
+    console.log(testX[0]);
 
     var obj = JSON.parse(fs.readFileSync('net.json', 'utf8'));
     net.fromJSON(obj);

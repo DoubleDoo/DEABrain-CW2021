@@ -9,7 +9,8 @@
         "predict": "node index.js"
     },
     "dependencies": {
-        "brain.js": "^2.0.0-beta.2",
+        "bcijs": "^1.8.0",
+        "brain.js": "^1.6.1",
         "fili": "^2.0.3",
         "papaparse": "^5.3.0"
     }

@@ -181,7 +181,7 @@ function process(data, res, index) {
 
     // data=HighPass(data); 
 
-    var values = Epoches(data,index,100,res);
+    var values = Epoches(data,index,200,res);
     var samples = values[0];
     var ansers = values[1];
 

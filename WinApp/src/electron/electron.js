@@ -141,6 +141,9 @@ function createWindow() {
   let i = 0
   let pausei = 0
   let indexx=0
+  let predicted=-1
+  let predX=-1
+  let predY=-1
   let net = new brain.NeuralNetwork({
     hiddenLayers: [64,32],
     learningRate: 0.6
@@ -334,7 +337,7 @@ function createWindow() {
   ipcMain.on("save-session", (event, arg) => {
     let date = new Date();
     console.log(date.toString())
-    fs.writeFileSync(savedData.savesPath + "\\" + date.getDate().toString() + "-" + date.getTime().toString() + "session.txt", JSON.stringify(readedSesionData), (err) => {
+    fs.writeFileSync(savedData.savesPath + "\\" + date.getDate().toString() + "-" + date.getTime().toString() + "session.txt", JSON.stringify(diviceSimulation), (err) => {
       if (err) {
         throw err;
       }
@@ -362,13 +365,13 @@ function createWindow() {
         pausei = 0;
         i = mas.length;
         console.log("Reading...");
-        console.log(mas);
+        // console.log(mas);
         readedSesionData = mas;
-        do {
-          mainWindow.webContents.send("eeg-new-data", readedSesionData[pausei]);
-          // console.log(readedSesionData[pausei])
-          pausei++;
-        } while (pausei < i);
+        // do {
+          mainWindow.webContents.send("eeg-new-data", readedSesionData);
+          console.log(readedSesionData)
+          // pausei++;
+        // } while (pausei < i);
       }
     )
     mainWindow.webContents.send("open-session", {});
@@ -398,8 +401,11 @@ function createWindow() {
     if (!dataGetProcess) {
       dataGetProcess = true;
       dataGetProcessPause = false;
+      readedSesionData = [];
+      diviceSimulation = [];
       indexx=0;
       // timerSetUp();
+      mainWindow.webContents.send("start-session", {});
     }
     else {
       dataGetProcess = false;
@@ -409,8 +415,8 @@ function createWindow() {
       i = 0
       pausei = 0
       indexx=0
+      mainWindow.webContents.send("start-session-s", {});
     }
-    mainWindow.webContents.send("start-session", {});
   })
 
   ipcMain.on("read-data", (event, arg) => {
@@ -465,9 +471,42 @@ function createWindow() {
           console.log("________________");
           // console.log(bufmas);
           // console.log(bufmas.length);
-          predict(bufmas);
+          // predict(bufmas);
           }
           
+      }
+    }
+
+    if(isBlinking)
+    {
+      diviceSimulation.push({
+        sampleNum: indexx,
+        electrodesPositions: ["P0"],
+        electrodesValues: [arg],
+        subjectId: "Dubinich",
+        time: indexx * 0.005,
+      })
+      // console.log("________________");
+      // console.log({
+      //   sampleNum: indexx,
+      //   electrodesPositions: ["P0"],
+      //   electrodesValues: [arg[a]],
+      //   subjectId: "Dubinich",
+      //   time: indexx * 0.005,
+      // });
+      indexx++;
+    // }
+    if(diviceSimulation.length%200==0){
+      let bufmas=[]
+      for(let gg=diviceSimulation.length-200;gg<diviceSimulation.length;gg++)
+      {
+        bufmas.push(diviceSimulation[gg]);
+      }
+      mainWindow.webContents.send("eeg-new-data",  bufmas);
+      console.log("________________");
+      // console.log(bufmas);
+      // console.log(bufmas.length);
+      predict(bufmas);
       }
     }
   })
@@ -496,6 +535,10 @@ function createWindow() {
   ipcMain.on("enter-start", (event, arg) => {
     if (!isBlinking) {
       isBlinking = true;
+      predY=-1
+      predX=-1
+      predicted=-1
+      diviceSimulation=[]
       oneCycle(0);
       // setTimeout(()=>mainWindow.webContents.send("enter-col", {id:1,timeout:500}),500)
       // setTimeout(()=>mainWindow.webContents.send("enter-col", {id:2,timeout:500}),500)
@@ -507,7 +550,10 @@ function createWindow() {
     }
     else {
       isBlinking = false;
-
+      predY=-1
+      predX=-1
+      predicted=-1
+      diviceSimulation=[]
     }
     // mainWindow.webContents.send("enter-cell", {row:1,col:2});
     // mainWindow.webContents.send("enter-col", {id:1,timeout:350});
@@ -516,13 +562,27 @@ function createWindow() {
 
   function oneCycle(i) {
     if (isBlinking) {
+      predicted=-1
       if (i < 6) {
         setTimeout(() => {
-          mainWindow.webContents.send("enter-col", { id: i, timeout: 1000 })
+          mainWindow.webContents.send("enter-col", { id: i, timeout: 100})
+          if(predicted==1)
+          {
+            predX=i
+            predicted=-1;
+          }
           oneCycle(++i);
         }, 1000)
       }
       else {
+        if(predY!=-1)
+        {
+            if(predX!=-1)
+            {
+              mainWindow.webContents.send("enter-cell", {row:predY,col:predX});
+            }
+        }
+        predY=-1
         secondCycle(0)
       }
     }
@@ -530,13 +590,27 @@ function createWindow() {
 
   function secondCycle(i) {
     if (isBlinking) {
+      predicted=-1
       if (i < 6) {
         setTimeout(() => {
-          mainWindow.webContents.send("enter-row", { id: i, timeout: 1000 })
+          mainWindow.webContents.send("enter-row", { id: i, timeout: 100 })
+          if(predicted==1)
+          {
+            predY=i
+            predicted=-1
+          }
           secondCycle(++i);
         }, 1000)
       }
       else {
+        if(predY!=-1)
+        {
+            if(predX!=-1)
+            {
+              mainWindow.webContents.send("enter-cell", {row:predY,col:predX});
+            }
+        }
+        predX=-1
         oneCycle(0)
       }
     }
@@ -544,8 +618,15 @@ function createWindow() {
 
 
   function predict(masVal) {
-    console.log(masVal)
-    console.log(/*Math.round(*/net.run(masVal)/*)*/)
+    // console.log(masVal);
+    let buf=[]
+    for(let qw=0;qw<masVal.length;qw++)
+    {
+      buf.push(masVal[qw].electrodesValues[0])
+    }
+    // console.log(buf);
+    predicted=net.run(buf)
+    console.log(/*Math.round(*/predicted/*)*/)
   }
 
 }
