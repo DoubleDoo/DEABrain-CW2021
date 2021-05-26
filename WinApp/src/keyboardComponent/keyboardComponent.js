@@ -7,7 +7,7 @@ import { TabletOutlined, MonitorOutlined, LoadingOutlined, ApiOutlined } from '@
 
 const electron = require('electron')
 const ipc = electron.ipcRenderer
-
+// var brain = require("brain.js");
 class KeyboardComponent extends React.Component {
 
     state = {

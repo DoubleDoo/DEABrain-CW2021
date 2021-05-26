@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, ipcRenderer, ipcMain } = require('electron')
+const brain = require("brain.js");
 const path = require('path')
 const papa = require('papaparse')
 const fs = require('fs');
@@ -140,6 +141,11 @@ function createWindow() {
   let i = 0
   let pausei = 0
   let indexx=0
+  let net = new brain.NeuralNetwork({
+    hiddenLayers: [64,32],
+    learningRate: 0.6
+});
+
 
   function readData() {
     saveData();
@@ -201,6 +207,7 @@ function createWindow() {
   }
 
   console.log("Started");
+  
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
@@ -215,6 +222,9 @@ function createWindow() {
   })
 
   savedData = getSavedData();
+  console.log(savedData.netPath);
+  net.fromJSON(JSON.parse(fs.readFileSync(savedData.netPath, 'utf8')));
+  
 
   mainWindow.loadURL('http://localhost:8080');
   //mainWindow.loadFile('build/index.html')
@@ -453,8 +463,9 @@ function createWindow() {
           }
           mainWindow.webContents.send("eeg-new-data",  bufmas);
           console.log("________________");
-          console.log(bufmas);
-          console.log(bufmas.length);
+          // console.log(bufmas);
+          // console.log(bufmas.length);
+          predict(bufmas);
           }
           
       }
@@ -503,13 +514,6 @@ function createWindow() {
   })
 
 
-  function setTimeoutKeyboard() {
-
-    oneCycle();
-    secondCycle();
-
-  }
-
   function oneCycle(i) {
     if (isBlinking) {
       if (i < 6) {
@@ -536,6 +540,12 @@ function createWindow() {
         oneCycle(0)
       }
     }
+  }
+
+
+  function predict(masVal) {
+    console.log(masVal)
+    console.log(/*Math.round(*/net.run(masVal)/*)*/)
   }
 
 }
