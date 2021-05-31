@@ -214,7 +214,7 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    fullscreen :true,
+    fullscreen :false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -232,7 +232,7 @@ function createWindow() {
   mainWindow.loadURL('http://localhost:8080');
   //mainWindow.loadFile('build/index.html')
 
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   //окно выбора девайса
   mainWindow.webContents.on('select-bluetooth-device', (event, deviceList, callback) => {

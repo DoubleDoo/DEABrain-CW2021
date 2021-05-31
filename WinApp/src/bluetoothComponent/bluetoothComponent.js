@@ -37,6 +37,11 @@ class BluetoothComponent extends React.Component {
        // console.log(this.props.battStruct)
        // console.log(this.props.devStruct)
         // this.handleNotifications = this.handleNotifications.bind(this)
+
+        navigator.bluetooth.getAvailability()
+        .then(isBluetoothAvailable => {
+        console.log(`> Bluetooth is ${isBluetoothAvailable ? 'available' : 'unavailable'}`);
+        });
         this.onDisconnected = this.onDisconnected.bind(this)
         return (
             <Row className={"BluetoothComponent"} align={"top"}>
@@ -114,7 +119,20 @@ class BluetoothComponent extends React.Component {
                         this.readBatt();
                       }, 2000);
                 })
-                .catch(error => { console.error(error); });
+                .catch(error => { console.error(error);
+                    this.props.reset();
+                    this.setState({ deviceList: [] })
+                    this.setState({ isSearch: false });
+                    notification.open({
+                        message: 'Bluetooth disabled',
+                        description:
+                            "It looks like your bluetooth is disabled, turn it on",
+                        placement: "bottomLeft",
+                        onClick: () => {
+                            console.log('Notification Clicked!');
+                        },
+                    });
+                 });
 
                 
         }
