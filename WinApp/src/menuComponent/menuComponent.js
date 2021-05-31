@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import './menuComponent.css';
-import { Menu } from 'antd';
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import { Menu,notification } from 'antd';
+import { AppstoreOutlined, MailOutlined, SettingOutlined} from '@ant-design/icons';
 import WorkSpaceComponent from "../workSpaceComponent/workSpaceComponent";
 import {BluetoothDevice } from '../context/context';
 
@@ -50,6 +50,7 @@ class MenuComponent extends React.Component {
     enableOpt:true,
     enableTransmitt:false,
     bufData:[],
+    enableP300:true
   }
   
   devUpd=(dev,serv)=>{
@@ -136,7 +137,7 @@ class MenuComponent extends React.Component {
         <Menu.ItemGroup key="EEG" title="EEG" className="titlHeaders1">
         <Menu.Item className="titl" key="Devices" onClick={() => this.setState({ curOption: "Devices" })}  disabled={!this.state.enableDev}>Devices</Menu.Item>    
           <Menu.Item className="titl" key="EEG_Data" onClick={() => this.setState({ curOption: "EEG_Data" })}    disabled={this.state.deviceSelected==null || !this.state.enableEeg}>EEG Data</Menu.Item>
-          <Menu.Item className="titl" key="P300" onClick={() => this.setState({ curOption: "P300" })} disabled={this.state.deviceSelected==null || !this.state.enablekeyboard}>P300 keyboard demo</Menu.Item>
+          <Menu.Item className="titl" key="P300" onClick={() => this.setState({ curOption: "P300" })} disabled={(this.state.deviceSelected==null || !this.state.enablekeyboard) || !this.state.enableP300}>P300 keyboard demo</Menu.Item>
         </Menu.ItemGroup>
         <Menu.Divider />
         <Menu.ItemGroup key="APP" title="APP" className="titlHeaders2">
@@ -181,6 +182,24 @@ class MenuComponent extends React.Component {
       </BluetoothDevice.Provider>
     </>
   }
+
+
+
+componentDidMount() {
+  this.setState({enableP300:true})
+  ipc.on("wrong-net", (event, arg) => {
+    if(!arg){
+    notification.open({
+      message: 'Wrong neural network file',
+      description:
+          "Modify the neural network file to access the P300 keyboard.",
+      placement: "bottomLeft"
+  });
+  this.setState({enableP300:false})
+  }
+  else this.setState({enableP300:true})
+  })
+}
 }
 
 export default MenuComponent;

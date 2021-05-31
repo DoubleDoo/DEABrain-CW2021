@@ -17,7 +17,7 @@ const ipc = electron.ipcRenderer
 
 
 
-am4core.useTheme(am4themes_animated);
+// am4core.useTheme(am4themes_animated);
 
 
 // eeg$

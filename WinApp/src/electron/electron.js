@@ -138,6 +138,7 @@ function createWindow() {
   let dataGetProcessPause = true;
   let readedSesionData = [];
   let diviceSimulation = [];
+  let  wrongNet=true;
   let i = 0
   let pausei = 0
   let indexx=0
@@ -225,9 +226,22 @@ function createWindow() {
   })
 
   savedData = getSavedData();
-  console.log(savedData.netPath);
-  net.fromJSON(JSON.parse(fs.readFileSync(savedData.netPath, 'utf8')));
-  
+  // console.log(savedData.netPath);
+  // if(savedData.netPath.substr(savedData.netPath.length-8,8)=="net.json"){
+
+  // }
+  // console.log(savedData.netPath.substr(savedData.netPath.length-8,8));
+
+  try {
+    net.fromJSON(JSON.parse(fs.readFileSync(savedData.netPath, 'utf8')));
+    wrongNet=false;
+    mainWindow.webContents.send("wrong-net", true);
+ }
+ catch (e) {
+  console.log("Wrong Net");
+  wrongNet=true;
+  mainWindow.webContents.send("wrong-net", false);
+ }
 
   mainWindow.loadURL('http://localhost:8080');
   //mainWindow.loadFile('build/index.html')
@@ -280,6 +294,21 @@ function createWindow() {
         });
         console.log( data.filePaths[0]);
         mainWindow.webContents.send("net-file-picker", { data: data.filePaths[0] });
+
+
+        try {
+          net.fromJSON(JSON.parse(fs.readFileSync(savedData.netPath, 'utf8')));
+          wrongNet=false;
+          mainWindow.webContents.send("wrong-net", true);
+       }
+       catch (e) {
+        console.log("Wrong Net");
+        wrongNet=true;
+        mainWindow.webContents.send("wrong-net", false);
+       }
+
+    
+
       }
     }
     )
@@ -457,6 +486,9 @@ function createWindow() {
 
         // for(let a=0;a<arg.length;a++)
         // {
+
+        if (diviceSimulation.length>6000) diviceSimulation=[];
+        //add save
           diviceSimulation.push({
             sampleNum: indexx,
             electrodesPositions: ["P0"],
@@ -464,6 +496,7 @@ function createWindow() {
             subjectId: "Dubinich",
             time: indexx * 0.005,
           })
+          
           // console.log("________________");
           // console.log({
           //   sampleNum: indexx,
@@ -551,8 +584,12 @@ function createWindow() {
       predY=-1
       predX=-1
       predicted=-1
-      diviceSimulation=[]
+      if(wrongNet)
+        mainWindow.webContents.send("wrong-net", false);
+      else{
+      mainWindow.webContents.send("wrong-net", true);
       oneCycle(0);
+      }
       // setTimeout(()=>mainWindow.webContents.send("enter-col", {id:1,timeout:500}),500)
       // setTimeout(()=>mainWindow.webContents.send("enter-col", {id:2,timeout:500}),500)
       // setTimeout(function Blink() {
@@ -639,6 +676,7 @@ function createWindow() {
     }
     // console.log(buf);
     predicted=net.run(buf)
+    diviceSimulation = [];
     console.log(/*Math.round(*/predicted/*)*/)
   }
 

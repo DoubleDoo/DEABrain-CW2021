@@ -1,1 +1,1 @@
-{"savesPath":"C:\\Users\\dima8\\Desktop\\test","appPath":"G:/GIT/DEABrain-CW2021/","netPath":"G:\\GIT\\DEABrain-CW2021\\neuroNet\\net.json","theme":"light"}
+{"savesPath":"C:\\Users\\dima8\\Desktop\\test","appPath":"G:/GIT/DEABrain-CW2021/","netPath":"G:\\GIT\\DEABrain-CW2021\\neuroNet\\package.json","theme":"light"}

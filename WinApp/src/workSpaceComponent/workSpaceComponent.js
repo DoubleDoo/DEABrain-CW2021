@@ -2,14 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import './workSpaceComponent.css';
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, MailOutlined, SettingOutlined,notification } from '@ant-design/icons';
 import BluetoothComponent from "../bluetoothComponent/bluetoothComponent";
 import EegComponent from "../eegComponent/eegComponent"
 import KeyboardComponent from "../keyboardComponent/keyboardComponent"
 import SettingsComponent from "../settingsComponent/settingsComponent"
 import { Bullet } from '@amcharts/amcharts4/charts';
 import {BluetoothDevice } from '../context/context';
-
 
 
 
@@ -59,6 +58,9 @@ class WorkSpaceComponent extends React.Component {
     </div>
 
   }
+
+
+
 }
 
 export default WorkSpaceComponent;
