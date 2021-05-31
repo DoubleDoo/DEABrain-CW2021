@@ -240,6 +240,8 @@ class BluetoothComponent extends React.Component {
 
 
     componentDidMount() {
+        // this.setState({ deviceList: [] })
+        // this.setState({ isSearch: false });
         if(this.props.devStruct.deviceSelected!=null){
         setTimeout(()=> {
             this.readBatt();

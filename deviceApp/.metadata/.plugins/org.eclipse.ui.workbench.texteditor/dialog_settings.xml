@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="isWorking"/>
+		<item key="selection" value="Bval_Notification_Status"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="Bval_Notification_Status"/>
+			<item value="        &#x09;&#x09;&#x09;CustomContext.Bval_Notification_Status"/>
+			<item value="disconn"/>
+			<item value="CUSTOM_STM_BVAL_NOTIFY_ENABLED_EVT"/>
+			<item value="Val_Notification_Status"/>
 			<item value="isWorking"/>
 			<item value="GPIO_PIN_0"/>
 			<item value="SVCCTL_App_Notification"/>
@@ -18,11 +23,6 @@
 			<item value="GoSleep"/>
 			<item value="Connection_mgr_timer_Id"/>
 			<item value="CFG_TIM_PROC_ID_ISR"/>
-			<item value="CONN_COMPLETE"/>
-			<item value="SER CODE BEGIN EVT_DISCONN_COMPLETE"/>
-			<item value="RADIO_ACTIVITY_EVENT"/>
-			<item value="cfg_max"/>
-			<item value="cfg_max_connection"/>
 		</list>
 		<list key="replacehistory">
 		</list>

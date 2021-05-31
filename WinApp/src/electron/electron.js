@@ -98,9 +98,9 @@ function getSavedData(data) {
   if (!fs.existsSync(defaultPath + "save.txt")) {
     console.log("No save file")
     let mas = {
-      savesPath: "data_samples/appPath",
-      appPath: "data_samples/save.txt",
-      netPath: "data_samples/netPath",
+      savesPath: "G:/GIT/DEABrain-CW2021/WinApp/data/save.tst",
+      appPath: "G:/GIT/DEABrain-CW2021/",
+      netPath: "G:/GIT/DEABrain-CW2021/WinApp/data/net.json",
       theme: "light",
     }
     fs.writeFileSync(defaultPath + "save.txt", JSON.stringify(mas), (err) => {
@@ -267,51 +267,63 @@ function createWindow() {
   //Пикер нейросети
   ipcMain.on("net-file-picker", (event, arg) => {
     var path = dialog.showOpenDialog({
-      properties: ['openFile']
+      properties: ['openFile'],
+      defaultPath: savedData.netPath
     }).then(
       (data) => {
+        if(data.filePaths.length!=0){
         savedData.netPath = data.filePaths[0];
         fs.writeFileSync('data/save.txt', JSON.stringify(savedData), (err) => {
           if (err) {
             throw err;
           }
         });
+        console.log( data.filePaths[0]);
         mainWindow.webContents.send("net-file-picker", { data: data.filePaths[0] });
       }
+    }
     )
   })
 
   //Пикер папки данных
   ipcMain.on("data-path-picker", (event, arg) => {
     var path = dialog.showOpenDialog({
-      properties: ['openDirectory']
+      properties: ['openDirectory'],
+      defaultPath: savedData.appPath
     }).then(
       (data) => {
+        if(data.filePaths.length!=0){
         savedData.appPath = data.filePaths[0];
         fs.writeFileSync('data/save.txt', JSON.stringify(savedData), (err) => {
           if (err) {
             throw err;
           }
         });
+        console.log( data.filePaths[0]);
         mainWindow.webContents.send("data-path-picker", { data: data.filePaths[0] });
       }
+    }
     )
   })
 
   //Пикер папки сохранений
   ipcMain.on("saves-path-picker", (event, arg) => {
     var path = dialog.showOpenDialog({
-      properties: ['openDirectory']
+      properties: ['openDirectory'],
+      defaultPath:  savedData.savesPath
     }).then(
       (data) => {
+        if(data.filePaths.length!=0){
         savedData.savesPath = data.filePaths[0];
         fs.writeFileSync('data/save.txt', JSON.stringify(savedData), (err) => {
           if (err) {
             throw err;
           }
         });
+        console.log( data.filePaths[0]);
         mainWindow.webContents.send("saves-path-picker", { data: data.filePaths[0] });
       }
+    }
     )
   })
 
@@ -349,7 +361,8 @@ function createWindow() {
   //Открыть сохранение
   ipcMain.on("open-session", (event, arg) => {
     var path = dialog.showOpenDialog({
-      properties: ['openFile']
+      properties: ['openFile'],
+      defaultPath:  savedData.savesPath
     }).then(
       (data) => {
         console.log("Save file found");
