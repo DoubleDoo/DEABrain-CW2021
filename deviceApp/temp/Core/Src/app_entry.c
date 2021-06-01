@@ -96,6 +96,41 @@ void APPE_Init( void )
    return;
 }
 /* USER CODE BEGIN FD */
+void HAL_GPIO_EXTI_Callback( uint16_t GPIO_Pin )
+
+{
+
+switch  (GPIO_Pin)
+
+{
+
+case SW1_Pin:
+
+//	 __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
+	HAL_ResumeTick();
+	UTIL_SEQ_SetTask( 1<<CFG_TASK_ADV_RESTART,CFG_SCH_PRIO_0);
+	HAL_ResumeTick();
+		UTIL_SEQ_SetTask( 1<<CFG_TASK_ADV_RESTART,CFG_SCH_PRIO_0);
+//	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1,GPIO_PIN_SET);
+//	HW_TS_Create(1,&(TIMER),hw_ts_SingleShot,goSleep);
+//	HW_TS_Start(TIMER,(15*1000*1000/CFG_TS_TICK_VAL));
+
+//	HAL_Delay(500);
+
+//	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1,GPIO_PIN_RESET);
+
+
+break;
+
+default:
+
+break;
+
+}
+
+return;
+
+}
 
 /* USER CODE END FD */
 

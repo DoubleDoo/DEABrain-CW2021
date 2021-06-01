@@ -446,7 +446,7 @@ typedef enum
 {
   CFG_TIM_PROC_ID_ISR,
   /* USER CODE BEGIN CFG_TimProcID_t */
-
+  TEST
   /* USER CODE END CFG_TimProcID_t */
 } CFG_TimProcID_t;
 
@@ -558,6 +558,7 @@ typedef enum
 /* USER CODE BEGIN CFG_Task_Id_With_HCI_Cmd_t */
 	CFG_TASK_NOTIFY_TEMP,
 	CFG_TASK_NOTIFY_BATT,
+	CFG_TASK_ADV_RESTART,
 /* USER CODE END CFG_Task_Id_With_HCI_Cmd_t */
     CFG_LAST_TASK_ID_WITH_HCICMD,                                               /**< Shall be LAST in the list */
 } CFG_Task_Id_With_HCI_Cmd_t;

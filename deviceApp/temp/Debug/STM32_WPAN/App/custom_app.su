@@ -3,6 +3,6 @@ custom_app.c:171:6:Custom_APP_Notification	16	static
 custom_app.c:212:6:Custom_APP_Init	8	static
 custom_app.c:232:13:callback	8	static
 custom_app.c:247:6:Custom_Bval_Update_Char	8	static
-custom_app.c:258:6:Custom_Bval_Send_Notification	8	static
-custom_app.c:277:6:Custom_Val_Update_Char	8	static
-custom_app.c:288:6:Custom_Val_Send_Notification	8	static
+custom_app.c:259:6:Custom_Bval_Send_Notification	8	static
+custom_app.c:279:6:Custom_Val_Update_Char	8	static
+custom_app.c:291:6:Custom_Val_Send_Notification	16	static

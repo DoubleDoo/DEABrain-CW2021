@@ -61,6 +61,9 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define SW1_Pin GPIO_PIN_4
+#define SW1_GPIO_Port GPIOC
+#define SW1_EXTI_IRQn EXTI4_IRQn
 /* USER CODE BEGIN Private defines */
 UART_HandleTypeDef huart1;
 /* USER CODE END Private defines */
