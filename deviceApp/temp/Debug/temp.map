@@ -11181,88 +11181,88 @@ LOAD c:/st/stm32cubeide_1.6.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_line    0x0000000000025d96      0x702 Utilities/lpm/tiny_lpm/stm32_lpm.o
  .debug_line    0x0000000000026498      0xaa3 Utilities/sequencer/stm32_seq.o
 
-.debug_str      0x0000000000000000   0x100f0e
+.debug_str      0x0000000000000000   0x100f3a
  .debug_str     0x0000000000000000    0xeb653 Core/Src/app_debug.o
                                       0xec96e (size before relaxing)
  .debug_str     0x00000000000eb653     0x7c95 Core/Src/app_entry.o
                                       0xf26a7 (size before relaxing)
  .debug_str     0x00000000000f32e8      0x9e6 Core/Src/hw_timerserver.o
                                       0xeae9c (size before relaxing)
- .debug_str     0x00000000000f3cce      0x65e Core/Src/main.o
+ .debug_str     0x00000000000f3cce      0x68a Core/Src/main.o
                                       0xeb6a5 (size before relaxing)
- .debug_str     0x00000000000f432c      0x15b Core/Src/stm32wbxx_hal_msp.o
+ .debug_str     0x00000000000f4358      0x15b Core/Src/stm32wbxx_hal_msp.o
                                       0xeb316 (size before relaxing)
- .debug_str     0x00000000000f4487      0x116 Core/Src/stm32wbxx_it.o
+ .debug_str     0x00000000000f44b3      0x116 Core/Src/stm32wbxx_it.o
                                       0xea7e3 (size before relaxing)
- .debug_str     0x00000000000f459d       0xb8 Core/Src/system_stm32wbxx.o
+ .debug_str     0x00000000000f45c9       0xb8 Core/Src/system_stm32wbxx.o
                                       0xe1019 (size before relaxing)
- .debug_str     0x00000000000f4655       0x36 Core/Startup/startup_stm32wb55rgvx.o
+ .debug_str     0x00000000000f4681       0x36 Core/Startup/startup_stm32wb55rgvx.o
                                          0x62 (size before relaxing)
- .debug_str     0x00000000000f468b      0x972 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o
+ .debug_str     0x00000000000f46b7      0x972 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o
                                       0xe1e68 (size before relaxing)
- .debug_str     0x00000000000f4ffd      0x99e Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_adc.o
+ .debug_str     0x00000000000f5029      0x99e Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_adc.o
                                       0xe1d75 (size before relaxing)
- .debug_str     0x00000000000f599b      0x36b Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o
+ .debug_str     0x00000000000f59c7      0x36b Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o
                                       0xe16ba (size before relaxing)
- .debug_str     0x00000000000f5d06      0x2a1 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.o
+ .debug_str     0x00000000000f5d32      0x2a1 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.o
                                       0xe12eb (size before relaxing)
- .debug_str     0x00000000000f5fa7      0x1d5 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.o
+ .debug_str     0x00000000000f5fd3      0x1d5 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.o
                                       0xe10b8 (size before relaxing)
- .debug_str     0x00000000000f617c      0x19f Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.o
+ .debug_str     0x00000000000f61a8      0x19f Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.o
                                       0xe0f1c (size before relaxing)
- .debug_str     0x00000000000f631b      0x516 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.o
+ .debug_str     0x00000000000f6347      0x516 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.o
                                       0xe1463 (size before relaxing)
- .debug_str     0x00000000000f6831      0x868 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.o
+ .debug_str     0x00000000000f685d      0x868 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.o
                                       0xe19a1 (size before relaxing)
- .debug_str     0x00000000000f7099      0xafa Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.o
+ .debug_str     0x00000000000f70c5      0xafa Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.o
                                       0xe1de8 (size before relaxing)
- .debug_str     0x00000000000f7b93      0xc73 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.o
+ .debug_str     0x00000000000f7bbf      0xc73 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.o
                                       0xe2237 (size before relaxing)
- .debug_str     0x00000000000f8806      0x298 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.o
+ .debug_str     0x00000000000f8832      0x298 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.o
                                       0xe130e (size before relaxing)
- .debug_str     0x00000000000f8a9e      0x95f Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart.o
+ .debug_str     0x00000000000f8aca      0x95f Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart.o
                                       0xe1eb2 (size before relaxing)
- .debug_str     0x00000000000f93fd      0x2e5 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.o
+ .debug_str     0x00000000000f9429      0x2e5 Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.o
                                       0xe15cf (size before relaxing)
- .debug_str     0x00000000000f96e2     0x1096 Middlewares/ST/STM32_WPAN/ble/core/auto/ble_gap_aci.o
+ .debug_str     0x00000000000f970e     0x1096 Middlewares/ST/STM32_WPAN/ble/core/auto/ble_gap_aci.o
                                        0xbc2b (size before relaxing)
- .debug_str     0x00000000000fa778      0xe61 Middlewares/ST/STM32_WPAN/ble/core/auto/ble_gatt_aci.o
+ .debug_str     0x00000000000fa7a4      0xe61 Middlewares/ST/STM32_WPAN/ble/core/auto/ble_gatt_aci.o
                                        0xba4f (size before relaxing)
- .debug_str     0x00000000000fb5d9      0x54a Middlewares/ST/STM32_WPAN/ble/core/auto/ble_hal_aci.o
+ .debug_str     0x00000000000fb605      0x54a Middlewares/ST/STM32_WPAN/ble/core/auto/ble_hal_aci.o
                                        0xb0d5 (size before relaxing)
- .debug_str     0x00000000000fbb23     0x14f1 Middlewares/ST/STM32_WPAN/ble/core/auto/ble_hci_le.o
+ .debug_str     0x00000000000fbb4f     0x14f1 Middlewares/ST/STM32_WPAN/ble/core/auto/ble_hci_le.o
                                        0xc229 (size before relaxing)
- .debug_str     0x00000000000fd014       0x5f Middlewares/ST/STM32_WPAN/ble/core/template/osal.o
+ .debug_str     0x00000000000fd040       0x5f Middlewares/ST/STM32_WPAN/ble/core/template/osal.o
                                        0x6746 (size before relaxing)
- .debug_str     0x00000000000fd073      0x3a7 Middlewares/ST/STM32_WPAN/ble/svc/Src/svc_ctl.o
+ .debug_str     0x00000000000fd09f      0x3a7 Middlewares/ST/STM32_WPAN/ble/svc/Src/svc_ctl.o
                                       0xf183b (size before relaxing)
- .debug_str     0x00000000000fd41a     0x14fb Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci/shci.o
+ .debug_str     0x00000000000fd446     0x14fb Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci/shci.o
                                       0xe8bbd (size before relaxing)
- .debug_str     0x00000000000fe915      0x1ed Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/hci_tl.o
+ .debug_str     0x00000000000fe941      0x1ed Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/hci_tl.o
                                       0xee748 (size before relaxing)
- .debug_str     0x00000000000feb02       0x4f Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/hci_tl_if.o
+ .debug_str     0x00000000000feb2e       0x4f Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/hci_tl_if.o
                                        0x9434 (size before relaxing)
- .debug_str     0x00000000000feb51      0x258 Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/shci_tl.o
+ .debug_str     0x00000000000feb7d      0x258 Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/shci_tl.o
                                        0x9825 (size before relaxing)
- .debug_str     0x00000000000feda9       0x60 Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/shci_tl_if.o
+ .debug_str     0x00000000000fedd5       0x60 Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/shci_tl_if.o
                                        0x9438 (size before relaxing)
- .debug_str     0x00000000000fee09      0x5ff Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/tl_mbox.o
+ .debug_str     0x00000000000fee35      0x5ff Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/tl_mbox.o
                                       0xeb697 (size before relaxing)
- .debug_str     0x00000000000ff408       0x44 Middlewares/ST/STM32_WPAN/utilities/otp.o
+ .debug_str     0x00000000000ff434       0x44 Middlewares/ST/STM32_WPAN/utilities/otp.o
                                       0xea230 (size before relaxing)
- .debug_str     0x00000000000ff44c      0x10d Middlewares/ST/STM32_WPAN/utilities/stm_list.o
+ .debug_str     0x00000000000ff478      0x10d Middlewares/ST/STM32_WPAN/utilities/stm_list.o
                                       0xea411 (size before relaxing)
- .debug_str     0x00000000000ff559      0x6e8 STM32_WPAN/App/app_ble.o
+ .debug_str     0x00000000000ff585      0x6e8 STM32_WPAN/App/app_ble.o
                                       0xf478f (size before relaxing)
- .debug_str     0x00000000000ffc41      0x367 STM32_WPAN/App/custom_app.o
+ .debug_str     0x00000000000ffc6d      0x367 STM32_WPAN/App/custom_app.o
                                       0xf2164 (size before relaxing)
- .debug_str     0x00000000000fffa8      0x3ba STM32_WPAN/App/custom_stm.o
+ .debug_str     0x00000000000fffd4      0x3ba STM32_WPAN/App/custom_stm.o
                                       0xf213d (size before relaxing)
- .debug_str     0x0000000000100362      0x3f4 STM32_WPAN/Target/hw_ipcc.o
+ .debug_str     0x000000000010038e      0x3f4 STM32_WPAN/Target/hw_ipcc.o
                                       0xeb3cc (size before relaxing)
- .debug_str     0x0000000000100756      0x480 Utilities/lpm/tiny_lpm/stm32_lpm.o
+ .debug_str     0x0000000000100782      0x480 Utilities/lpm/tiny_lpm/stm32_lpm.o
                                        0x8020 (size before relaxing)
- .debug_str     0x0000000000100bd6      0x338 Utilities/sequencer/stm32_seq.o
+ .debug_str     0x0000000000100c02      0x338 Utilities/sequencer/stm32_seq.o
                                        0x8166 (size before relaxing)
 
 .comment        0x0000000000000000       0x53

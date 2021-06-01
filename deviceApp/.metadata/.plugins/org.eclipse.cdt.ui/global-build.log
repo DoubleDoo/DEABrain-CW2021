@@ -1,793 +1,104 @@
-02:46:18 **** Incremental Build of configuration Debug for project temp ****
+18:19:36 **** Incremental Build of configuration Debug for project temp ****
 make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:374:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  374 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:373:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  373 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+arm-none-eabi-gcc "../STM32_WPAN/App/custom_app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/custom_app.d" -MT"STM32_WPAN/App/custom_app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/custom_app.o"
+../STM32_WPAN/App/custom_app.c:288:6: warning: 'Custom_Val_Send_Notification' defined but not used [-Wunused-function]
+  288 | void Custom_Val_Send_Notification(void) /* Property Notification */
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../STM32_WPAN/App/custom_app.c:258:6: warning: 'Custom_Bval_Send_Notification' defined but not used [-Wunused-function]
+  258 | void Custom_Bval_Send_Notification(void) /* Property Notification */
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"G:\GIT\DEABrain-CW2021\deviceApp\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 Finished building target: temp.elf
  
 arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
 arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
 arm-none-eabi-size   temp.elf 
    text	   data	    bss	    dec	    hex	filename
-  39432	    420	   5406	  45258	   b0ca	temp.elf
+  38472	    420	   5398	  44290	   ad02	temp.elf
 Finished building: default.size.stdout
  
 Finished building: temp.bin
  
 Finished building: temp.list
  
-02:46:22 **** Incremental Build of configuration Debug for project temp ****
+18:19:53 **** Incremental Build of configuration Debug for project temp ****
 make -j8 all 
 arm-none-eabi-size   temp.elf 
    text	   data	    bss	    dec	    hex	filename
-  39432	    420	   5406	  45258	   b0ca	temp.elf
+  38472	    420	   5398	  44290	   ad02	temp.elf
 Finished building: default.size.stdout
  
-02:47:08 **** Incremental Build of configuration Debug for project temp ****
+18:20:37 **** Incremental Build of configuration Debug for project temp ****
 make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:374:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  374 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:373:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  373 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c: In function 'GoSleep':
-../STM32_WPAN/App/app_ble.c:979:72: error: expected ';' before 'return'
-  979 |    HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON, PWR_SLEEPENTRY_WFI)
-      |                                                                        ^
-      |                                                                        ;
-  980 |   return;
-      |   ~~~~~~                                                                
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-make: *** [STM32_WPAN/App/subdir.mk:25: STM32_WPAN/App/app_ble.o] Error 1
-"make -j8 all" terminated with exit code 2. Build might be incomplete.
-02:47:18 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:374:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  374 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:373:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  373 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+arm-none-eabi-gcc "../STM32_WPAN/App/custom_app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/custom_app.d" -MT"STM32_WPAN/App/custom_app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/custom_app.o"
+../STM32_WPAN/App/custom_app.c:288:6: warning: 'Custom_Val_Send_Notification' defined but not used [-Wunused-function]
+  288 | void Custom_Val_Send_Notification(void) /* Property Notification */
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../STM32_WPAN/App/custom_app.c:258:6: warning: 'Custom_Bval_Send_Notification' defined but not used [-Wunused-function]
+  258 | void Custom_Bval_Send_Notification(void) /* Property Notification */
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"G:\GIT\DEABrain-CW2021\deviceApp\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 Finished building target: temp.elf
  
 arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
 arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
 arm-none-eabi-size   temp.elf 
    text	   data	    bss	    dec	    hex	filename
-  39812	    420	   5406	  45638	   b246	temp.elf
+  38472	    420	   5398	  44290	   ad02	temp.elf
 Finished building: default.size.stdout
  
 Finished building: temp.bin
  
 Finished building: temp.list
  
-02:49:23 **** Incremental Build of configuration Debug for project temp ****
+18:21:28 **** Incremental Build of configuration Debug for project temp ****
 make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:374:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  374 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:373:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  373 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39456	    420	   5406	  45282	   b0e2	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-02:50:02 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:374:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  374 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:373:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  373 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39456	    420	   5406	  45282	   b0e2	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-02:51:45 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:374:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  374 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:373:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  373 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39488	    420	   5406	  45314	   b102	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-02:53:02 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:374:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  374 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:373:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  373 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39488	    420	   5406	  45314	   b102	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-02:54:18 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:374:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  374 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:373:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  373 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39488	    420	   5406	  45314	   b102	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-02:55:28 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:375:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  375 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:374:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  374 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39488	    420	   5406	  45314	   b102	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-02:57:09 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:375:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  375 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:374:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  374 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39476	    420	   5406	  45302	   b0f6	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-02:58:02 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:374:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  374 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:373:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  373 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39476	    420	   5406	  45302	   b0f6	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-02:58:48 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:374:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  374 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:373:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  373 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39476	    420	   5406	  45302	   b0f6	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-02:59:38 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:374:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  374 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:373:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  373 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39488	    420	   5406	  45314	   b102	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-03:05:38 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:376:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  376 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:375:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  375 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39516	    420	   5406	  45342	   b11e	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-03:06:45 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:376:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  376 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:375:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  375 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39532	    420	   5406	  45358	   b12e	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-03:08:37 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:376:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  376 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:375:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  375 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39896	    420	   5406	  45722	   b29a	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-03:13:11 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-arm-none-eabi-gcc "../Core/Src/app_entry.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/app_entry.d" -MT"Core/Src/app_entry.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_entry.o"
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-In file included from ../Core/Src/main.c:21:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-In file included from ../Core/Src/app_entry.c:23:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:376:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  376 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:375:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  375 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"G:\GIT\DEABrain-CW2021\deviceApp\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 Finished building target: temp.elf
  
 arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
 arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
 arm-none-eabi-size   temp.elf 
    text	   data	    bss	    dec	    hex	filename
-  39900	    420	   5406	  45726	   b29e	temp.elf
+  38552	    420	   5398	  44370	   ad52	temp.elf
 Finished building: default.size.stdout
  
 Finished building: temp.bin
  
 Finished building: temp.list
  
-03:15:01 **** Incremental Build of configuration Debug for project temp ****
+18:21:43 **** Incremental Build of configuration Debug for project temp ****
 make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:376:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  376 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:375:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  375 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"G:\GIT\DEABrain-CW2021\deviceApp\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 Finished building target: temp.elf
  
 arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
 arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
 arm-none-eabi-size   temp.elf 
    text	   data	    bss	    dec	    hex	filename
-  39864	    420	   5406	  45690	   b27a	temp.elf
+  38544	    420	   5398	  44362	   ad4a	temp.elf
 Finished building: default.size.stdout
  
 Finished building: temp.bin
  
 Finished building: temp.list
  
-03:16:54 **** Incremental Build of configuration Debug for project temp ****
+18:23:34 **** Incremental Build of configuration Debug for project temp ****
 make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:376:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  376 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:375:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  375 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"G:\GIT\DEABrain-CW2021\deviceApp\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 Finished building target: temp.elf
  
 arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
 arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
 arm-none-eabi-size   temp.elf 
    text	   data	    bss	    dec	    hex	filename
-  39892	    420	   5406	  45718	   b296	temp.elf
+  38472	    420	   5398	  44290	   ad02	temp.elf
 Finished building: default.size.stdout
  
 Finished building: temp.bin
  
 Finished building: temp.list
- 
-03:18:32 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:376:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  376 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:375:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  375 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39892	    420	   5406	  45718	   b296	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-17:53:34 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/custom_app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/custom_app.d" -MT"STM32_WPAN/App/custom_app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/custom_app.o"
-In file included from ../STM32_WPAN/App/custom_app.c:22:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-../STM32_WPAN/App/custom_app.c:279:6: warning: 'Custom_Val_Update_Char' defined but not used [-Wunused-function]
-  279 | void Custom_Val_Update_Char(void) /* Property Read */
-      |      ^~~~~~~~~~~~~~~~~~~~~~
-../STM32_WPAN/App/custom_app.c:259:6: warning: 'Custom_Bval_Send_Notification' defined but not used [-Wunused-function]
-  259 | void Custom_Bval_Send_Notification(void) /* Property Notification */
-      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39892	    420	   5406	  45718	   b296	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-13:14:12 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/app_ble.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/app_ble.d" -MT"STM32_WPAN/App/app_ble.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/app_ble.o"
-arm-none-eabi-gcc "../STM32_WPAN/App/custom_app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/custom_app.d" -MT"STM32_WPAN/App/custom_app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/custom_app.o"
-arm-none-eabi-gcc "../Core/Src/app_entry.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/app_entry.d" -MT"Core/Src/app_entry.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_entry.o"
-In file included from ../STM32_WPAN/App/custom_app.c:22:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-../STM32_WPAN/App/custom_app.c:279:6: warning: 'Custom_Val_Update_Char' defined but not used [-Wunused-function]
-  279 | void Custom_Val_Update_Char(void) /* Property Read */
-      |      ^~~~~~~~~~~~~~~~~~~~~~
-../STM32_WPAN/App/custom_app.c:259:6: warning: 'Custom_Bval_Send_Notification' defined but not used [-Wunused-function]
-  259 | void Custom_Bval_Send_Notification(void) /* Property Notification */
-      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from ../Core/Src/app_entry.c:23:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c: In function 'SVCCTL_App_Notification':
-../STM32_WPAN/App/app_ble.c:376:12: warning: variable 'numeric_value' set but not used [-Wunused-but-set-variable]
-  376 |   uint32_t numeric_value;
-      |            ^~~~~~~~~~~~~
-../STM32_WPAN/App/app_ble.c:375:39: warning: variable 'pairing_complete' set but not used [-Wunused-but-set-variable]
-  375 |   aci_gap_pairing_complete_event_rp0 *pairing_complete;
-      |                                       ^~~~~~~~~~~~~~~~
-In file included from ../STM32_WPAN/App/app_ble.c:23:
-../STM32_WPAN/App/app_ble.c: At top level:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39896	    420	   5406	  45722	   b29a	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-13:15:13 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39896	    420	   5406	  45722	   b29a	temp.elf
-Finished building: default.size.stdout
- 
-13:29:06 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/custom_app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/custom_app.d" -MT"STM32_WPAN/App/custom_app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/custom_app.o"
-In file included from ../STM32_WPAN/App/custom_app.c:22:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-../STM32_WPAN/App/custom_app.c:279:6: warning: 'Custom_Val_Update_Char' defined but not used [-Wunused-function]
-  279 | void Custom_Val_Update_Char(void) /* Property Read */
-      |      ^~~~~~~~~~~~~~~~~~~~~~
-../STM32_WPAN/App/custom_app.c:259:6: warning: 'Custom_Bval_Send_Notification' defined but not used [-Wunused-function]
-  259 | void Custom_Bval_Send_Notification(void) /* Property Notification */
-      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39892	    420	   5406	  45718	   b296	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-13:30:05 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/custom_app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/custom_app.d" -MT"STM32_WPAN/App/custom_app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/custom_app.o"
-In file included from ../STM32_WPAN/App/custom_app.c:22:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-../STM32_WPAN/App/custom_app.c:279:6: warning: 'Custom_Val_Update_Char' defined but not used [-Wunused-function]
-  279 | void Custom_Val_Update_Char(void) /* Property Read */
-      |      ^~~~~~~~~~~~~~~~~~~~~~
-../STM32_WPAN/App/custom_app.c:259:6: warning: 'Custom_Bval_Send_Notification' defined but not used [-Wunused-function]
-  259 | void Custom_Bval_Send_Notification(void) /* Property Notification */
-      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39892	    420	   5406	  45718	   b296	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-13:31:48 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/custom_app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/custom_app.d" -MT"STM32_WPAN/App/custom_app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/custom_app.o"
-In file included from ../STM32_WPAN/App/custom_app.c:22:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-../STM32_WPAN/App/custom_app.c:279:6: warning: 'Custom_Val_Update_Char' defined but not used [-Wunused-function]
-  279 | void Custom_Val_Update_Char(void) /* Property Read */
-      |      ^~~~~~~~~~~~~~~~~~~~~~
-../STM32_WPAN/App/custom_app.c:259:6: warning: 'Custom_Bval_Send_Notification' defined but not used [-Wunused-function]
-  259 | void Custom_Bval_Send_Notification(void) /* Property Notification */
-      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39892	    420	   5406	  45718	   b296	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-13:33:11 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-gcc "../STM32_WPAN/App/custom_app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -I../STM32_WPAN/App -I../Utilities/lpm/tiny_lpm -I../Middlewares/ST/STM32_WPAN -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl -I../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci -I../Middlewares/ST/STM32_WPAN/utilities -I../Middlewares/ST/STM32_WPAN/ble/core -I../Middlewares/ST/STM32_WPAN/ble/core/auto -I../Middlewares/ST/STM32_WPAN/ble/core/template -I../Middlewares/ST/STM32_WPAN/ble/svc/Inc -I../Middlewares/ST/STM32_WPAN/ble/svc/Src -I../Utilities/sequencer -I../Middlewares/ST/STM32_WPAN/ble -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"STM32_WPAN/App/custom_app.d" -MT"STM32_WPAN/App/custom_app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "STM32_WPAN/App/custom_app.o"
-In file included from ../STM32_WPAN/App/custom_app.c:22:
-../Core/Inc/main.h:58:13: warning: 'restartTimCustom' declared 'static' but never defined [-Wunused-function]
-   58 | static void restartTimCustom(void);
-      |             ^~~~~~~~~~~~~~~~
-../STM32_WPAN/App/custom_app.c:279:6: warning: 'Custom_Val_Update_Char' defined but not used [-Wunused-function]
-  279 | void Custom_Val_Update_Char(void) /* Property Read */
-      |      ^~~~~~~~~~~~~~~~~~~~~~
-../STM32_WPAN/App/custom_app.c:259:6: warning: 'Custom_Bval_Send_Notification' defined but not used [-Wunused-function]
-  259 | void Custom_Bval_Send_Notification(void) /* Property Notification */
-      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-arm-none-eabi-g++ -o "temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dima8\Desktop\teamplate\temp\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: temp.elf
- 
-arm-none-eabi-objdump -h -S  temp.elf  > "temp.list"
-arm-none-eabi-objcopy  -O binary  temp.elf  "temp.bin"
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39892	    420	   5406	  45718	   b296	temp.elf
-Finished building: default.size.stdout
- 
-Finished building: temp.bin
- 
-Finished building: temp.list
- 
-13:33:31 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39892	    420	   5406	  45718	   b296	temp.elf
-Finished building: default.size.stdout
- 
-16:30:13 **** Incremental Build of configuration Debug for project temp ****
-make -j8 all 
-arm-none-eabi-size   temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  39892	    420	   5406	  45718	   b296	temp.elf
-Finished building: default.size.stdout
  
