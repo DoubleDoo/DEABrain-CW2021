@@ -269,6 +269,17 @@ function createWindow() {
     mainWindow.webContents.send("bluetooth-list-update-stop", { res: true });
     console.log(value.id + " selected");
     selectCallback(value.id);
+    
+    try {
+      net.fromJSON(JSON.parse(fs.readFileSync(savedData.netPath, 'utf8')));
+      wrongNet=false;
+      mainWindow.webContents.send("wrong-net", true);
+    }
+    catch (e) {
+      console.log("Wrong Net");
+      wrongNet=true;
+      mainWindow.webContents.send("wrong-net", false);
+    }
   })
 
   ipcMain.on('next-device-select', (event, value) => {

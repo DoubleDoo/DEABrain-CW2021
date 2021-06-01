@@ -251,6 +251,13 @@ class BluetoothComponent extends React.Component {
             this.setState({ deviceList: arg.data });
         })
     }
+
+    componentWillUnmount(){
+
+        ipc.removeAllListeners("bluetooth-list-update")
+        console.log("unmount")
+    
+      }
 }
 
 

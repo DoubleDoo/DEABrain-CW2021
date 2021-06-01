@@ -102,6 +102,15 @@ class KeyboardComponent extends React.Component {
             this.generateMatrix()
         );
     }
+
+    componentWillUnmount(){
+
+        ipc.removeAllListeners("enter-cell")
+        ipc.removeAllListeners("enter-col")
+        ipc.removeAllListeners("enter-row")
+        console.log("unmount")
+    
+      }
 }
 
 

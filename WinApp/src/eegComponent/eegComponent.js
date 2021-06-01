@@ -321,6 +321,19 @@ class EegComponent extends React.Component {
 
   }
 
+  componentWillUnmount(){
+
+    ipc.removeAllListeners("save-session")
+    ipc.removeAllListeners("start-session")
+    ipc.removeAllListeners("stop-session")
+    ipc.removeAllListeners("open-session")
+    ipc.removeAllListeners("start-session-s")
+    ipc.removeAllListeners("eeg-new-data")
+    console.log("unmount")
+
+  }
+
+
 }
 
 
