@@ -88,6 +88,8 @@ class EegComponent extends React.Component {
           </Col>
           <Col span={6}>
             <Button className="buttonsStyle" disabled={this.state.start} onClick={() => {
+              // chart1.data = [];//
+              this.setState({ chartData: [] })//
               ipc.send("open-session", {});
 
             }}>Open</Button>
