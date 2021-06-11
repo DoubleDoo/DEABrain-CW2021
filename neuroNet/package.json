@@ -6,11 +6,13 @@
     "scripts": {
         "data": "node getdata.js",
         "train": "node trainnet.js",
-        "predict": "node index.js"
+        "predict": "node index.js",
+        "test": "node abc.js"
     },
     "dependencies": {
         "@mapbox/node-pre-gyp": "^1.0.5",
         "@tensorflow/tfjs": "^3.6.0",
+        "brain.js": "^2.0.0-beta.2",
         "fili": "^2.0.3",
         "papaparse": "^5.3.1"
     }

@@ -11,13 +11,13 @@ const model = tf.sequential({
       tf.layers.dense({inputShape: 50, units: 100, activation: 'relu'}),
     //   tf.layers.dense({inputShape: 500, units: 1000, activation: 'relu'}),
     //   tf.layers.dense({inputShape: 1000, units: 100, activation: 'relu'}),
-      tf.layers.dense({inputShape: 100, units: 10, activation: 'relu'}),
-      tf.layers.dense({inputShape: 10, units: 2, activation: 'softmax'}),
+      tf.layers.dense({inputShape: 100, units: 20, activation: 'relu'}),
+      tf.layers.dense({inputShape: 20, units: 2, activation: 'softmax'}),
     ]
    });
 
    model.compile({
-    optimizer: 'sgd',
+    optimizer: 'rmsprop',
     loss: 'binaryCrossentropy',
     metrics: ['accuracy']
   });
@@ -81,23 +81,29 @@ function readDataFromJson() {
     }
     X=Decimation(X,4)
 
-    Y=data[1];
+    // console.log(X[0]);
+    // X[0]=LowPass(X[0])
 
+    Y=data[1];
+let bvbv=0
     let buf=[];
     for (let i = 0; i < Y.length; i++) {
-        if(Y[i]==1)
+        if(Y[i]==1){
         buf.push([1,0])
+        bvbv++;
+        }
         else
         buf.push([0,1])
      }
     console.log(buf);
+    console.log(bvbv+"/"+Y.length);
     Y=buf;
 
 
-    testX = X.splice(0, 500);
-    testY = Y.splice(0, 500);
-    trainX = X//.splice(500, 10000);
-    trainY = Y//.splice(500, 10000);
+    testX = X.splice(0, 5000);
+    testY = Y.splice(0, 5000);
+    trainX = X//.splice(500, 2000);
+    trainY = Y//.splice(500, 2000);
     console.log("_______________");
     console.log(testY.length);
     console.log(testX.length);
@@ -125,31 +131,64 @@ function readDataFromJson() {
     console.log(testtX);
     console.log(testtY);
 
+
+
+
     function onBatchEnd(epoch, logs) {
         console.log("Epoch " + epoch);
         console.log("Loss: " + logs.loss + " accuracy: " + logs.acc);
     }
-    // const a = tf.tensor([testX[0],testX[456]]);
-    // const b = tf.tensor([[1,0],[0,1]]);
-    // const c = tf.tensor([testX[1],testX[455]]);
-    // const d = tf.tensor([[1,0],[0,1]]);
+    // const a = tf.tensor([[1,2,3],[3,2,1],[4,5,6],[6,5,4],[7,8,9]]);
+    // const b = tf.tensor([[1,0],[0,1],[1,0],[0,1],[1,0]]);
+    // const c = tf.tensor([[9,8,7],[3,4,5],[5,6,7],[6,5,4]]);
+    // const d = tf.tensor([[0,1],[1,0],[1,0],[0,1]]);
 
 
     model.fit( traintX,  traintY, {
         shuffle: true,
-        epochs: 5,
+        epochs: 1,
         batchSize:128,
         callbacks: {onBatchEnd},
       }).then(info => {
         console.log('Final accuracy', info.history.acc);
-        const predProb = model.predict(testtX).dataSync();;
+        const predProb = model.predict(testtX).dataSync();
         console.log("predstart");
-        // console.log(predProb[0]+":"+testY[1])
+        // console.log(predProb)
         // console.log(predProb[1]+":"+testY[455])
         for (let i = 0; i < testY.length; i++) {
-             console.log(predProb[i*2]+":"+predProb[i*2+1])
+            //  console.log(predProb[i*2]+":"+predProb[i*2+1]+"|"+testY[i])
+            console.log(predProb[i*2]+":"+predProb[i*2+1]+"|"+testY[i])
         }
+
+        let corect=0;
+        let contt=0;
+        for (let i = 0; i < testY.length; i++) {
+         
+                if(testY[i][0]==1)
+                {
+                    contt++;
+                    
+                    if(predProb[i*2]>0.15){
+                        corect=corect+1;
+                    }
+
+                }
+                // if(testY[i][0]==0)
+                // {
+                //     contt++;
+                    
+                //     if(predProb[i*2+1]>0.5){
+                //         corect=corect+1;
+                //     }
+
+                // }
+            
+        }
+        console.log(corect+":"+contt);
         console.log("predfinish");
+        // model.save('file://./12345.json');
+        // const saveResults =  model.save('file://./12345.json');
+        // tf.saved_model.save(module, './12345.json')
       });
 
 
@@ -226,6 +265,20 @@ function LowPass(data) {
     });
     var iirFilter = new Fili.IirFilter(iirFilterCoeffs);
     dataf = iirFilter.multiStep(data);
-    return dataf;
+    // console.log(dataf);
+    buf=[];
+    // console.log(dataf.length);
+    for (let j = 0; j < dataf.length; j++) { 
+        // console.log(j);
+        buf.push(dataf[dataf.length-j-1])
+    }
+    dataf = iirFilter.multiStep(buf);
+    // console.log(dataf);
+    buf=[];
+    for (let j = 0; j < dataf.length; j++) { 
+        // console.log(j);
+        buf.push(dataf[dataf.length-j-1])
+    }
+    return buf;
 }
 
